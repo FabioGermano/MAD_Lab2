@@ -15,6 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".GestioneMenu" android:label="GestioneMenu" android:parentActivityName=".MainActivity"></activity>
+
+        <activity android:name=".ModifyMenuDish" android:label="ModifyMenuDish" android:parentActivityName=".GestioneMenu"></activity>
+
     </application>
 
 </manifest>
