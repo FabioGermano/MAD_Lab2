@@ -192,13 +192,13 @@ public class ModifyMenuDish extends BaseActivity {
     }
 
     @Override
-    protected void OnBackButtonPressed() {
-        //mi sa che possiamo farne a meno
+    protected void OnAlertButtonPressed() {
+        //vai alla lista delle prenotazioni
     }
 
     @Override
-    protected void OnAlertButtonPressed() {
-        //vai alla lista delle prenotazioni
+    protected void OnDeleteButtonPressed() {
+        throw  new UnsupportedOperationException();
     }
 
     private void modifyPhoto(){

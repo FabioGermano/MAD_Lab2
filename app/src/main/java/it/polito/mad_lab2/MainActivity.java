@@ -1,6 +1,9 @@
 package it.polito.mad_lab2;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,8 +18,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         SetSaveButtonVisibility(true);
-        SetBackButtonVisibility(false);
         SetAlertCount(5);
+
+        SetAlertDelatilsView(R.id.alertDetailsView);
+        InitializeFABButtons(false, true, true);
     }
 
     @Override
@@ -27,16 +32,15 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void OnBackButtonPressed()
-    {
-        return;
-    }
-
-    @Override
     protected void OnAlertButtonPressed()
     {
         Toast toast = Toast.makeText(getApplicationContext(), "Alert pressed", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    @Override
+    protected void OnDeleteButtonPressed() {
+        throw  new UnsupportedOperationException();
     }
 
     public void eseguiActivityModificaMenu(View v){

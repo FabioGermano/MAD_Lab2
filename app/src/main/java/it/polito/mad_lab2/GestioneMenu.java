@@ -27,8 +27,7 @@ public class GestioneMenu extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gestione_menu);
 
-        ImageButton saveB = (ImageButton) findViewById(R.id.saveButton);
-        saveB.setVisibility(View.INVISIBLE);
+        SetSaveButtonVisibility(false);
 
         ListView list_menu = (ListView) findViewById(R.id.listView_primi);
         try {
@@ -191,13 +190,13 @@ public class GestioneMenu extends BaseActivity {
     }
 
     @Override
-    protected void OnBackButtonPressed() {
-        //mi sa che possiamo farne a meno
+    protected void OnAlertButtonPressed() {
+        //vai alla lista delle prenotazioni
     }
 
     @Override
-    protected void OnAlertButtonPressed() {
-        //vai alla lista delle prenotazioni
+    protected void OnDeleteButtonPressed() {
+        throw  new UnsupportedOperationException();
     }
 
 }
