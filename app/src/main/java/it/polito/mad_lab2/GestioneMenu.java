@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,8 +31,16 @@ public class GestioneMenu extends BaseActivity {
         setContentView(R.layout.activity_gestione_menu);
 
         SetSaveButtonVisibility(false);
+        ImageButton dish_add = (ImageButton) findViewById(R.id.dish_add);
+        if(dish_add != null) {
+            dish_add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addDish();
+                }
+            });
+        }
 
-        ListView list_menu = (ListView) findViewById(R.id.listView_primi);
         try {
 
             if(firstTime) {
@@ -72,115 +83,36 @@ public class GestioneMenu extends BaseActivity {
                 }
             }
 
-            BaseAdapter a = new BaseAdapter() {
-                @Override
-                public int getCount() {
+            InitializeFABButtons(false, false, true);
 
-                    return list_piatti.size();
-                }
-
-                @Override
-                public Object getItem(int position) {
-
-                    return list_piatti.get(position);
-                }
-
-                @Override
-                public long getItemId(int position) {
-                    return 0;
-                }
-
-                @Override
-                public View getView(final int position, View convertView, ViewGroup parent) {
-                    if (convertView == null) {
-                        //devo creare una nuova View, poichè non ne è stata specificata nessuna da reciclare
-                        LayoutInflater inflater = LayoutInflater.from(GestioneMenu.this);
-                        convertView = inflater.inflate(R.layout.riga_lista, parent, false);
-                    }
-                    ImageView image_piatto = (ImageView) convertView.findViewById(R.id.image_p);
-                    TextView text_name = (TextView) convertView.findViewById(R.id.text_name);
-                    ImageButton imageB_delete = (ImageButton) convertView.findViewById(R.id.imageB_delete);
-                    ImageButton imageB_modify = (ImageButton) convertView.findViewById(R.id.imageB_modify);
-
-                    //carico la foto del piatto
-                    if (image_piatto != null) {
-                    }
-
-                    //carico il nome ed il costo del piatto
-                    if (text_name != null) {
-                        text_name.setText(list_piatti.get(position).getName() + " - " + list_piatti.get(position).getCost() + "euro");
-                    }
-
-                    //imposto la cancellazione del piatto
-                    if (imageB_delete != null) {
-                        imageB_delete.setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-                                //rimuovi piatto del menu e aggiorna l'informazione sul server (o in locale)
-                                boolean ris = removeDish(position);
-
-                                //se necessario controllo se l'operazione è avvenuta con successo
-                                if (ris) {
-                                    notifyDataSetChanged();
-                                }
-                            }
-                        });
-                    }
-
-                    //imposto la modifica del piatto
-                    if(imageB_modify != null){
-                        imageB_modify.setOnClickListener(new View.OnClickListener(){
-
-                            @Override
-                            public void onClick(View v) {
-                                //apro una nuova activity per la modifica del piatto
-                                modifyDish(position);
-                            }
-                        });
-                    }
-
-                    return convertView;
-                }
-            };
-
-            if(list_menu != null)
-                list_menu.setAdapter(a);
+            setUpRecyclerView();
 
         } catch(Exception e){
             System.out.println("Eccezione: " + e.getMessage());
         }
     }
 
-    //rimuovo piatto
-    private boolean removeDish(int num){
-        try{
-            list_piatti.remove(num);
-            //cancello anche del server (o da locale)
-            return true;
-        } catch(Exception e){
-            return false;
+    //imposto la lista di tutti i piatti
+    private void setUpRecyclerView(){
+        RecyclerView rView = (RecyclerView) findViewById(R.id.recyclerView_menu);
+        RecyclerAdapter_menu myAdapter = new RecyclerAdapter_menu(this, list_piatti);
+        if(rView != null) {
+            rView.setAdapter(myAdapter);
+
+            LinearLayoutManager myLLM_vertical = new LinearLayoutManager(this);
+            myLLM_vertical.setOrientation(LinearLayoutManager.VERTICAL);
+            rView.setLayoutManager(myLLM_vertical);
+
+            rView.setItemAnimator(new DefaultItemAnimator());
         }
     }
 
     //aggiungo piatto
-    public void addDish(View v){
+    public void addDish(){
         //debug
         System.out.println("Aggiungo nuovo piatto");
 
         Intent intent = new Intent(getApplicationContext(), ModifyMenuDish.class);
-        startActivity(intent);
-    }
-
-    //modifico piatto
-    private void modifyDish(int position){
-
-        Bundle b = new Bundle();
-        b.putSerializable("dish", list_piatti.get(position));
-        b.putInt("position", position);
-
-        Intent intent = new Intent(getApplicationContext(), ModifyMenuDish.class);
-        intent.putExtras(b);
         startActivity(intent);
     }
 
@@ -197,6 +129,11 @@ public class GestioneMenu extends BaseActivity {
     @Override
     protected void OnDeleteButtonPressed() {
         throw  new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void OnAddButtonPressed() {
+        addDish();
     }
 
 }

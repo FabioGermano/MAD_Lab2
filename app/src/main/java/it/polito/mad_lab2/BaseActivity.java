@@ -73,10 +73,14 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     protected void SetSaveButtonVisibility(boolean visible)
     {
-        if(!visible)
-            this.saveImageButton.setVisibility(View.INVISIBLE);
-        else
-            this.saveImageButton.setVisibility(View.VISIBLE);
+        try {
+            if (!visible)
+                this.saveImageButton.setVisibility(View.INVISIBLE);
+            else
+                this.saveImageButton.setVisibility(View.VISIBLE);
+        } catch (Exception e){
+            System.out.println("saveImageButton in BaseActivity is null");
+        }
     }
 
     protected void SetAlertButtonVisibility(boolean visible)
@@ -96,55 +100,63 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected abstract void OnSaveButtonPressed();
     protected abstract void OnAlertButtonPressed();
     protected abstract void OnDeleteButtonPressed();
+    protected abstract void OnAddButtonPressed();
 
     protected void SetAlertDelatilsView(int id)
     {
-        findViewById(id).bringToFront();
-        this.alertDetailsView =(RelativeLayout)findViewById(id);
+        try {
+            findViewById(id).bringToFront();
+            this.alertDetailsView = (RelativeLayout) findViewById(id);
+        } catch (Exception e){
+
+        }
     }
 
     protected void InitializeFABButtons(boolean editVisibility, boolean removeViibility, boolean addVisibility)
     {
-        FAB_layout = (LinearLayout)findViewById(R.id.FAB_layout);
-        FAB_layout.bringToFront();
-
-        fab_edit = (ImageButton)findViewById(R.id.fab_edit);
-        fab_add = (ImageButton)findViewById(R.id.fab_add);
-        fab_remove = (ImageButton)findViewById(R.id.fab_remove);
-
-        if(editVisibility)
-        {
-           this.fab_edit.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            this.fab_edit.setVisibility(View.INVISIBLE);
-        }
-
-        if(removeViibility)
-        {
-            this.fab_remove.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            this.fab_remove.setVisibility(View.INVISIBLE);
-        }
-
-        if(addVisibility)
-        {
-            this.fab_add.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            this.fab_add.setVisibility(View.INVISIBLE);
-        }
-
-        fab_remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OnDeleteButtonPressed();
+        try {
+            FAB_layout = (LinearLayout) findViewById(R.id.FAB_layout);
+            if (FAB_layout != null) {
+                FAB_layout.bringToFront();
             }
-        });
+
+            fab_edit = (ImageButton) findViewById(R.id.fab_edit);
+            fab_add = (ImageButton) findViewById(R.id.fab_add);
+            fab_remove = (ImageButton) findViewById(R.id.fab_remove);
+
+            if (editVisibility) {
+                this.fab_edit.setVisibility(View.VISIBLE);
+            } else {
+                this.fab_edit.setVisibility(View.INVISIBLE);
+            }
+
+            if (removeViibility) {
+                this.fab_remove.setVisibility(View.VISIBLE);
+            } else {
+                this.fab_remove.setVisibility(View.INVISIBLE);
+            }
+
+            if (addVisibility) {
+                this.fab_add.setVisibility(View.VISIBLE);
+            } else {
+                this.fab_add.setVisibility(View.INVISIBLE);
+            }
+
+            fab_remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    OnDeleteButtonPressed();
+                }
+            });
+            fab_add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    OnAddButtonPressed();
+                }
+            });
+        } catch (Exception e){
+            System.out.println("Error, impossible initialize FABButtons");
+        }
     }
 
     public void expandOrCollapse(final View v,String exp_or_colpse) {

@@ -27,7 +27,7 @@ public class ModifyMenuDish extends BaseActivity {
         try {
 
             //gestisco il menu a tendina per la tipologia del piatto
-            Spinner spinner = (Spinner)findViewById(R.id.list_dishType);
+            Spinner spinner = (Spinner)findViewById(R.id.list_dishType_modifyMenu);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_spinner_item,
@@ -58,9 +58,9 @@ public class ModifyMenuDish extends BaseActivity {
 
                 if (dish != null && position != -1) {
                     //carico le informazioni nella pagina di modifica
-                    ImageView imageDish = (ImageView) findViewById(R.id.imageDish);
-                    EditText editName = (EditText) findViewById(R.id.edit_dishName);
-                    EditText editPrice = (EditText) findViewById(R.id.edit_dishPrice);
+                    ImageView imageDish = (ImageView) findViewById(R.id.imageDish_modifyMenu);
+                    EditText editName = (EditText) findViewById(R.id.edit_dishName_modifyMenu);
+                    EditText editPrice = (EditText) findViewById(R.id.edit_dishPrice_modifyMenu);
 
                     if(imageDish != null){
                         //carico l'immagine e setto OnClickListener
@@ -106,8 +106,8 @@ public class ModifyMenuDish extends BaseActivity {
     private void saveInfo(){
         // aggiorno l'oggetto piatto con tutte le nuove informazioni e lo passo indietro all'activity di modifica menu principale
         try {
-            EditText editName = (EditText) findViewById(R.id.edit_dishName);
-            EditText editPrice = (EditText) findViewById(R.id.edit_dishPrice);
+            EditText editName = (EditText) findViewById(R.id.edit_dishName_modifyMenu);
+            EditText editPrice = (EditText) findViewById(R.id.edit_dishPrice_modifyMenu);
 
             if (editName != null) {
                 String text = editName.getText().toString();
@@ -162,29 +162,6 @@ public class ModifyMenuDish extends BaseActivity {
 
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.action_bar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.save_dish) {
-            saveInfo();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
     @Override
     protected void OnSaveButtonPressed() {
         //salvo le info e torno alla schermata di gestione menu principale
@@ -199,6 +176,11 @@ public class ModifyMenuDish extends BaseActivity {
     @Override
     protected void OnDeleteButtonPressed() {
         throw  new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void OnAddButtonPressed() {
+
     }
 
     private void modifyPhoto(){

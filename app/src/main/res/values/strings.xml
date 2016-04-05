@@ -4,9 +4,11 @@
     <string name="dishName">Name of the dish:</string>
     <string name="dishPrice">Price:</string>
     <string name="dishType">Typology:</string>
+    <string name="money_value">euro</string>
 
     <string name="error">Error</string>
     <string name="error_complete">Please, complete correctly all fields</string>
+
     <string name="first">First</string>
     <string name="second">Second</string>
     <string name="dessert">Dessert</string>

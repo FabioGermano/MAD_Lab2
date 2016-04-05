@@ -43,6 +43,11 @@ public class MainActivity extends BaseActivity {
         throw  new UnsupportedOperationException();
     }
 
+    @Override
+    protected void OnAddButtonPressed() {
+
+    }
+
     public void eseguiActivityModificaMenu(View v){
         Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.GestioneMenu.class);
         startActivity(intent);

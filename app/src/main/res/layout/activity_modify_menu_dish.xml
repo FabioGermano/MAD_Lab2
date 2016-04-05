@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="@string/dishPhoto"
-        android:id="@+id/text_titlePhoto"
+        android:id="@+id/titlePhoto_modifyMenu"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
@@ -22,8 +22,8 @@
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:id="@+id/imageDish"
-        android:layout_below="@+id/text_titlePhoto"
+        android:id="@+id/imageDish_modifyMenu"
+        android:layout_below="@+id/titlePhoto_modifyMenu"
         android:layout_centerHorizontal="true"
         android:src="@drawable/default_dish_icon"/>
 
@@ -32,17 +32,17 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="@string/dishName"
-        android:id="@+id/text_dishName"
-        android:layout_below="@+id/imageDish"
+        android:id="@+id/text_dishName_modifyMenu"
+        android:layout_below="@+id/imageDish_modifyMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_dishName"
+        android:id="@+id/edit_dishName_modifyMenu"
         android:ems="10"
-        android:layout_below="@+id/text_dishName"
+        android:layout_below="@+id/text_dishName_modifyMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -51,8 +51,8 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="@string/dishPrice"
-        android:id="@+id/text_dishPrice"
-        android:layout_below="@+id/edit_dishName"
+        android:id="@+id/text_dishPrice_modifyMenu"
+        android:layout_below="@+id/edit_dishName_modifyMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -61,8 +61,8 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/edit_dishPrice"
-        android:layout_below="@+id/text_dishPrice"
+        android:id="@+id/edit_dishPrice_modifyMenu"
+        android:layout_below="@+id/text_dishPrice_modifyMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         />
@@ -72,16 +72,16 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="@string/dishType"
-        android:id="@+id/text_dishType"
-        android:layout_below="@+id/edit_dishPrice"
+        android:id="@+id/text_dishType_modifyMenu"
+        android:layout_below="@+id/edit_dishPrice_modifyMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Spinner
-        android:id="@+id/list_dishType"
+        android:id="@+id/list_dishType_modifyMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_dishType"
+        android:layout_below="@id/text_dishType_modifyMenu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
