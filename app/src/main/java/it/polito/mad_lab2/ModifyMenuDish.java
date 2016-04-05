@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-public class ModifyMenuDish extends BaseActivity {
+public class ModifyMenuDish extends EditableBaseActivity {
 
     private Oggetto_piatto dish = null;
     private int position = -1;
@@ -23,6 +23,8 @@ public class ModifyMenuDish extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_menu_dish);
+
+        InitializeFABButtons(false, true, false);
 
         try {
 
@@ -175,12 +177,18 @@ public class ModifyMenuDish extends BaseActivity {
 
     @Override
     protected void OnDeleteButtonPressed() {
+        // TO DO
+        throw  new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void OnEditButtonPressed() {
         throw  new UnsupportedOperationException();
     }
 
     @Override
     protected void OnAddButtonPressed() {
-
+        throw  new UnsupportedOperationException();
     }
 
     private void modifyPhoto(){

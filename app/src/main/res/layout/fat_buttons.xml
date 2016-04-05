@@ -8,29 +8,32 @@
     android:orientation="vertical">
     <ImageButton
         android:id="@+id/fab_edit"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/fab_shape"
         android:src="@android:drawable/ic_menu_edit"
-        android:tint="@android:color/white"/>
+        android:tint="@android:color/white"
+        android:visibility="gone"/>
     <ImageButton
         android:id="@+id/fab_remove"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/fab_shape"
         android:src="@android:drawable/ic_menu_delete"
-        android:tint="@android:color/white"/>
+        android:tint="@android:color/white"
+        android:visibility="gone"/>
     <ImageButton
         android:id="@+id/fab_add"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/fab_shape"
         android:src="@android:drawable/ic_input_add"
-        android:tint="@android:color/white"/>
+        android:tint="@android:color/white"
+        android:visibility="gone"/>
 </LinearLayout>

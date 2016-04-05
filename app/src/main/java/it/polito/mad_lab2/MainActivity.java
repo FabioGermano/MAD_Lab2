@@ -17,18 +17,15 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SetSaveButtonVisibility(true);
-        SetAlertCount(5);
+        SetSaveButtonVisibility(false);
 
         SetAlertDelatilsView(R.id.alertDetailsView);
-        InitializeFABButtons(false, true, true);
     }
 
     @Override
     protected void OnSaveButtonPressed()
     {
-        Toast toast = Toast.makeText(getApplicationContext(), "Save pressed", Toast.LENGTH_SHORT);
-        toast.show();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -36,16 +33,6 @@ public class MainActivity extends BaseActivity {
     {
         Toast toast = Toast.makeText(getApplicationContext(), "Alert pressed", Toast.LENGTH_SHORT);
         toast.show();
-    }
-
-    @Override
-    protected void OnDeleteButtonPressed() {
-        throw  new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void OnAddButtonPressed() {
-
     }
 
     public void eseguiActivityModificaMenu(View v){

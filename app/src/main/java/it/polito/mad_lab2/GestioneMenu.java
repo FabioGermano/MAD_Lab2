@@ -83,8 +83,6 @@ public class GestioneMenu extends BaseActivity {
                 }
             }
 
-            InitializeFABButtons(false, false, true);
-
             setUpRecyclerView();
 
         } catch(Exception e){
@@ -124,16 +122,6 @@ public class GestioneMenu extends BaseActivity {
     @Override
     protected void OnAlertButtonPressed() {
         //vai alla lista delle prenotazioni
-    }
-
-    @Override
-    protected void OnDeleteButtonPressed() {
-        throw  new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void OnAddButtonPressed() {
-        addDish();
     }
 
 }

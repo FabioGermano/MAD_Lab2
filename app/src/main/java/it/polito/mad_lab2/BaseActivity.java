@@ -14,14 +14,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+/**
+ * To be extended by every activity.
+ *
+ * @author f.germano
+ */
 public abstract class BaseActivity extends AppCompatActivity{
 
     private ImageButton saveImageButton, alertButton;
     private TextView titleTextView, alertCountView;
     protected RelativeLayout alertDetailsView;
-
-    private LinearLayout FAB_layout;
-    private ImageButton fab_edit, fab_remove, fab_add;
 
     private int alertCount = 0;
     private boolean isAlertExpanded = false;
@@ -73,14 +75,10 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     protected void SetSaveButtonVisibility(boolean visible)
     {
-        try {
-            if (!visible)
-                this.saveImageButton.setVisibility(View.INVISIBLE);
-            else
-                this.saveImageButton.setVisibility(View.VISIBLE);
-        } catch (Exception e){
-            System.out.println("saveImageButton in BaseActivity is null");
-        }
+        if(!visible)
+            this.saveImageButton.setVisibility(View.INVISIBLE);
+        else
+            this.saveImageButton.setVisibility(View.VISIBLE);
     }
 
     protected void SetAlertButtonVisibility(boolean visible)
@@ -99,64 +97,11 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     protected abstract void OnSaveButtonPressed();
     protected abstract void OnAlertButtonPressed();
-    protected abstract void OnDeleteButtonPressed();
-    protected abstract void OnAddButtonPressed();
 
     protected void SetAlertDelatilsView(int id)
     {
-        try {
-            findViewById(id).bringToFront();
-            this.alertDetailsView = (RelativeLayout) findViewById(id);
-        } catch (Exception e){
-
-        }
-    }
-
-    protected void InitializeFABButtons(boolean editVisibility, boolean removeViibility, boolean addVisibility)
-    {
-        try {
-            FAB_layout = (LinearLayout) findViewById(R.id.FAB_layout);
-            if (FAB_layout != null) {
-                FAB_layout.bringToFront();
-            }
-
-            fab_edit = (ImageButton) findViewById(R.id.fab_edit);
-            fab_add = (ImageButton) findViewById(R.id.fab_add);
-            fab_remove = (ImageButton) findViewById(R.id.fab_remove);
-
-            if (editVisibility) {
-                this.fab_edit.setVisibility(View.VISIBLE);
-            } else {
-                this.fab_edit.setVisibility(View.INVISIBLE);
-            }
-
-            if (removeViibility) {
-                this.fab_remove.setVisibility(View.VISIBLE);
-            } else {
-                this.fab_remove.setVisibility(View.INVISIBLE);
-            }
-
-            if (addVisibility) {
-                this.fab_add.setVisibility(View.VISIBLE);
-            } else {
-                this.fab_add.setVisibility(View.INVISIBLE);
-            }
-
-            fab_remove.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    OnDeleteButtonPressed();
-                }
-            });
-            fab_add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    OnAddButtonPressed();
-                }
-            });
-        } catch (Exception e){
-            System.out.println("Error, impossible initialize FABButtons");
-        }
+        findViewById(id).bringToFront();
+        this.alertDetailsView =(RelativeLayout)findViewById(id);
     }
 
     public void expandOrCollapse(final View v,String exp_or_colpse) {

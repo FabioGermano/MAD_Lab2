@@ -3,8 +3,8 @@
     package="it.polito.mad_lab2">
 
     <application
-        android:hardwareAccelerated="true"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -16,11 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".GestioneMenu" android:label="GestioneMenu" android:parentActivityName=".MainActivity"></activity>
-
-        <activity android:name=".ModifyMenuDish" android:label="ModifyMenuDish" android:parentActivityName=".GestioneMenu"></activity>
-
+        <activity
+            android:name=".GestioneMenu"
+            android:label="GestioneMenu"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ModifyMenuDish"
+            android:label="ModifyMenuDish"
+            android:parentActivityName=".GestioneMenu" />
+        <activity android:name=".EditableBaseActivity"></activity>
     </application>
 
 </manifest>
