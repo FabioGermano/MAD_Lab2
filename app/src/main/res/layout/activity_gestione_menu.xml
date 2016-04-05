@@ -14,14 +14,6 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerView_menu"/>
 
-    <ImageButton
-        android:id="@+id/dish_add"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/fab_shape"
-        android:src="@android:drawable/ic_input_add"
-        android:tint="@android:color/white"/>
+    <include  layout="@layout/fat_buttons" />
 
 </RelativeLayout>

@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class GestioneMenu extends BaseActivity {
+public class GestioneMenu extends EditableBaseActivity {
 
     private ArrayList<Oggetto_piatto> list_piatti = new ArrayList<>();
     private boolean firstTime = true; //debug
@@ -31,15 +31,7 @@ public class GestioneMenu extends BaseActivity {
         setContentView(R.layout.activity_gestione_menu);
 
         SetSaveButtonVisibility(false);
-        ImageButton dish_add = (ImageButton) findViewById(R.id.dish_add);
-        if(dish_add != null) {
-            dish_add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addDish();
-                }
-            });
-        }
+        InitializeFABButtons(false, false, true);
 
         try {
 
@@ -90,6 +82,25 @@ public class GestioneMenu extends BaseActivity {
         }
     }
 
+    @Override
+    protected void OnDeleteButtonPressed() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void OnEditButtonPressed() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void OnAddButtonPressed() {
+        //debug
+        System.out.println("Aggiungo nuovo piatto");
+
+        Intent intent = new Intent(getApplicationContext(), ModifyMenuDish.class);
+        startActivity(intent);
+    }
+
     //imposto la lista di tutti i piatti
     private void setUpRecyclerView(){
         RecyclerView rView = (RecyclerView) findViewById(R.id.recyclerView_menu);
@@ -103,15 +114,6 @@ public class GestioneMenu extends BaseActivity {
 
             rView.setItemAnimator(new DefaultItemAnimator());
         }
-    }
-
-    //aggiungo piatto
-    public void addDish(){
-        //debug
-        System.out.println("Aggiungo nuovo piatto");
-
-        Intent intent = new Intent(getApplicationContext(), ModifyMenuDish.class);
-        startActivity(intent);
     }
 
     @Override
