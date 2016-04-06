@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by f.germano on 06/04/2016.
  */
@@ -22,6 +25,8 @@ public class EditablePhoto extends RelativeLayout {
     private Context context;
 
     private int initialImage = -1;
+
+    private List<EditablePhotoListener> listeners = new ArrayList<EditablePhotoListener>();
 
     public EditablePhoto(Context context) {
         super(context);
@@ -57,6 +62,18 @@ public class EditablePhoto extends RelativeLayout {
         initControl(context);
     }
 
+    public void addListener(EditablePhotoListener toAdd) {
+        listeners.add(toAdd);
+    }
+
+    private void notifyPhotoChanged()
+    {
+        for(EditablePhotoListener i : listeners)
+        {
+            i.OnPhotoChanged();
+        }
+    }
+
     private void initControl(Context context)
     {
         this.context = context;
@@ -84,7 +101,6 @@ public class EditablePhoto extends RelativeLayout {
 
     private void editButtonPressed()
     {
-        Toast toast = Toast.makeText(context, Integer.toString(this.initialImage), Toast.LENGTH_SHORT);
-        toast.show();
+        notifyPhotoChanged();
     }
 }

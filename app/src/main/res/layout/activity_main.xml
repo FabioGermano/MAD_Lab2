@@ -49,6 +49,7 @@
 
         <it.polito.mad_lab2.EditablePhoto
             xmlns:custom="http://schemas.android.com/apk/res/it.polito.mad_lab2"
+            android:id="@+id/photo"
             android:layout_below="@id/button_testMM"
             android:layout_width="wrap_content"
             custom:initialImage="@drawable/default_dish_icon"

@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements EditablePhotoListener{
+
+    private EditablePhoto editablePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,9 @@ public class MainActivity extends BaseActivity {
         SetSaveButtonVisibility(false);
 
         SetAlertDelatilsView(R.id.alertDetailsView);
+
+        editablePhoto = (EditablePhoto)findViewById(R.id.photo);
+        editablePhoto.addListener(this);
     }
 
     @Override
@@ -38,5 +43,11 @@ public class MainActivity extends BaseActivity {
     public void eseguiActivityModificaMenu(View v){
         Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.GestioneMenu.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void OnPhotoChanged() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Listener", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
