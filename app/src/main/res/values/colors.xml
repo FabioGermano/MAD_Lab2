@@ -6,7 +6,7 @@
     <color name="lightRed">#ffcccc</color>
     <color name="primary_material_light">#fff5f5f5</color>
 
-    <color name="fab_normal">#03A9F4</color>
+    <color name="themeColor">#03A9F4</color>
     <color name="fab_pressed">#90CAF9</color>
 
 </resources>

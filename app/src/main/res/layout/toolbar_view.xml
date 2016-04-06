@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#000"/>
+            android:textColor="#FFFFFF"/>
 
         <RelativeLayout
             android:id="@+id/alertLayout"
