@@ -24,7 +24,6 @@
             android:name=".ModifyMenuDish"
             android:label="ModifyMenuDish"
             android:parentActivityName=".GestioneMenu" />
-        <activity android:name=".EditableBaseActivity"></activity>
     </application>
 
 </manifest>
