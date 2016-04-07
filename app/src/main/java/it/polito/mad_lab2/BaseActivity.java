@@ -21,7 +21,7 @@ import android.widget.TextView;
  */
 public abstract class BaseActivity extends AppCompatActivity{
 
-    private ImageButton saveImageButton, alertButton;
+    private ImageButton saveImageButton, alertButton, calendarButton;
     private TextView titleTextView, alertCountView;
     protected RelativeLayout alertDetailsView;
 
@@ -40,6 +40,14 @@ public abstract class BaseActivity extends AppCompatActivity{
         View mCustomView = mInflater.inflate(R.layout.toolbar_view, null);
         titleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
         titleTextView.setText("Lab2");
+
+        calendarButton = (ImageButton) mCustomView.findViewById(R.id.calendarButton);
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnCalendarButtonPressed();
+            }
+        });
 
         saveImageButton = (ImageButton) mCustomView.findViewById(R.id.saveButton);
         saveImageButton.setOnClickListener(new View.OnClickListener() {
@@ -67,16 +75,24 @@ public abstract class BaseActivity extends AppCompatActivity{
         });
 
         alertCountView = (TextView) mCustomView.findViewById(R.id.alertCountView);
-        SetAlertCount(0);
+        SetAlertCount(22);
 
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
     }
 
+    protected void SetCalendarButtonVisibility(boolean visible)
+    {
+        if(!visible)
+            this.calendarButton.setVisibility(View.GONE );
+        else
+            this.calendarButton.setVisibility(View.VISIBLE);
+    }
+
     protected void SetSaveButtonVisibility(boolean visible)
     {
         if(!visible)
-            this.saveImageButton.setVisibility(View.INVISIBLE);
+            this.saveImageButton.setVisibility(View.GONE);
         else
             this.saveImageButton.setVisibility(View.VISIBLE);
     }
@@ -84,7 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected void SetAlertButtonVisibility(boolean visible)
     {
         if(!visible)
-            this.alertButton.setVisibility(View.INVISIBLE);
+            this.alertButton.setVisibility(View.GONE);
         else
             this.alertButton.setVisibility(View.VISIBLE);
     }
@@ -97,6 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     protected abstract void OnSaveButtonPressed();
     protected abstract void OnAlertButtonPressed();
+    protected abstract void OnCalendarButtonPressed();
 
     protected void SetAlertDelatilsView(int id)
     {

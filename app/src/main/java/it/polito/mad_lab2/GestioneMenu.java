@@ -44,6 +44,8 @@ public class GestioneMenu extends EditableBaseActivity {
         setContentView(R.layout.activity_gestione_menu);
 
         SetSaveButtonVisibility(false);
+        SetCalendarButtonVisibility(false);
+
         InitializeFABButtons(false, false, true);
 
         try {
@@ -209,6 +211,11 @@ public class GestioneMenu extends EditableBaseActivity {
     @Override
     protected void OnAlertButtonPressed() {
         //vai alla lista delle prenotazioni
+    }
+
+    @Override
+    protected void OnCalendarButtonPressed() {
+        throw new UnsupportedOperationException();
     }
 
 }

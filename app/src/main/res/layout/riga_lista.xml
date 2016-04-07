@@ -42,17 +42,17 @@
             android:layout_height="wrap_content"
             android:id="@+id/img_delete_menu"
             android:src="@android:drawable/ic_menu_delete"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_gravity="center_vertical"
-            android:background="@null"
-            android:paddingRight="4dp"
-            android:paddingLeft="4dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:foregroundGravity="center_vertical"/>
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/img_modify_menu"
-            android:background="@null"
+            android:background="?android:attr/selectableItemBackground"
             android:src="@android:drawable/ic_menu_edit"
             android:layout_gravity="center_vertical"
             android:paddingRight="10dp"

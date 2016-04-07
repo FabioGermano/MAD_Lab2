@@ -24,6 +24,8 @@ public class ModifyMenuDish extends EditableBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_menu_dish);
 
+        SetCalendarButtonVisibility(false);
+
         InitializeFABButtons(false, true, false);
 
         try {
@@ -173,6 +175,11 @@ public class ModifyMenuDish extends EditableBaseActivity {
     @Override
     protected void OnAlertButtonPressed() {
         //vai alla lista delle prenotazioni
+    }
+
+    @Override
+    protected void OnCalendarButtonPressed() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
