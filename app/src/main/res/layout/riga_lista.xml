@@ -40,23 +40,25 @@
         </LinearLayout>
 
         <ImageButton
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/img_delete_menu"
             android:src="@android:drawable/ic_menu_delete"
-            android:background="@drawable/fab_shape"
-            android:tint="@android:color/white"
             android:layout_gravity="center_vertical"
+            android:background="@null"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
             android:foregroundGravity="center_vertical"/>
 
         <ImageButton
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/img_modify_menu"
+            android:background="@null"
             android:src="@android:drawable/ic_menu_edit"
-            android:background="@drawable/fab_shape"
-            android:tint="@android:color/white"
             android:layout_gravity="center_vertical"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:foregroundGravity="center_vertical"/>
 
     </LinearLayout>

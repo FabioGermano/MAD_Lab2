@@ -7,6 +7,7 @@
     <color name="primary_material_light">#fff5f5f5</color>
 
     <color name="themeColor">#03A9F4</color>
+    <color name="themeColorLighter">#E1F5FE</color>
     <color name="fab_pressed">#90CAF9</color>
 
 </resources>
