@@ -12,13 +12,23 @@ public class Oggetto_piatto implements Serializable {
     private String piatto_name = "";
     private String photo_path = "";
     private int cost = 0;
-    private String type = "";
+    private type_enum type = null;
+    private int id;
+    public enum type_enum {PRIMI, SECONDI, DESSERT, ALTRO }
 
-    public Oggetto_piatto(String name, int cost, String path, String type){
+    public Oggetto_piatto(String name, int cost, String path, type_enum type){
         this.piatto_name = name;
         this.photo_path = path;
         this.cost = cost;
         this.type = type;
+    }
+
+    public void setId(int num){
+        this.id = num;
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     public void setName(String arg){
@@ -45,11 +55,11 @@ public class Oggetto_piatto implements Serializable {
         return this.photo_path;
     }
 
-    public void setDishType(String arg){
+    public void setDishType(type_enum arg){
         this.type = arg;
     }
 
-    public String getDishType(){
+    public type_enum getDishType(){
         return this.type;
     }
 

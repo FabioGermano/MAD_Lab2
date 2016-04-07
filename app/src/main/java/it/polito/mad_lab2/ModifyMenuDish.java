@@ -41,8 +41,8 @@ public class ModifyMenuDish extends EditableBaseActivity {
                 //listener per salvare la selezione dell'utente
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> adapter, View view, int pos, long id) {
-                        if(dish != null)
-                            dish.setDishType((String) adapter.getItemAtPosition(pos));
+                        //if(dish != null)
+                            //dish.setDishType((String) adapter.getItemAtPosition(pos));
                     }
 
                     public void onNothingSelected(AdapterView<?> arg0) {
@@ -83,8 +83,8 @@ public class ModifyMenuDish extends EditableBaseActivity {
                         editPrice.setText(String.valueOf(dish.getCost()));
                     }
 
-                    if(spinner != null)
-                        spinner.setSelection(adapter.getPosition(dish.getDishType()));
+                    //if(spinner != null)
+                        //spinner.setSelection(adapter.getPosition(dish.getDishType()));
 
                 } else {
                     System.out.println(" No Dish passed ");

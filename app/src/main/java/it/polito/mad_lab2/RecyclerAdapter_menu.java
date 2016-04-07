@@ -12,6 +12,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 /**
@@ -19,12 +23,14 @@ import java.util.List;
  */
 public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_menu.MyViewHolder> {
 
-    private List<Oggetto_piatto> dish_list;
+    private Oggetto_menu dish_list;
     private LayoutInflater myInflater;
+    private Oggetto_piatto.type_enum menu_type;
 
-    public RecyclerAdapter_menu(Context context, List<Oggetto_piatto> data){
+    public RecyclerAdapter_menu(Context context, Oggetto_menu data, Oggetto_piatto.type_enum type){
         this.dish_list = data;
         myInflater = LayoutInflater.from(context);
+        this.menu_type = type;
     }
 
     @Override
@@ -37,13 +43,45 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Oggetto_piatto currentObj = dish_list.get(position);
-        holder.setData(currentObj, position);
+        Oggetto_piatto currentObj;
+        switch(menu_type){
+            case PRIMI:
+                currentObj = dish_list.getPrimi().get(position);
+                holder.setData(currentObj, position);
+                break;
+            case SECONDI:
+                currentObj = dish_list.getSecondi().get(position);
+                holder.setData(currentObj, position);
+                break;
+            case DESSERT:
+                currentObj = dish_list.getDessert().get(position);
+                holder.setData(currentObj, position);
+                break;
+            case ALTRO:
+                currentObj = dish_list.getAltro().get(position);
+                holder.setData(currentObj, position);
+                break;
+            default:
+                System.out.println("Typology unknown");
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return this.dish_list.size();
+        switch(menu_type){
+            case PRIMI:
+                return dish_list.getPrimi().size();
+            case SECONDI:
+                return dish_list.getSecondi().size();
+            case DESSERT:
+                return dish_list.getDessert().size();
+            case ALTRO:
+                return dish_list.getAltro().size();
+            default:
+                System.out.println("Typology unknown");
+                return 0;
+        }
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -105,9 +143,25 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
 
         //rimuovo piatto
         private void removeItem(int position){
-            dish_list.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, dish_list.size());
+            /*try {
+                JSONObject jsonRootObject = new JSONObject(context.getResources().getString(R.string.json_piatti));
+                //Get the instance of JSONArray that contains JSONObjects
+                JSONArray jsonArray = jsonRootObject.optJSONArray("lista_piatti");
+                for(int i=0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    int id = Integer.parseInt(jsonObject.optString("id").toString());
+                    if(id == dish_list.get(position).getId()){
+                        jsonArray.remove(i);
+                    }
+                }
+
+                dish_list.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, dish_list.size());
+            } catch (JSONException e) {
+                System.out.println("Eccezione: " + e.getMessage());
+            }*/
         }
 
         //modifico piatto
