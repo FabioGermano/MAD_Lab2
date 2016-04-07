@@ -31,12 +31,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
@@ -126,16 +128,27 @@ public class GestioneMenu extends EditableBaseActivity {
             Oggetto_piatto obj;
             lista_menu = new Oggetto_menu();
 
-            InputStream db = getResources().getAssets().open(fileName, Context.MODE_PRIVATE);
+            /*InputStream db = getResources().getAssets().open(fileName, Context.MODE_PRIVATE);
             StringBuffer buffer = new StringBuffer("");
             byte[] b = new byte[1024];
             int n;
             while ((n = db.read(b)) != -1) {
                 buffer.append(new String(b, 0, n));
             }
-            db.close();
+            db.close();*/
 
-            jsonRootObject = new JSONObject(buffer.toString());
+            /***** inserted by Roby on 07/04/2016 */
+            FileInputStream fis = openFileInput("database");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            StringBuilder db = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                db.append(line);
+            }
+            fis.close();
+            /****************************************/
+
+            jsonRootObject = new JSONObject(db.toString());
 
             //Get the instance of JSONArray that contains JSONObjects
             JSONArray arrayDebug = jsonRootObject.optJSONArray("lista_piatti");
@@ -180,7 +193,7 @@ public class GestioneMenu extends EditableBaseActivity {
 
                 lista_menu.setJson(jsonRootObject);
 
-             }
+            }
             return true;
         } catch (JSONException e)
         {

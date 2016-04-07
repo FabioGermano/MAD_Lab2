@@ -18,7 +18,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -186,6 +190,41 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
                         }
                     }
                 }
+
+
+                /*         Created by Roby on 07/04/2016.    */
+                /***********da verificare ********************/
+                /* unificare con i controlli e ciclo sopra   */
+                //apro e leggo file database locale
+                FileInputStream fis = context.openFileInput("database");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+                StringBuilder db = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    db.append(line);
+                }
+                fis.close();
+                JSONObject jsonRootObject = new JSONObject(db.toString());
+                jsonArray = jsonRootObject.optJSONArray("lista_piatti");
+                //id dell'oggetto da rimuovere dal DB
+                int id = current_list.get(position).getId();
+
+                for(int i=0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (Integer.parseInt(jsonObject.optString("id").toString()) == id){
+                        jsonArray.remove(i);
+                    }
+                }
+
+                FileOutputStream fos = context.openFileOutput("database", Context.MODE_PRIVATE);
+                String newDB = jsonRootObject.toString();
+                fos.write(newDB.getBytes());
+                fos.close();
+
+                /*********************************************/
+
+
+
 
                 current_list.remove(position);
                 notifyItemRemoved(position);
