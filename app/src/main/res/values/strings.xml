@@ -13,5 +13,9 @@
     <string name="second">Second</string>
     <string name="dessert">Dessert</string>
     <string name="other">Other</string>
+    <string name="take_photo">Camera</string>
+    <string name="chose_library">Gallery</string>
+    <string name="remove_photo">Remove</string>
+    <string name="add_photo">Photo</string>
 
 </resources>

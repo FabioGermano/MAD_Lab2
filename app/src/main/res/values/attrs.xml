@@ -1,5 +1,5 @@
 <resources>
-    <declare-styleable name="EditablePhoto">
-        <attr name="initialImage" format="reference"/>
+    <declare-styleable name="PhotoViewer">
+        <attr name="initialBackground" format="reference"/>
     </declare-styleable>
 </resources>

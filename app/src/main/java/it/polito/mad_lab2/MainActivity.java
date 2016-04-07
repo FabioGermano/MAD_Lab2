@@ -1,19 +1,15 @@
 package it.polito.mad_lab2;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends BaseActivity implements EditablePhotoListener{
+public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
-    private EditablePhoto editablePhoto;
+    private PhotoViewer photoViewer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +27,12 @@ public class MainActivity extends BaseActivity implements EditablePhotoListener{
 
         SetAlertDelatilsView(R.id.alertDetailsView);
 
-        editablePhoto = (EditablePhoto)findViewById(R.id.photo);
-        editablePhoto.addListener(this);
+        photoViewer = (PhotoViewer)findViewById(R.id.photo);
+        try {
+            photoViewer.initPhotoViewer(this);
+        } catch (Exception e) {
+            Log.d(e.getMessage(), e.getMessage(), e);
+        }
     }
 
     @Override
@@ -62,5 +62,11 @@ public class MainActivity extends BaseActivity implements EditablePhotoListener{
     public void OnPhotoChanged() {
         Toast toast = Toast.makeText(getApplicationContext(), "Listener", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        photoViewer.managePhotoResult(requestCode, resultCode, data);
     }
 }
