@@ -27,9 +27,9 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
         SetAlertDelatilsView(R.id.alertDetailsView);
 
-        photoViewer = (PhotoViewer)findViewById(R.id.photo);
+        PhotoViewer currentFragment = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.ad_fragment);
         try {
-            photoViewer.initPhotoViewer(this);
+            currentFragment.initPhotoViewer(this);
         } catch (Exception e) {
             Log.d(e.getMessage(), e.getMessage(), e);
         }
@@ -62,11 +62,5 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     public void OnPhotoChanged() {
         Toast toast = Toast.makeText(getApplicationContext(), "Listener", Toast.LENGTH_SHORT);
         toast.show();
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        photoViewer.managePhotoResult(requestCode, resultCode, data);
     }
 }

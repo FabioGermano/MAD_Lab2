@@ -7,27 +7,30 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by f.germano on 06/04/2016.
+ * Created by f.germano on 07/04/2016.
  */
-public class PhotoViewer extends RelativeLayout implements PhotoDialogListener {
+public class PhotoViewer extends Fragment  implements PhotoDialogListener {
 
     private ImageView imgPhoto;
     private ImageButton editButton;
-    private Context context;
 
     private final int REQUEST_CAMERA = 0;
     private final int SELECT_FILE = 1;
@@ -35,58 +38,10 @@ public class PhotoViewer extends RelativeLayout implements PhotoDialogListener {
     private boolean isBitmapSetted = false;
 
     private List<PhotoViewerListener> listeners = new ArrayList<PhotoViewerListener>();
-    private Activity callingActivity = null;
 
-    public PhotoViewer(Context context) {
-        super(context);
-        initControl(context);
-    }
+    public PhotoViewer()
+    {
 
-    //public EditablePhoto(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-    //   super(context, attrs, defStyleAttr, defStyleRes);
-    //}
-
-    public PhotoViewer(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initControl(context);
-    }
-
-    public PhotoViewer(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PhotoViewer);
-        final int N = a.getIndexCount();
-        for (int i = 0; i < N; ++i)
-        {
-            int attr = a.getIndex(i);
-            switch (attr)
-            {
-                case R.styleable.PhotoViewer_initialBackground:
-                    this.initialImage = a.getResourceId(attr, -1);
-                    break;
-            }
-        }
-        a.recycle();
-
-        initControl(context);
-    }
-
-
-    /**
-     * Init the control. The activity must implement the PhotoViewerListener interface.
-     *
-     * @param activity
-     * @throws Exception
-     */
-    public void initPhotoViewer(Activity activity) throws Exception {
-        if(activity instanceof PhotoViewerListener) {
-            this.callingActivity = activity;
-            listeners.add((PhotoViewerListener) activity);
-        }
-        else
-        {
-            throw new Exception("The argument activity must implement the PhotoViewerListener interface.");
-        }
     }
 
     private void notifyPhotoChanged()
@@ -97,18 +52,15 @@ public class PhotoViewer extends RelativeLayout implements PhotoDialogListener {
         }
     }
 
-    private void initControl(Context context)
-    {
-        this.context = context;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.photo_viewer, container, false);
 
-        // Inflate layout
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.photo_viewer, this);
+        this.imgPhoto = (ImageView)rootView.findViewById(R.id.epImgPhoto);
+        this.editButton = (ImageButton)rootView.findViewById(R.id.epEditButton);
 
-        this.imgPhoto = (ImageView)findViewById(R.id.epImgPhoto);
-        this.editButton = (ImageButton)findViewById(R.id.epEditButton);
-
-        this.editButton.setOnClickListener(new OnClickListener() {
+        this.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editButtonPressed();
@@ -120,12 +72,53 @@ public class PhotoViewer extends RelativeLayout implements PhotoDialogListener {
         {
             this.imgPhoto.setImageResource(this.initialImage);
         }
+
+        return rootView;
+    }
+
+    /**
+     * Parse attributes during inflation from a view hierarchy into the arguments we handle.
+     */
+    @Override
+    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
+        super.onInflate(activity, attrs, savedInstanceState);
+
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.PhotoViewer);
+        final int N = a.getIndexCount();
+        for (int i = 0; i < N; ++i)
+        {
+            int attr = a.getIndex(i);
+            switch (attr)
+            {
+                case R.styleable.PhotoViewer_initialBackground:
+                    this.initialImage = a.getResourceId(attr, -1);
+                    break;
+            }
+        }
+
+        a.recycle();
     }
 
     private void editButtonPressed()
     {
-        PhotoDialog dialog = new PhotoDialog(this.context, this.isBitmapSetted);
+        PhotoDialog dialog = new PhotoDialog(getContext(), this.isBitmapSetted);
         dialog.addListener(this);
+    }
+
+    /**
+     * Init the control. The activity must implement the PhotoViewerListener interface.
+     *
+     * @param activity
+     * @throws Exception
+     */
+    public void initPhotoViewer(Activity activity) throws Exception {
+        if(activity instanceof PhotoViewerListener) {
+            listeners.add((PhotoViewerListener) activity);
+        }
+        else
+        {
+            throw new Exception("The argument activity must implement the PhotoViewerListener interface.");
+        }
     }
 
     /**
@@ -147,29 +140,17 @@ public class PhotoViewer extends RelativeLayout implements PhotoDialogListener {
         this.isBitmapSetted = true;
     }
 
-    /**
-     * To be called in the onActivityResult method of the owner activity.
-     * The PhotoViewer must be initialized by calling the initPhotoViewer method.
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    public void managePhotoResult(int requestCode, int resultCode, Intent data) {
-        this.setThumbBitmap((Bitmap) data.getExtras().get("data"));
-        notifyPhotoChanged();
-    }
 
     /* dialog management */
     @Override
     public void OnCameraButtonPressed() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        this.callingActivity.startActivityForResult(intent, REQUEST_CAMERA);
+        startActivityForResult(intent, REQUEST_CAMERA);
     }
 
     @Override
     public void OnGalleryButtonPressed() {
-        Toast toast = Toast.makeText(context, "gallery pressed", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getActivity(), "gallery pressed", Toast.LENGTH_SHORT);
         toast.show();
     }
 
@@ -178,4 +159,12 @@ public class PhotoViewer extends RelativeLayout implements PhotoDialogListener {
 
     }
     /* end dialog management */
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        this.setThumbBitmap((Bitmap) data.getExtras().get("data"));
+        notifyPhotoChanged();
+    }
 }
