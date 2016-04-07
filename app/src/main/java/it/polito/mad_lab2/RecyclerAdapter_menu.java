@@ -3,6 +3,8 @@ package it.polito.mad_lab2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +18,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,12 +30,31 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
 
     private Oggetto_menu dish_list;
     private LayoutInflater myInflater;
-    private Oggetto_piatto.type_enum menu_type;
+    //private Oggetto_piatto.type_enum menu_type;
+    //accesso veloce alla lista in esame ??
+    private ArrayList<Oggetto_piatto> current_list;
 
     public RecyclerAdapter_menu(Context context, Oggetto_menu data, Oggetto_piatto.type_enum type){
         this.dish_list = data;
         myInflater = LayoutInflater.from(context);
-        this.menu_type = type;
+        //this.menu_type = type;
+        switch(type){
+            case PRIMI:
+                current_list= data.getPrimi();
+                break;
+            case SECONDI:
+                current_list = data.getSecondi();
+                break;
+            case DESSERT:
+                current_list = data.getDessert();
+                break;
+            case ALTRO:
+                current_list = data.getAltro();
+                break;
+            default:
+                System.out.println("Typology unknown");
+                break;
+        }
     }
 
     @Override
@@ -44,7 +68,9 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Oggetto_piatto currentObj;
-        switch(menu_type){
+        currentObj = current_list.get(position);
+        holder.setData(currentObj, position);
+        /*switch(menu_type){
             case PRIMI:
                 currentObj = dish_list.getPrimi().get(position);
                 holder.setData(currentObj, position);
@@ -64,12 +90,13 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
             default:
                 System.out.println("Typology unknown");
                 break;
-        }
+        }*/
     }
 
     @Override
     public int getItemCount() {
-        switch(menu_type){
+        return current_list.size();
+        /*switch(menu_type){
             case PRIMI:
                 return dish_list.getPrimi().size();
             case SECONDI:
@@ -81,7 +108,7 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
             default:
                 System.out.println("Typology unknown");
                 return 0;
-        }
+        }*/
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -94,6 +121,8 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
         private ImageButton dish_delete;
         private ImageButton dish_modify;
         private Context context;
+
+        private String fileName = "database";
 
 
 
@@ -143,25 +172,55 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
 
         //rimuovo piatto
         private void removeItem(int position){
-            /*try {
-                JSONObject jsonRootObject = new JSONObject(context.getResources().getString(R.string.json_piatti));
+            try {
                 //Get the instance of JSONArray that contains JSONObjects
-                JSONArray jsonArray = jsonRootObject.optJSONArray("lista_piatti");
+                JSONArray jsonArray = dish_list.getJSON().optJSONArray("lista_piatti");
                 for(int i=0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                     int id = Integer.parseInt(jsonObject.optString("id").toString());
-                    if(id == dish_list.get(position).getId()){
-                        jsonArray.remove(i);
+                    if(id == current_list.get(position).getId()){
+                        //problema verisone
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            jsonArray.remove(i);
+                        }
                     }
                 }
 
-                dish_list.remove(position);
+                current_list.remove(position);
                 notifyItemRemoved(position);
-                notifyItemRangeChanged(position, dish_list.size());
+                notifyItemRangeChanged(position, dish_list.getPrimi().size());
+                /*switch(menu_type){
+                    case PRIMI:
+                        dish_list.getPrimi().remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, dish_list.getPrimi().size());
+                        break;
+                    case SECONDI:
+                        dish_list.getSecondi().remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, dish_list.getSecondi().size());
+                        break;
+                    case DESSERT:
+                        dish_list.getDessert().remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, dish_list.getDessert().size());
+                        break;
+                    case ALTRO:
+                        dish_list.getAltro().remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, dish_list.getAltro().size());
+                        break;
+                    default:
+                        System.out.println("Typology unknown");
+                        break;
+                }*/
+
             } catch (JSONException e) {
                 System.out.println("Eccezione: " + e.getMessage());
-            }*/
+            } catch (Exception e){
+                System.out.println("Eccezione: " + e.getMessage());
+            }
         }
 
         //modifico piatto
