@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:id="@+id/toolbar"
         android:layout_height="?android:attr/actionBarSize" >
 
         <TextView
@@ -17,15 +14,16 @@
 
         <RelativeLayout
             android:id="@+id/alertLayout"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
             <ImageButton
                 android:id="@+id/alertButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:padding="12dp"
                 android:layout_margin="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground"
                 android:src="@drawable/ic_bell_notify_white_48dp" />
             <!--<TextView
@@ -61,23 +59,18 @@
         <ImageButton
             android:layout_toLeftOf="@id/alertLayout"
             android:id="@+id/calendarButton"
-            android:layout_marginRight="8dp"
+            android:padding="12dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
             android:background="?android:attr/selectableItemBackground"
-
             android:src="@drawable/ic_date_range_white_48dp" />
 
         <ImageButton
-                android:layout_toLeftOf="@id/calendarButton"
+                android:layout_toLeftOf="@id/alertLayout"
                 android:id="@+id/saveButton"
-                android:layout_marginRight="8dp"
+                android:padding="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-
+                android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground"
                 android:src="@drawable/ic_save_white_48dp" />
     </RelativeLayout>
-</LinearLayout>
