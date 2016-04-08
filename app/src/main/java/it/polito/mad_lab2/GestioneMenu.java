@@ -35,7 +35,7 @@ public class GestioneMenu extends EditableBaseActivity {
 
         SetSaveButtonVisibility(false);
         SetCalendarButtonVisibility(false);
-        SetAlertButtonVisibility(true);
+        setTitleTextView(getResources().getString(R.string.manu_edit_title));
         setContentView(R.layout.activity_gestione_menu);
 
 
@@ -272,6 +272,11 @@ public class GestioneMenu extends EditableBaseActivity {
     @Override
     protected void OnCalendarButtonPressed() {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void OnBackButtonPressed() {
+
     }
 
 }

@@ -29,8 +29,8 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
         SetSaveButtonVisibility(true);
         SetCalendarButtonVisibility(true);
-        SetAlertButtonVisibility(true);
-
+        SetBackButtonVisibility(false);
+        setTitleTextView(getResources().getString(R.string.app_name));
         setContentView(R.layout.activity_main);
 
 
@@ -65,6 +65,11 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
         Toast toast = Toast.makeText(getApplicationContext(), "Calendar pressed", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    @Override
+    protected void OnBackButtonPressed() {
+
     }
 
     public void eseguiActivityModificaMenu(View v){

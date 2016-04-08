@@ -1,5 +1,6 @@
 package it.polito.mad_lab2;
 
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,8 +33,10 @@ public abstract class BaseActivity extends AppCompatActivity{
     private ImageButton saveImageButton, alertButton, calendarButton;
     private TextView titleTextView, alertCountView;
     protected RelativeLayout alertDetailsView;
+    String activityTitle =  "Lab2";
 
-    private boolean save_visibility=false, calendar_visibility=false, alert_visibility = false;
+    private boolean save_visibility=false, calendar_visibility=false, alert_visibility = true, backbutton_visibility=true;;
+
     private int alertCount = 0;
     private boolean isAlertExpanded = false;
     Toolbar toolbar;
@@ -60,16 +63,22 @@ public abstract class BaseActivity extends AppCompatActivity{
             if (useToolbar()) {
 
                 setSupportActionBar(toolbar);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(backbutton_visibility);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
                 // Get access to the custom title view
-                TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-                mTitle.setText("LAB 2");
+                titleTextView = (TextView) toolbar.findViewById(R.id.toolbar_title);
+                titleTextView.setText(activityTitle);
             } else {
                 toolbar.setVisibility(View.GONE);
             }
         }
     }
+
+    protected void setTitleTextView(String title){
+        if(title!=null)
+            activityTitle=title;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -77,10 +86,28 @@ public abstract class BaseActivity extends AppCompatActivity{
         MenuItem notification = menu.findItem(R.id.menu_notify);
         notification.setVisible(alert_visibility);
         if(alert_visibility){
+
             RelativeLayout notificationLayout = (RelativeLayout) notification.getActionView();
             alertButton = (ImageButton) notificationLayout.findViewById(R.id.alertButton);
             alertCountView = (TextView) notificationLayout.findViewById(R.id.alertCountView);
             SetAlertCount(alertCount);
+            // Define the listener
+            MenuItemCompat.OnActionExpandListener expandListener = new MenuItemCompat.OnActionExpandListener() {
+                @Override
+                public boolean onMenuItemActionCollapse(MenuItem item) {
+                    // Do something when action item collapses
+                    return true;  // Return true to collapse action view
+                }
+
+                @Override
+                public boolean onMenuItemActionExpand(MenuItem item) {
+                    // Do something when expanded
+                    return true;  // Return true to expand action view
+                }
+            };
+            // Assign the listener to that action item
+            MenuItemCompat.setOnActionExpandListener(notification, expandListener);
+
         }
 
         menu.findItem(R.id.menu_save).setVisible(save_visibility);
@@ -93,6 +120,8 @@ public abstract class BaseActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch(id){
+            case android.R.id.home:
+                OnBackButtonPressed();
             case R.id.menu_save:
                 OnSaveButtonPressed();
                 break;
@@ -123,6 +152,11 @@ public abstract class BaseActivity extends AppCompatActivity{
         alert_visibility=visible;
     }
 
+    protected void SetBackButtonVisibility(boolean visible)
+    {
+        backbutton_visibility=visible;
+    }
+
     protected void SetAlertCount(int count)
     {
         this.alertCount = count;
@@ -132,6 +166,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected abstract void OnSaveButtonPressed();
     protected abstract void OnAlertButtonPressed();
     protected abstract void OnCalendarButtonPressed();
+    protected abstract void OnBackButtonPressed();
 
     protected void SetAlertDelatilsView(int id)
     {
