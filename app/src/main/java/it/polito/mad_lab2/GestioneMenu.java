@@ -2,29 +2,14 @@ package it.polito.mad_lab2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,15 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.ArrayList;
 
 public class GestioneMenu extends EditableBaseActivity {
 
@@ -171,7 +151,7 @@ public class GestioneMenu extends EditableBaseActivity {
                         break;
                 }
 
-                lista_menu.setJson(jsonRootObject);
+                //lista_menu.setJson(jsonRootObject);
 
             }
             return true;
@@ -251,19 +231,19 @@ public class GestioneMenu extends EditableBaseActivity {
             switch (position) {
                 case 0:
                     menuFragment = new BlankMenuFragment();
-                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.PRIMI, this.context);
+                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.PRIMI, this.context,jsonRootObject);
                     return menuFragment;
                 case 1:
                     menuFragment = new BlankMenuFragment();
-                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.SECONDI, this.context);
+                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.SECONDI, this.context,jsonRootObject);
                     return menuFragment;
                 case 2:
                     menuFragment = new BlankMenuFragment();
-                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.DESSERT, this.context);
+                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.DESSERT, this.context, jsonRootObject);
                     return menuFragment;
                 case 3:
                     menuFragment = new BlankMenuFragment();
-                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.ALTRO, this.context);
+                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.ALTRO, this.context, jsonRootObject);
                     return menuFragment;
             }
 

@@ -38,7 +38,10 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
     //accesso veloce alla lista in esame ??
     private ArrayList<Oggetto_piatto> current_list;
 
-    public RecyclerAdapter_menu(Context context, Oggetto_menu data, Oggetto_piatto.type_enum type){
+    //solo per ora
+    private JSONObject json_temp;
+
+    public RecyclerAdapter_menu(Context context, Oggetto_menu data, Oggetto_piatto.type_enum type, JSONObject jOjb){
         this.dish_list = data;
         myInflater = LayoutInflater.from(context);
         this.menu_type = type;
@@ -59,6 +62,9 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
                 System.out.println("Typology unknown");
                 break;
         }
+
+        //solo per ora
+        this.json_temp = jOjb;
     }
 
     @Override
@@ -178,7 +184,7 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
         private void removeItem(){
             try {
                 //Get the instance of JSONArray that contains JSONObjects
-                JSONArray jsonArray = dish_list.getJSON().optJSONArray("lista_piatti");
+                JSONArray jsonArray = json_temp.optJSONArray("lista_piatti");
                 for(int i=0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 

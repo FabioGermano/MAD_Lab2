@@ -15,7 +15,7 @@ public class Oggetto_menu implements Serializable {
     private ArrayList<Oggetto_piatto> altro = null;
 
     //solo per ora
-    private JSONObject jsonRootObject = null;
+    //private JSONObject jsonRootObject = null;
 
     public Oggetto_menu(){
         this.primi = new ArrayList<>();
@@ -40,9 +40,9 @@ public class Oggetto_menu implements Serializable {
         return this.altro;
     }
 
-    public JSONObject getJSON(){
+   /*public JSONObject getJSON(){
         return this.jsonRootObject;
-    }
+    }*/
 
     public void addPrimo(Oggetto_piatto obj){
         if(this.primi == null){
@@ -76,7 +76,7 @@ public class Oggetto_menu implements Serializable {
         this.altro.add(obj);
     }
 
-    public void setJson(JSONObject obj){
+    /*public void setJson(JSONObject obj){
         this.jsonRootObject = obj;
-    }
+    }*/
 }

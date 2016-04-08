@@ -11,21 +11,25 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;;
+import android.view.ViewGroup;;import org.json.JSONObject;
 
 public class BlankMenuFragment extends Fragment {
     private Oggetto_menu m_list;
     private Oggetto_piatto.type_enum type;
     private Context context;
 
+    //solo per ora
+    private JSONObject json_obj;
+
     public BlankMenuFragment() {
         // Required empty public constructor
     }
 
-    public void setValue(Oggetto_menu obj, Oggetto_piatto.type_enum e, Context c){
+    public void setValue(Oggetto_menu obj, Oggetto_piatto.type_enum e, Context c, JSONObject jObj){
         this.m_list = obj;
         this.type = e;
         this.context = c;
+        this.json_obj = jObj;
     }
 
     @Override
@@ -41,7 +45,7 @@ public class BlankMenuFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_blank_menu, container, false);
 
         RecyclerView rView = (RecyclerView) rootView.findViewById(R.id.recyclerView_menu);
-        RecyclerAdapter_menu myAdapter = new RecyclerAdapter_menu(context, m_list, type);
+        RecyclerAdapter_menu myAdapter = new RecyclerAdapter_menu(context, m_list, type, json_obj);
         if(rView != null) {
             rView.setAdapter(myAdapter);
 
