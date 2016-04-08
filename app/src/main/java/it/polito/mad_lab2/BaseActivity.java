@@ -35,7 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected RelativeLayout alertDetailsView;
     String activityTitle =  "Lab2";
 
-    private boolean save_visibility=false, calendar_visibility=false, alert_visibility = true, backbutton_visibility=true;;
+    private boolean hideToolbar=false, save_visibility=false, calendar_visibility=false, alert_visibility = true, backbutton_visibility=true;;
 
     private int alertCount = 0;
     private boolean isAlertExpanded = false;
@@ -56,6 +56,10 @@ public abstract class BaseActivity extends AppCompatActivity{
         configureToolbar(view);
         super.setContentView(view);
     }
+    protected void hideToolbar(boolean bool){
+        hideToolbar = bool;
+
+    }
 
     private void configureToolbar(View view) {
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
@@ -65,8 +69,13 @@ public abstract class BaseActivity extends AppCompatActivity{
                 setSupportActionBar(toolbar);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(backbutton_visibility);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
-                // Get access to the custom title view
                 titleTextView = (TextView) toolbar.findViewById(R.id.toolbar_title);
+                if(hideToolbar) {
+                    //getSupportActionBar().hide();
+                    titleTextView.setVisibility(View.GONE);
+                    toolbar.getBackground().setAlpha(0);
+                }
+                // Get access to the custom title view
                 titleTextView.setText(activityTitle);
             } else {
                 toolbar.setVisibility(View.GONE);

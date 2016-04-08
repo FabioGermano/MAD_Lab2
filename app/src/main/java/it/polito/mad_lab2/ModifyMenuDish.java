@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -25,7 +27,6 @@ public class ModifyMenuDish extends EditableBaseActivity {
 
         SetCalendarButtonVisibility(false);
         setTitleTextView(getResources().getString(R.string.manu_edit_dish));
-
         setContentView(R.layout.activity_modify_menu_dish);
         InitializeFABButtons(false, true, false);
 
