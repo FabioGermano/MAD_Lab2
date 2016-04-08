@@ -58,8 +58,13 @@ public abstract class BaseActivity extends AppCompatActivity{
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         if (toolbar != null) {
             if (useToolbar()) {
+
                 setSupportActionBar(toolbar);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+                // Get access to the custom title view
+                TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+                mTitle.setText("LAB 2");
             } else {
                 toolbar.setVisibility(View.GONE);
             }
@@ -86,8 +91,21 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(id){
+            case R.id.menu_save:
+                OnSaveButtonPressed();
+                break;
+            case R.id.menu_calendar:
+                OnCalendarButtonPressed();
+                break;
+            case R.id.menu_notify:
+                OnAlertButtonPressed();
+            default:
+                break;
+        }
         return super.onOptionsItemSelected(item);
-        //TODO
+
     }
 
     protected void SetCalendarButtonVisibility(boolean visible)

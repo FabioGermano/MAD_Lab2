@@ -29,6 +29,7 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
         SetSaveButtonVisibility(true);
         SetCalendarButtonVisibility(true);
+        SetAlertButtonVisibility(true);
 
         setContentView(R.layout.activity_main);
 
@@ -48,7 +49,8 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     @Override
     protected void OnSaveButtonPressed()
     {
-        throw new UnsupportedOperationException();
+        Toast toast = Toast.makeText(getApplicationContext(), "Save pressed", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Override
@@ -60,7 +62,9 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
     @Override
     protected void OnCalendarButtonPressed() {
-        throw new UnsupportedOperationException();
+
+        Toast toast = Toast.makeText(getApplicationContext(), "Calendar pressed", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void eseguiActivityModificaMenu(View v){

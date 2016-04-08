@@ -55,7 +55,7 @@ public class GestioneMenu extends EditableBaseActivity {
 
         SetSaveButtonVisibility(false);
         SetCalendarButtonVisibility(false);
-
+        SetAlertButtonVisibility(true);
         setContentView(R.layout.activity_gestione_menu);
 
 
