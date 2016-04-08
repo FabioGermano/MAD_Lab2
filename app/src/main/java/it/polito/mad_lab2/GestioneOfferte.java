@@ -138,7 +138,7 @@ public class GestioneOfferte extends EditableBaseActivity {
 
     @Override
     protected void OnBackButtonPressed() {
-        
+
     }
 
     @Override
