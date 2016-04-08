@@ -73,6 +73,11 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         startActivity(intent);
     }
 
+    public void eseguiActivityModificaOfferte(View v){
+        Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.GestioneOfferte.class);
+        startActivity(intent);
+    }
+
     @Override
     public void OnPhotoChanged(Bitmap thumb, Bitmap large) {
         // Salvo bitmap a DB (serializzate)

@@ -24,8 +24,7 @@
       "prezzo":"15",
       "tipo":"Secondo",
       "path_foto":"a"
-    },
-    {
+    },{
       "id":"5",
       "nome":"Piatto59",
       "prezzo":"23",
@@ -37,8 +36,7 @@
       "prezzo":"5",
       "tipo":"Secondo",
       "path_foto":"a"
-    },
-    {
+    },{
       "id":"7",
       "nome":"Piatto53",
       "prezzo":"14",
@@ -50,15 +48,13 @@
       "prezzo":"13",
       "tipo":"Secondo",
       "path_foto":"a"
-    }
-  ,{
+    },{
       "id":"9",
       "nome":"Piatto545",
       "prezzo":"136",
       "tipo":"Secondo",
       "path_foto":"a"
-    }
-  ,{
+    },{
       "id":"10",
       "nome":"Piatto335",
       "prezzo":"13",
@@ -71,5 +67,27 @@
       "tipo":"Secondo",
       "path_foto":"a"
     }
+  ],
+  "lista_offerte":[
+    {
+      "id":"1",
+      "nome":"Offerta1",
+      "prezzo":"13",
+      "note":"panino+bibita",
+      "path_foto":"a"
+    },{
+      "id":"2",
+      "nome":"Offerta2",
+      "prezzo":"15",
+      "note":"panino+bibita+patatine",
+      "path_foto":"a"
+    },{
+      "id":"1",
+      "nome":"Offerta3",
+      "prezzo":"20",
+      "note":"primo+secondo+acqua",
+      "path_foto":"a"
+    }
   ]
+
 }

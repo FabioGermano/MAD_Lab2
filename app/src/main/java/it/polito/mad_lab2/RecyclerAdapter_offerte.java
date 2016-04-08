@@ -1,0 +1,111 @@
+package it.polito.mad_lab2;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Euge on 08/04/2016.
+ */
+public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapter_offerte.MyViewHolder_offerta> {
+    private ArrayList<Oggetto_offerta> lista_offerte;
+    private LayoutInflater myInflater;
+
+    public RecyclerAdapter_offerte(Context context, ArrayList<Oggetto_offerta> data) {
+        this.lista_offerte = data;
+        myInflater = LayoutInflater.from(context);
+    }
+
+    @Override
+    public MyViewHolder_offerta onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = myInflater.inflate(R.layout.riga_lista, parent, false);
+        MyViewHolder_offerta holder = new MyViewHolder_offerta(v);
+        holder.setListeners();
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder_offerta holder, int position) {
+        Oggetto_offerta currentObj = lista_offerte.get(position);
+        holder.setData(currentObj, position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return lista_offerte.size();
+    }
+
+
+    class MyViewHolder_offerta extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private int position;
+        private Oggetto_offerta current;
+        private ImageView dish_img;
+        private TextView dish_name;
+        private TextView dish_price;
+        private ImageButton dish_delete;
+        private ImageButton dish_modify;
+        private Context context;
+
+        public MyViewHolder_offerta(View itemView) {
+            super(itemView);
+            dish_img = (ImageView) itemView.findViewById(R.id.image_dish_menu);
+            dish_name = (TextView) itemView.findViewById(R.id.dish_name_menu);
+            dish_price = (TextView) itemView.findViewById(R.id.dish_price_menu);
+            dish_delete = (ImageButton) itemView.findViewById(R.id.img_delete_menu);
+            dish_modify = (ImageButton) itemView.findViewById(R.id.img_modify_menu);
+
+            context = itemView.getContext();
+        }
+
+        public void setData(Oggetto_offerta currentObj, int position) {
+            this.position = position;
+            this.current = currentObj;
+            if(dish_name != null)
+                this.dish_name.setText(currentObj.getName());
+            if(dish_price != null) {
+                String tmp = String.valueOf(currentObj.getCost()) + " " + context.getResources().getString(R.string.money_value);
+                this.dish_price.setText(tmp);
+            }
+            //carico foto
+            if(dish_img != null){
+
+            }
+
+        }
+
+        public void setListeners(){
+            dish_delete.setOnClickListener(MyViewHolder_offerta.this);
+            dish_modify.setOnClickListener(MyViewHolder_offerta.this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.img_delete_menu:
+                    removeItem();
+                    break;
+                case R.id.img_modify_menu:
+                    modifyItem();
+                    break;
+            }
+        }
+
+        //rimuovo offerta
+        private void removeItem(){
+
+        }
+
+        //modifico offerta
+        private void modifyItem(){
+
+        }
+    }
+}

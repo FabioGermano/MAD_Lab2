@@ -77,8 +77,7 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Oggetto_piatto currentObj;
-        currentObj = current_list.get(position);
+        Oggetto_piatto currentObj = current_list.get(position);
         holder.setData(currentObj, position);
         /*switch(menu_type){
             case PRIMI:
@@ -131,9 +130,6 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
         private ImageButton dish_delete;
         private ImageButton dish_modify;
         private Context context;
-
-        private String fileName = "database";
-
 
 
         public MyViewHolder(View itemView) {
