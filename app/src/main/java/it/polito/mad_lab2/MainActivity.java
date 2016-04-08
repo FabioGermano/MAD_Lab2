@@ -26,12 +26,14 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         } else {
             // Implement this feature without material design
         }
+
+        SetSaveButtonVisibility(true);
+        SetCalendarButtonVisibility(true);
+
         setContentView(R.layout.activity_main);
 
-        SetSaveButtonVisibility(false);
-        SetCalendarButtonVisibility(false);
 
-        SetAlertDelatilsView(R.id.alertDetailsView);
+        //SetAlertDelatilsView(R.id.alertDetailsView);
 
         PhotoViewer currentFragment = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.ad_fragment);
         try {

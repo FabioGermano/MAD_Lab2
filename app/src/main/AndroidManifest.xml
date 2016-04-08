@@ -3,6 +3,7 @@
     package="it.polito.mad_lab2">
 
     <application
+        android:windowSoftInputMode="stateVisible|adjustResize"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/app_icon"

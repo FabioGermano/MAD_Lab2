@@ -22,10 +22,9 @@ public class ModifyMenuDish extends EditableBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modify_menu_dish);
 
         SetCalendarButtonVisibility(false);
-
+        setContentView(R.layout.activity_modify_menu_dish);
         InitializeFABButtons(false, true, false);
 
         try {

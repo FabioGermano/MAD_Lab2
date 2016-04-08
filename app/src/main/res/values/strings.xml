@@ -17,5 +17,9 @@
     <string name="chose_library">Gallery</string>
     <string name="remove_photo">Remove</string>
     <string name="add_photo">Photo</string>
+    <string name="notifications">Notifications</string>
+    <string name="action_settings">Settings</string>
+    <string name="save">Save</string>
+    <string name="calendar">Calendar</string>
 
 </resources>

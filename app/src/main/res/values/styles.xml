@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="ParentOfAppTheme" parent="Theme.AppCompat.Light" >
+    <style name="ParentOfAppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
         <!-- definitions fo v<21 -->
         <item name="colorPrimary">@color/themeColor</item>
         <item name="android:textColorPrimary">#FFFFFF</item>

@@ -52,10 +52,13 @@ public class GestioneMenu extends EditableBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gestione_menu);
 
         SetSaveButtonVisibility(false);
         SetCalendarButtonVisibility(false);
+
+        setContentView(R.layout.activity_gestione_menu);
+
+
 
         InitializeFABButtons(false, false, true);
 

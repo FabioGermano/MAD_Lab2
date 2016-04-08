@@ -1,12 +1,20 @@
 package it.polito.mad_lab2;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.ActionProvider;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,84 +33,76 @@ public abstract class BaseActivity extends AppCompatActivity{
     private TextView titleTextView, alertCountView;
     protected RelativeLayout alertDetailsView;
 
+    private boolean save_visibility=false, calendar_visibility=false, alert_visibility = false;
     private int alertCount = 0;
     private boolean isAlertExpanded = false;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater mInflater = LayoutInflater.from(this);
+    protected boolean useToolbar() {
+        return true;
+    }
 
-        View mCustomView = mInflater.inflate(R.layout.toolbar_view, null);
-        titleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
-        titleTextView.setText("Lab2");
+    @Override
+    public void setContentView(int layoutResID) {
+        View view = getLayoutInflater().inflate(layoutResID, null);
+        configureToolbar(view);
+        super.setContentView(view);
+    }
 
-        calendarButton = (ImageButton) mCustomView.findViewById(R.id.calendarButton);
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OnCalendarButtonPressed();
+    private void configureToolbar(View view) {
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            if (useToolbar()) {
+                setSupportActionBar(toolbar);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            } else {
+                toolbar.setVisibility(View.GONE);
             }
-        });
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-        saveImageButton = (ImageButton) mCustomView.findViewById(R.id.saveButton);
-        saveImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OnSaveButtonPressed();
-            }
-        });
+        toolbar.inflateMenu(R.menu.action_bar);
+        MenuItem notification = menu.findItem(R.id.menu_notify);
+        notification.setVisible(alert_visibility);
+        if(alert_visibility){
+            RelativeLayout notificationLayout = (RelativeLayout) notification.getActionView();
+            alertButton = (ImageButton) notificationLayout.findViewById(R.id.alertButton);
+            alertCountView = (TextView) notificationLayout.findViewById(R.id.alertCountView);
+            SetAlertCount(alertCount);
+        }
 
-        alertButton = (ImageButton) mCustomView.findViewById(R.id.alertButton);
-        alertButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!isAlertExpanded) {
-                    expandOrCollapse(alertDetailsView, "expand");
-                    isAlertExpanded = true;
-                }
-                else {
-                    expandOrCollapse(alertDetailsView, "collapse");
-                    isAlertExpanded = false;
-                }
+        menu.findItem(R.id.menu_save).setVisible(save_visibility);
+        menu.findItem(R.id.menu_calendar).setVisible(calendar_visibility);
 
-                OnAlertButtonPressed();
-            }
-        });
+        return super.onCreateOptionsMenu(menu);
+    }
 
-        alertCountView = (TextView) mCustomView.findViewById(R.id.alertCountView);
-        SetAlertCount(22);
-
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+        //TODO
     }
 
     protected void SetCalendarButtonVisibility(boolean visible)
     {
-        if(!visible)
-            this.calendarButton.setVisibility(View.GONE );
-        else
-            this.calendarButton.setVisibility(View.VISIBLE);
+        calendar_visibility=visible;
     }
 
     protected void SetSaveButtonVisibility(boolean visible)
     {
-        if(!visible)
-            this.saveImageButton.setVisibility(View.GONE);
-        else
-            this.saveImageButton.setVisibility(View.VISIBLE);
+        save_visibility=visible;
     }
 
     protected void SetAlertButtonVisibility(boolean visible)
     {
-        if(!visible)
-            this.alertButton.setVisibility(View.GONE);
-        else
-            this.alertButton.setVisibility(View.VISIBLE);
+        alert_visibility=visible;
     }
 
     protected void SetAlertCount(int count)
