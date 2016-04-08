@@ -16,8 +16,8 @@ import android.widget.Spinner;
 public class ModifyMenuDish extends EditableBaseActivity {
 
     private Oggetto_piatto dish = null;
+    private Oggetto_menu dish_list= null;
     private int position = -1;
-    private boolean newDish = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +53,17 @@ public class ModifyMenuDish extends EditableBaseActivity {
 
             //recupero il piatto da modificare
             Bundle extras = getIntent().getExtras();
-            if (extras != null) {
-                dish = (Oggetto_piatto) extras.getSerializable("dish");
+            Oggetto_piatto.type_enum dish_type = (Oggetto_piatto.type_enum) getIntent().getSerializableExtra("type_enum");
+            if (extras != null && dish_type != null) {
+                dish_list = (Oggetto_menu) extras.getSerializable("dish_list");
                 position = extras.getInt("position");
 
                 extras.clear();
 
-                if (dish != null && position != -1) {
+                if (dish_list != null && position != -1) {
+                    //ricavo l'Oggetto_piatto corretto
+
+
                     //carico le informazioni nella pagina di modifica
                     ImageView imageDish = (ImageView) findViewById(R.id.imageDish_modifyMenu);
                     EditText editName = (EditText) findViewById(R.id.edit_dishName_modifyMenu);
@@ -84,6 +88,7 @@ public class ModifyMenuDish extends EditableBaseActivity {
                         editPrice.setText(String.valueOf(dish.getCost()));
                     }
 
+                    //imposto lo spinner al valore corretto del piatto
                     //if(spinner != null)
                         //spinner.setSelection(adapter.getPosition(dish.getDishType()));
 
@@ -93,9 +98,6 @@ public class ModifyMenuDish extends EditableBaseActivity {
             }
             //no extras, creazione di un nuovo piatto, lascio la configurazione di default
             else {
-                //utile per differenziare le due funzionalità quando salvo e aggiorno la lista nella
-                //schermata principale
-                newDish = true;
                 //debug
                 System.out.println("Creazione di un nuovo piatto");
                 dish = new Oggetto_piatto(null, -1, null, null);
@@ -107,7 +109,7 @@ public class ModifyMenuDish extends EditableBaseActivity {
     }
 
     private void saveInfo(){
-        // aggiorno l'oggetto piatto con tutte le nuove informazioni e lo passo indietro all'activity di modifica menu principale
+        // aggiorno l'oggetto piatto con tutte le nuove informazioni e passo indietro, all'activity di modifica menu principale, l'intere tabelle
         try {
             EditText editName = (EditText) findViewById(R.id.edit_dishName_modifyMenu);
             EditText editPrice = (EditText) findViewById(R.id.edit_dishPrice_modifyMenu);
@@ -140,14 +142,7 @@ public class ModifyMenuDish extends EditableBaseActivity {
             }
 
             Bundle b = new Bundle();
-            b.putSerializable("dish", dish);
-
-            if(!newDish){
-                b.putString("type", "modify");
-                b.putInt("position", position);
-            } else {
-                b.putString("type", "new");
-            }
+            b.putSerializable("dish_list", dish_list);
 
             Intent intent = new Intent(getApplicationContext(), GestioneMenu.class);
             intent.putExtras(b);

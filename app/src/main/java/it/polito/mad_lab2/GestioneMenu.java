@@ -63,65 +63,42 @@ public class GestioneMenu extends EditableBaseActivity {
         InitializeFABButtons(false, false, true);
 
         try {
-
-            //carico info dal server (o da locale)
-            /*Oggetto_piatto p1 = new Oggetto_piatto("Piatto1", 30, null, "primo");
-            Oggetto_piatto p2 = new Oggetto_piatto("Piatto2", 23, null, "dolce");
-            Oggetto_piatto p3 = new Oggetto_piatto("Piatto3", 12, null, "dolce");
-            Oggetto_piatto p4 = new Oggetto_piatto("Piatto4", 11, null, "primo");
-            Oggetto_piatto p5 = new Oggetto_piatto("Piatto5", 11, null, "secondo");
-            list_piatti.add(p1);
-            list_piatti.add(p2);
-            list_piatti.add(p3);
-            list_piatti.add(p4);
-            list_piatti.add(p5);*/
-
             //recupero eventuali modifiche apportate ad un piatto
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                String type = extras.getString("type");
-                if (type != null) {
-                    /*if (type.compareTo("modify") == 0) {
-                        //piatto modificato
-                        Oggetto_piatto mod_dish = (Oggetto_piatto) extras.getSerializable("dish");
-                        int position = extras.getInt("position");
-                        extras.clear();
+                lista_menu = (Oggetto_menu) extras.getSerializable("dish_list");
+                extras.clear();
 
-                        list_piatti.remove(position);
-                        list_piatti.add(mod_dish);
-
-                    } else if(type.compareTo("new")==0){
-                        //piatto nuovo
-                        Oggetto_piatto mod_dish = (Oggetto_piatto) extras.getSerializable("dish");
-                        extras.clear();
-
-                        list_piatti.add(mod_dish);
-                    }*/
-                }
-            } else{
+            } else {
                 //altrimenti carico info dal server (o da locale)
                 boolean ris = readData();
             }
 
             //setUpRecyclerView();
-            
+
             // Get the ViewPager and set it's PagerAdapter so that it can display items
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_menu);
             MyPageAdapter pagerAdapter = new MyPageAdapter(getSupportFragmentManager(), GestioneMenu.this);
-            viewPager.setAdapter(pagerAdapter);
+            if (viewPager != null) {
+                viewPager.setAdapter(pagerAdapter);
+            }
 
             // Give the TabLayout the ViewPager
             TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout_menu);
-            tabLayout.setupWithViewPager(viewPager);
+            if (tabLayout != null) {
+                tabLayout.setupWithViewPager(viewPager);
 
-            // Iterate over all tabs and set the custom view
-            for (int i = 0; i < tabLayout.getTabCount(); i++) {
-                TabLayout.Tab tab = tabLayout.getTabAt(i);
-                tab.setCustomView(pagerAdapter.getTabView(i));
+                // Iterate over all tabs and set the custom view
+                for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                    TabLayout.Tab tab = tabLayout.getTabAt(i);
+                    if (tab != null) {
+                        tab.setCustomView(pagerAdapter.getTabView(i));
+                    }
+                }
             }
-
-
-        } catch(Exception e){
+        } catch (NullPointerException e_null){
+            System.out.println("Eccezione: " + e_null.getMessage());
+        } catch (Exception e){
             System.out.println("Eccezione: " + e.getMessage());
         }
     }

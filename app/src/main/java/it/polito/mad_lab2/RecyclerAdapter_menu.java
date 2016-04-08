@@ -34,14 +34,14 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
 
     private Oggetto_menu dish_list;
     private LayoutInflater myInflater;
-    //private Oggetto_piatto.type_enum menu_type;
+    private Oggetto_piatto.type_enum menu_type;
     //accesso veloce alla lista in esame ??
     private ArrayList<Oggetto_piatto> current_list;
 
     public RecyclerAdapter_menu(Context context, Oggetto_menu data, Oggetto_piatto.type_enum type){
         this.dish_list = data;
         myInflater = LayoutInflater.from(context);
-        //this.menu_type = type;
+        this.menu_type = type;
         switch(type){
             case PRIMI:
                 current_list= data.getPrimi();
@@ -166,16 +166,16 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.img_delete_menu:
-                    removeItem(position);
+                    removeItem();
                     break;
                 case R.id.img_modify_menu:
-                    modifyItem(current, position);
+                    modifyItem();
                     break;
             }
         }
 
         //rimuovo piatto
-        private void removeItem(int position){
+        private void removeItem(){
             try {
                 //Get the instance of JSONArray that contains JSONObjects
                 JSONArray jsonArray = dish_list.getJSON().optJSONArray("lista_piatti");
@@ -212,7 +212,9 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
                 for(int i=0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     if (Integer.parseInt(jsonObject.optString("id").toString()) == id){
-                        jsonArray.remove(i);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            jsonArray.remove(i);
+                        }
                     }
                 }
 
@@ -263,13 +265,15 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
         }
 
         //modifico piatto
-        private void modifyItem(Oggetto_piatto obj, int position){
+        private void modifyItem(){
             Bundle b = new Bundle();
-            b.putSerializable("dish", obj);
+            b.putSerializable("dish_list", dish_list);
             b.putInt("position", position);
 
             Intent intent = new Intent(context, ModifyMenuDish.class);
             intent.putExtras(b);
+            intent.putExtra("type_enum", menu_type);
+            //per leggerlo: result = (type_enum) intent.getSerializableExtra("type_enum");
             context.startActivity(intent);
         }
     }

@@ -2,12 +2,13 @@ package it.polito.mad_lab2;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Eugenio on 07/04/2016.
  */
-public class Oggetto_menu {
+public class Oggetto_menu implements Serializable {
     private ArrayList<Oggetto_piatto> primi = null;
     private ArrayList<Oggetto_piatto> secondi = null;
     private ArrayList<Oggetto_piatto> dessert = null;
