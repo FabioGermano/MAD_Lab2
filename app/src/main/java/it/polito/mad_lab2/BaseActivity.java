@@ -1,5 +1,6 @@
 package it.polito.mad_lab2;
 
+import android.graphics.Color;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -73,7 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity{
                 if(hideToolbar) {
                     //getSupportActionBar().hide();
                     titleTextView.setVisibility(View.GONE);
-                    toolbar.getBackground().setAlpha(0);
+                    toolbar.setBackgroundColor(Color.TRANSPARENT);
                 }
                 // Get access to the custom title view
                 titleTextView.setText(activityTitle);

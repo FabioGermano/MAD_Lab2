@@ -2,9 +2,9 @@ package it.polito.mad_lab2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,9 +13,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import it.polito.mad_lab2.photo_viewer.PhotoViewer;
+import it.polito.mad_lab2.photo_viewer.PhotoViewerListener;
+
 public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
     private PhotoViewer photoViewer;
+    private Bitmap largeBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +37,7 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         setTitleTextView(getResources().getString(R.string.app_name));
         setContentView(R.layout.activity_main);
 
-
-        //SetAlertDelatilsView(R.id.alertDetailsView);
-
         PhotoViewer currentFragment = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.ad_fragment);
-        try {
-            currentFragment.initPhotoViewer(this);
-        } catch (Exception e) {
-            Log.d(e.getMessage(), e.getMessage(), e);
-        }
 
         checkDB();
     }
@@ -78,8 +74,22 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     }
 
     @Override
-    public void OnPhotoChanged() {
+    public void OnPhotoChanged(Bitmap thumb, Bitmap large) {
+        // Salvo bitmap a DB (serializzate)
+        largeBitmap = large;
         Toast toast = Toast.makeText(getApplicationContext(), "Listener", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public Bitmap OnPhotoViewerActivityStarting() {
+        // leggi bitmap "large" da db
+        return largeBitmap;
+    }
+
+    @Override
+    public void OnPhotoRemoved() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT);
         toast.show();
     }
 

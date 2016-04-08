@@ -1,4 +1,4 @@
-package it.polito.mad_lab2;
+package it.polito.mad_lab2.photo_viewer;
 
 /**
  * Created by f.germano on 07/04/2016.

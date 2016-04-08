@@ -1,5 +1,6 @@
 <resources>
     <declare-styleable name="PhotoViewer">
+        <attr name="isLogo" format="boolean"/>
         <attr name="initialBackground" format="reference"/>
     </declare-styleable>
 </resources>

@@ -1,4 +1,4 @@
-package it.polito.mad_lab2;
+package it.polito.mad_lab2.photo_viewer;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -6,6 +6,8 @@ import android.support.v7.app.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import it.polito.mad_lab2.R;
 
 /**
  * Created by f.germano on 07/04/2016.
