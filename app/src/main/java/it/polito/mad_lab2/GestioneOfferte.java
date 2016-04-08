@@ -137,6 +137,11 @@ public class GestioneOfferte extends EditableBaseActivity {
     }
 
     @Override
+    protected void OnBackButtonPressed() {
+        
+    }
+
+    @Override
     protected void OnDeleteButtonPressed() {
         //in questa schermata è disabilitato
     }
