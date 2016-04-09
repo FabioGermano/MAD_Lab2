@@ -76,6 +76,13 @@
       "prezzo": "13",
       "tipo": "Secondo",
       "path_foto": "a"
+    },
+    {
+      "id": "12",
+      "nome": "Piatto77",
+      "prezzo": "17",
+      "tipo": "Altro",
+      "path_foto": "a"
     }
   ]
 }

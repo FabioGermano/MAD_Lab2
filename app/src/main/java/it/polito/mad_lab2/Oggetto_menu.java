@@ -68,4 +68,8 @@ public class Oggetto_menu implements Serializable {
 
         this.altro.add(obj);
     }
+
+    public int getNewId(){
+        return getPrimi().size()+getSecondi().size()+getDessert().size()+getAltro().size()+1;
+    }
 }

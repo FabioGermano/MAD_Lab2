@@ -48,7 +48,9 @@
             android:id="@+id/button_testMM"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:onClick="eseguiActivityModificaMenu"/>
+            android:onClick="eseguiActivityModificaMenu"
+            android:layout_alignRight="@+id/button_testMO"
+            android:layout_alignEnd="@+id/button_testMO" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

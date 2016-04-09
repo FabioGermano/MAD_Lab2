@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -147,6 +148,18 @@ public class GestioneMenu extends EditableBaseActivity {
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5  && keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    @Override
     protected void OnDeleteButtonPressed() {
         throw new UnsupportedOperationException();
     }
@@ -162,6 +175,9 @@ public class GestioneMenu extends EditableBaseActivity {
         System.out.println("Aggiungo nuovo piatto");
 
         Intent intent = new Intent(getApplicationContext(), ModifyMenuDish.class);
+        Bundle b = new Bundle();
+        b.putSerializable("dish_list", lista_menu);
+        intent.putExtras(b);
         startActivity(intent);
     }
 

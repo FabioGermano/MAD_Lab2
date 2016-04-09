@@ -27,6 +27,7 @@ public class GestioneOfferte extends EditableBaseActivity {
         try {
             SetSaveButtonVisibility(false);
             SetCalendarButtonVisibility(false);
+            SetSaveButtonVisibility(false);
             SetAlertButtonVisibility(true);
             setContentView(R.layout.activity_gestione_offerte);
 
