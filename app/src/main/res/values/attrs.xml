@@ -4,5 +4,6 @@
         <attr name="initialBackground" format="reference"/>
         <attr name="widthInDP" format="integer"/>
         <attr name="heightInDP" format="integer"/>
+        <attr name="isEditable" format="boolean" />
     </declare-styleable>
 </resources>

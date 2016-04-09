@@ -41,8 +41,9 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
     private final int SELECT_FILE = 1;
     private final int VIEW_PHOTO = 2;
     private int initialImage = -1, widthInDP, heightInDP;
-    private boolean isBitmapSetted = false, isLogo = false;
+    private boolean isBitmapSetted = false, isLogo = false, isEditable;
     private String pictureImagePath;
+    private boolean isPhotoClicked = false;
 
     private PhotoViewerListener listener;
 
@@ -70,6 +71,10 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
         setSizeInDP(this.widthInDP, this.heightInDP);
 
         this.editButton = (ImageButton)rootView.findViewById(R.id.epEditButton);
+        if(this.isEditable == false)
+        {
+            this.editButton.setVisibility(View.GONE);
+        }
 
         this.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +124,9 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
                 case R.styleable.PhotoViewer_widthInDP:
                     this.widthInDP = a.getInt(attr, 200);
                     break;
+                case R.styleable.PhotoViewer_isEditable:
+                    this.isEditable = a.getBoolean(attr, false);
+                    break;
             }
         }
 
@@ -133,8 +141,10 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
 
     private void photoPressed()
     {
-        if(!this.isLogo && this.isBitmapSetted)
+        if(!this.isLogo && this.isBitmapSetted && !this.isPhotoClicked)
         {
+            this.isPhotoClicked = true;
+
             Bitmap large = listener.OnPhotoViewerActivityStarting();
 
             String path = Environment.getExternalStorageDirectory().toString();
@@ -147,10 +157,11 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
                 fOut.flush();
                 fOut.close();
 
-                MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),file.getAbsolutePath(),file.getName(),file.getName());
+                MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), file.getAbsolutePath(), file.getName(), file.getName());
 
                 Intent intent = new Intent(getActivity(), it.polito.mad_lab2.photo_viewer.PhotoViewActivity.class);
                 intent.putExtra("photoPath", file.getAbsolutePath());
+                intent.putExtra("isEditable", this.isEditable);
 
                 startActivityForResult(intent, VIEW_PHOTO);
 
@@ -205,6 +216,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == VIEW_PHOTO && resultCode == Activity.RESULT_OK){
+            this.isPhotoClicked = false;
             boolean toBeDeleted = data.getBooleanExtra("toBeDeteted", false);
             if(toBeDeleted) {
                 OnRemoveButtonListener();

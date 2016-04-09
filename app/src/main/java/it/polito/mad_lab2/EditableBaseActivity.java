@@ -77,6 +77,18 @@ public abstract class EditableBaseActivity extends BaseActivity {
         });
     }
 
+    public void SetDeleteFABVisibility(boolean visibility)
+    {
+        if(visibility)
+        {
+            this.fab_remove.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            this.fab_remove.setVisibility(View.GONE);
+        }
+    }
+
     protected abstract void OnDeleteButtonPressed();
     protected abstract void OnEditButtonPressed();
     protected abstract void OnAddButtonPressed();
