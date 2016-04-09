@@ -113,23 +113,18 @@ public abstract class BaseActivity extends AppCompatActivity{
             RelativeLayout notificationLayout = (RelativeLayout) notification.getActionView();
             alertButton = (ImageButton) notificationLayout.findViewById(R.id.alertButton);
             alertCountView = (TextView) notificationLayout.findViewById(R.id.alertCountView);
-            SetAlertCount(alertCount);
-            // Define the listener
-            MenuItemCompat.OnActionExpandListener expandListener = new MenuItemCompat.OnActionExpandListener() {
+            View.OnClickListener listener = new View.OnClickListener() {
                 @Override
-                public boolean onMenuItemActionCollapse(MenuItem item) {
-                    // Do something when action item collapses
-                    return true;  // Return true to collapse action view
-                }
-
-                @Override
-                public boolean onMenuItemActionExpand(MenuItem item) {
-                    // Do something when expanded
-                    return true;  // Return true to expand action view
+                public void onClick(View v) {
+                    OnAlertButtonPressed();
                 }
             };
-            // Assign the listener to that action item
-            MenuItemCompat.setOnActionExpandListener(notification, expandListener);
+            notificationLayout.setOnClickListener(listener);
+            SetAlertCount(4);
+            if(alertCount==0){
+                alertButton.setImageResource(R.drawable.ic_bell_white_48dp);
+            }
+
 
         }
 

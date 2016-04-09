@@ -26,6 +26,7 @@ public class ModifyMenuDish extends EditableBaseActivity {
         super.onCreate(savedInstanceState);
 
         SetCalendarButtonVisibility(false);
+        SetSaveButtonVisibility(true);
         setTitleTextView(getResources().getString(R.string.manu_edit_dish));
         setContentView(R.layout.activity_modify_menu_dish);
         InitializeFABButtons(false, true, false);
