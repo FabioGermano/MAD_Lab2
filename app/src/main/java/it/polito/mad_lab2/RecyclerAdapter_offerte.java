@@ -1,6 +1,7 @@
 package it.polito.mad_lab2;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -100,7 +105,38 @@ public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapte
 
         //rimuovo offerta
         private void removeItem(){
+            try {
+                //id dell'offerta da rimuovere
+                int id = lista_offerte.get(position).getId();
 
+                lista_offerte.remove(position);
+
+                GestioneDB DB = new GestioneDB();
+
+                String db  = DB.leggiDB(context, "db_offerte");
+                JSONObject jsonRootObject = new JSONObject(db);
+                JSONArray jsonArray = jsonRootObject.optJSONArray("lista_offerte");
+
+                for(int i=0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    int id_JSON = Integer.parseInt(jsonObject.optString("id").toString());
+                    if(id == id_JSON){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            jsonArray.remove(i);
+                        }
+                    }
+                }
+
+                DB.updateDB(context, jsonRootObject, "db_offerte");
+
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, lista_offerte.size());
+
+            } catch (JSONException e) {
+                System.out.println("Eccezione: " + e.getMessage());
+            } catch (Exception e){
+                System.out.println("Eccezione: " + e.getMessage());
+            }
         }
 
         //modifico offerta

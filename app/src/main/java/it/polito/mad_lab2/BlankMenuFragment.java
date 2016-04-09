@@ -18,18 +18,14 @@ public class BlankMenuFragment extends Fragment {
     private Oggetto_piatto.type_enum type;
     private Context context;
 
-    //solo per ora
-    private JSONObject json_obj;
-
     public BlankMenuFragment() {
         // Required empty public constructor
     }
 
-    public void setValue(Oggetto_menu obj, Oggetto_piatto.type_enum e, Context c, JSONObject jObj){
+    public void setValue(Oggetto_menu obj, Oggetto_piatto.type_enum e, Context c){
         this.m_list = obj;
         this.type = e;
         this.context = c;
-        this.json_obj = jObj;
     }
 
     @Override
@@ -45,7 +41,7 @@ public class BlankMenuFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_blank_menu, container, false);
 
         RecyclerView rView = (RecyclerView) rootView.findViewById(R.id.recyclerView_menu);
-        RecyclerAdapter_menu myAdapter = new RecyclerAdapter_menu(context, m_list, type, json_obj);
+        RecyclerAdapter_menu myAdapter = new RecyclerAdapter_menu(context, m_list, type);
         if(rView != null) {
             rView.setAdapter(myAdapter);
 

@@ -88,27 +88,11 @@ public class GestioneMenu extends EditableBaseActivity {
             Oggetto_piatto obj;
             lista_menu = new Oggetto_menu();
 
-            /*InputStream db = getResources().getAssets().open(fileName, Context.MODE_PRIVATE);
-            StringBuffer buffer = new StringBuffer("");
-            byte[] b = new byte[1024];
-            int n;
-            while ((n = db.read(b)) != -1) {
-                buffer.append(new String(b, 0, n));
-            }
-            db.close();*/
 
-            /***** inserted by Roby on 07/04/2016 */
-            FileInputStream fis = openFileInput("database");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-            StringBuilder db = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                db.append(line);
-            }
-            fis.close();
-            /****************************************/
+            GestioneDB DB = new GestioneDB();
+            String db = DB.leggiDB(this, "db_menu");
 
-            jsonRootObject = new JSONObject(db.toString());
+            jsonRootObject = new JSONObject(db);
 
             //Get the instance of JSONArray that contains JSONObjects
             JSONArray arrayDebug = jsonRootObject.optJSONArray("lista_piatti");
@@ -159,12 +143,6 @@ public class GestioneMenu extends EditableBaseActivity {
         {
             System.out.println("Eccezione: " + e.getMessage());
             return false;
-        } catch (FileNotFoundException e){
-            System.out.println("Eccezione: file non trovato  " + e.getMessage());
-            return false;
-        } catch (IOException e){
-            System.out.println("Eccezione: " + e.getMessage());
-            return false;
         }
     }
 
@@ -186,21 +164,6 @@ public class GestioneMenu extends EditableBaseActivity {
         Intent intent = new Intent(getApplicationContext(), ModifyMenuDish.class);
         startActivity(intent);
     }
-
-    //imposto la lista di tutti i piatti
-    /*private void setUpRecyclerView(){
-        RecyclerView rView = (RecyclerView) findViewById(R.id.recyclerView_menu);
-        RecyclerAdapter_menu myAdapter = new RecyclerAdapter_menu(this, lista_menu, Oggetto_piatto.type_enum.PRIMI );
-        if(rView != null) {
-            rView.setAdapter(myAdapter);
-
-            LinearLayoutManager myLLM_vertical = new LinearLayoutManager(this);
-            myLLM_vertical.setOrientation(LinearLayoutManager.VERTICAL);
-            rView.setLayoutManager(myLLM_vertical);
-
-            rView.setItemAnimator(new DefaultItemAnimator());
-        }
-    }*/
 
     @Override
     protected void OnSaveButtonPressed() {
@@ -230,20 +193,24 @@ public class GestioneMenu extends EditableBaseActivity {
             BlankMenuFragment menuFragment;
             switch (position) {
                 case 0:
+                    // sono nei primi
                     menuFragment = new BlankMenuFragment();
-                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.PRIMI, this.context,jsonRootObject);
+                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.PRIMI, this.context);
                     return menuFragment;
                 case 1:
+                    // sono nei secondi
                     menuFragment = new BlankMenuFragment();
-                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.SECONDI, this.context,jsonRootObject);
+                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.SECONDI, this.context);
                     return menuFragment;
                 case 2:
+                    // sono nei contorni
                     menuFragment = new BlankMenuFragment();
-                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.DESSERT, this.context, jsonRootObject);
+                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.DESSERT, this.context);
                     return menuFragment;
                 case 3:
+                    // sono in altro
                     menuFragment = new BlankMenuFragment();
-                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.ALTRO, this.context, jsonRootObject);
+                    menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.ALTRO, this.context);
                     return menuFragment;
             }
 

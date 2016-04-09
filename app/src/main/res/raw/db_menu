@@ -1,0 +1,81 @@
+{
+  "lista_piatti": [
+    {
+      "id": "1",
+      "nome": "Piatto1",
+      "prezzo": "15",
+      "tipo": "Primo",
+      "path_foto": "a"
+    },
+    {
+      "id": "2",
+      "nome": "Piatto2",
+      "prezzo": "13",
+      "tipo": "Dessert",
+      "path_foto": "a"
+    },
+    {
+      "nome": "Piatto54",
+      "id": "3",
+      "prezzo": "144",
+      "tipo": "Primo",
+      "path_foto": "a"
+    },
+    {
+      "id": "4",
+      "nome": "Piatto74",
+      "prezzo": "15",
+      "tipo": "Secondo",
+      "path_foto": "a"
+    },
+    {
+      "id": "5",
+      "nome": "Piatto59",
+      "prezzo": "23",
+      "tipo": "Primo",
+      "path_foto": "a"
+    },
+    {
+      "id": "6",
+      "nome": "Piatto71",
+      "prezzo": "5",
+      "tipo": "Secondo",
+      "path_foto": "a"
+    },
+    {
+      "id": "7",
+      "nome": "Piatto53",
+      "prezzo": "14",
+      "tipo": "Primo",
+      "path_foto": "a"
+    },
+    {
+      "id": "8",
+      "nome": "Piatto55",
+      "prezzo": "13",
+      "tipo": "Secondo",
+      "path_foto": "a"
+    },
+    {
+      "id": "9",
+      "nome": "Piatto545",
+      "prezzo": "136",
+      "tipo": "Secondo",
+      "path_foto": "a"
+    },
+    {
+      "id": "10",
+      "nome": "Piatto335",
+      "prezzo": "13",
+      "tipo": "Dessert",
+      "path_foto": "a"
+    },
+    {
+      "id": "11",
+      "nome": "Piatto95",
+      "prezzo": "13",
+      "tipo": "Secondo",
+      "path_foto": "a"
+    }
+  ]
+}

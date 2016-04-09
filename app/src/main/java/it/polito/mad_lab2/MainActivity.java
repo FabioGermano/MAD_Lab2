@@ -100,46 +100,9 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
     /**** created by Roby on 07/04/2016 *****/
     public void checkDB(){
-        String FILENAME = "database";
-        StringBuffer str = new StringBuffer("");
-
-        //deleteFile(FILENAME);
-
-        try {
-            File f = new File(getFilesDir(), FILENAME);
-            if (!f.exists()){
-
-                InputStream dbFile = getResources().openRawResource(R.raw.database);
-                FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-                int ch;
-
-                while ((ch = dbFile.read()) != -1) {
-                    str.append((char)ch);
-                }
-
-                fos.write(str.toString().getBytes());
-
-                fos.close();
-                dbFile.close();
-                System.out.println("***** DB CREATO *****");
-            }
-            else {
-                System.out.println("***** DB ESISTENTE *****");
-
-                /*FileInputStream fis = openFileInput(FILENAME);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-                StringBuilder out = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    out.append(line);
-                }
-                fis.close();
-                System.out.println(out.toString());*/
-            }
-
-        } catch (IOException e) {
-            System.out.println("***** ECCEZIONE! "+ e.getMessage()+" *****");
-        }
+        GestioneDB DB = new GestioneDB();
+        //DB.deleteDB(this, "db_menu");
+        //DB.deleteDB(this, "db_offerte");
+        DB.creaDB(this);
     }
-    /***************************************************************/
 }

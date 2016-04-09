@@ -38,10 +38,8 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
     //accesso veloce alla lista in esame ??
     private ArrayList<Oggetto_piatto> current_list;
 
-    //solo per ora
-    private JSONObject json_temp;
 
-    public RecyclerAdapter_menu(Context context, Oggetto_menu data, Oggetto_piatto.type_enum type, JSONObject jOjb){
+    public RecyclerAdapter_menu(Context context, Oggetto_menu data, Oggetto_piatto.type_enum type){
         this.dish_list = data;
         myInflater = LayoutInflater.from(context);
         this.menu_type = type;
@@ -62,9 +60,6 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
                 System.out.println("Typology unknown");
                 break;
         }
-
-        //solo per ora
-        this.json_temp = jOjb;
     }
 
     @Override
@@ -179,85 +174,31 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
         //rimuovo piatto
         private void removeItem(){
             try {
-                //Get the instance of JSONArray that contains JSONObjects
-                JSONArray jsonArray = json_temp.optJSONArray("lista_piatti");
-                for(int i=0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    int id = Integer.parseInt(jsonObject.optString("id").toString());
-                    if(id == current_list.get(position).getId()){
-                        //problema verisone
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            jsonArray.remove(i);
-                        }
-                    }
-                }
-
-
-                /*         Created by Roby on 07/04/2016.    */
-                /***********da verificare ********************/
-                /* unificare con i controlli e ciclo sopra   */
-                //apro e leggo file database locale
-                FileInputStream fis = context.openFileInput("database");
-                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-                StringBuilder db = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    db.append(line);
-                }
-                fis.close();
-                JSONObject jsonRootObject = new JSONObject(db.toString());
-                jsonArray = jsonRootObject.optJSONArray("lista_piatti");
-                //id dell'oggetto da rimuovere dal DB
+                //id del piatto da rimuovere
                 int id = current_list.get(position).getId();
 
+                current_list.remove(position);
+
+                GestioneDB DB = new GestioneDB();
+
+                String db  = DB.leggiDB(context, "db_menu");
+                JSONObject jsonRootObject = new JSONObject(db);
+                JSONArray jsonArray = jsonRootObject.optJSONArray("lista_piatti");
+
                 for(int i=0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if (Integer.parseInt(jsonObject.optString("id").toString()) == id){
+                    int id_JSON = Integer.parseInt(jsonObject.optString("id").toString());
+                    if(id == id_JSON){
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             jsonArray.remove(i);
                         }
                     }
                 }
 
-                FileOutputStream fos = context.openFileOutput("database", Context.MODE_PRIVATE);
-                String newDB = jsonRootObject.toString();
-                fos.write(newDB.getBytes());
-                fos.close();
+                DB.updateDB(context, jsonRootObject, "db_menu");
 
-                /*********************************************/
-
-
-
-
-                current_list.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, dish_list.getPrimi().size());
-                /*switch(menu_type){
-                    case PRIMI:
-                        dish_list.getPrimi().remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, dish_list.getPrimi().size());
-                        break;
-                    case SECONDI:
-                        dish_list.getSecondi().remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, dish_list.getSecondi().size());
-                        break;
-                    case DESSERT:
-                        dish_list.getDessert().remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, dish_list.getDessert().size());
-                        break;
-                    case ALTRO:
-                        dish_list.getAltro().remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, dish_list.getAltro().size());
-                        break;
-                    default:
-                        System.out.println("Typology unknown");
-                        break;
-                }*/
 
             } catch (JSONException e) {
                 System.out.println("Eccezione: " + e.getMessage());

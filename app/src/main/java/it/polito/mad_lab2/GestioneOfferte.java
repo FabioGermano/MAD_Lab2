@@ -55,48 +55,42 @@ public class GestioneOfferte extends EditableBaseActivity {
 
     private boolean readData(){
         try{
+
             lista_offerte = new ArrayList<>();
 
-            /***** inserted by Roby on 07/04/2016 */
-            FileInputStream fis = openFileInput("database");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-            StringBuilder db = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                db.append(line);
+            GestioneDB DB = new GestioneDB();
+            String db = DB.leggiDB(this, "db_offerte");
+
+            if (db != null){
+                System.out.println("Leggo le offerte");
+                jsonRootObject = new JSONObject(db);
+
+                //Get the instance of JSONArray that contains JSONObjects
+                JSONArray arrayDebug = jsonRootObject.optJSONArray("lista_offerte");
+
+                //Iterate the jsonArray and print the info of JSONObjects
+                for(int i=0; i < arrayDebug.length(); i++) {
+                    JSONObject jsonObject = arrayDebug.getJSONObject(i);
+
+                    String nome = jsonObject.optString("nome").toString();
+                    int prezzo = Integer.parseInt(jsonObject.optString("prezzo").toString());
+                    String note = jsonObject.optString("note".toString());
+                    //creo la lista delle offerte
+                    Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, null);
+                    obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                    obj.setNote(note);
+                    lista_offerte.add(obj);
+                    System.out.println("Offerta aggiunta");
+                }
+                if(lista_offerte.isEmpty())
+                    System.out.println("La lista è vuota");
+                return true;
             }
-            fis.close();
-            /****************************************/
-            System.out.println("Leggo le offerte");
-            jsonRootObject = new JSONObject(db.toString());
-
-            //Get the instance of JSONArray that contains JSONObjects
-            JSONArray arrayDebug = jsonRootObject.optJSONArray("lista_offerte");
-
-            //Iterate the jsonArray and print the info of JSONObjects
-            for(int i=0; i < arrayDebug.length(); i++) {
-                JSONObject jsonObject = arrayDebug.getJSONObject(i);
-
-                String nome = jsonObject.optString("nome").toString();
-                int prezzo = Integer.parseInt(jsonObject.optString("prezzo").toString());
-                String note = jsonObject.optString("note".toString());
-                //creo la lista delle offerte
-                Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, null);
-                obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
-                obj.setNote(note);
-                lista_offerte.add(obj);
-                System.out.println("Offerta aggiunta");
+            else {
+                return false;
             }
-            if(lista_offerte.isEmpty())
-                System.out.println("La lista è vuota");
-            return true;
+
         }catch (JSONException e){
-            System.out.println("Eccezione: " + e.getMessage());
-            return false;
-        } catch (FileNotFoundException e){
-            System.out.println("Eccezione: file non trovato  " + e.getMessage());
-            return false;
-        } catch (IOException e){
             System.out.println("Eccezione: " + e.getMessage());
             return false;
         } catch (Exception e){
