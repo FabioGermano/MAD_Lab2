@@ -1,5 +1,6 @@
 package it.polito.mad_lab2.photo_viewer;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -38,7 +39,8 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
 
     private final int REQUEST_CAMERA = 0;
     private final int SELECT_FILE = 1;
-    private int initialImage = -1;
+    private final int VIEW_PHOTO = 2;
+    private int initialImage = -1, widthInDP, heightInDP;
     private boolean isBitmapSetted = false, isLogo = false;
     private String pictureImagePath;
 
@@ -65,6 +67,8 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
         View rootView = inflater.inflate(R.layout.photo_viewer, container, false);
 
         this.imgPhoto = (ImageView)rootView.findViewById(R.id.epImgPhoto);
+        setSizeInDP(this.widthInDP, this.heightInDP);
+
         this.editButton = (ImageButton)rootView.findViewById(R.id.epEditButton);
 
         this.editButton.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +113,12 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
                 case R.styleable.PhotoViewer_isLogo:
                     this.isLogo = a.getBoolean(attr, false);
                     break;
+                case R.styleable.PhotoViewer_heightInDP:
+                    this.heightInDP = a.getInt(attr, 200);
+                    break;
+                case R.styleable.PhotoViewer_widthInDP:
+                    this.widthInDP = a.getInt(attr, 200);
+                    break;
             }
         }
 
@@ -142,7 +152,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
                 Intent intent = new Intent(getActivity(), it.polito.mad_lab2.photo_viewer.PhotoViewActivity.class);
                 intent.putExtra("photoPath", file.getAbsolutePath());
 
-                startActivity(intent);
+                startActivityForResult(intent, VIEW_PHOTO);
 
             } catch (FileNotFoundException e) {
                 Log.d(e.getMessage(), e.getMessage(), e);
@@ -168,22 +178,39 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
      * @param bitmap
      */
     public void setThumbBitmap(Bitmap bitmap) {
-        Drawable oldDrawable = this.imgPhoto.getDrawable();
+        /*Drawable oldDrawable = this.imgPhoto.getDrawable();
         if (oldDrawable != null) {
             Bitmap old = ((BitmapDrawable)oldDrawable).getBitmap();
             if(old != null)
             {
                 old.recycle();
             }
-        }
+        }*/
 
         this.imgPhoto.setImageBitmap(bitmap);
         this.isBitmapSetted = true;
     }
 
+    public void setSizeInDP(int DP_width, int DP_height)
+    {
+        final float scale = getResources().getDisplayMetrics().density;
+        int dpWidthInPx  = (int) (DP_width * scale);
+        int dpHeightInPx = (int) (DP_height * scale);
+        this.imgPhoto.getLayoutParams().width = dpWidthInPx;
+        this.imgPhoto.getLayoutParams().height = dpHeightInPx;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == VIEW_PHOTO && resultCode == Activity.RESULT_OK){
+            boolean toBeDeleted = data.getBooleanExtra("toBeDeteted", false);
+            if(toBeDeleted) {
+                OnRemoveButtonListener();
+            }
+            return;
+        }
 
         if(this.isLogo) {
             if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
@@ -283,6 +310,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
 
     @Override
     public void OnRemoveButtonListener() {
+        this.isBitmapSetted = false;
         this.imgPhoto.setImageResource(initialImage);
         notifyPhotoRemoved();
     }

@@ -2,8 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="20sp">
+    android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/epImgPhoto"
         android:layout_width="200sp"
@@ -11,7 +10,8 @@
 
     <ImageButton
         android:id="@+id/epEditButton"
-        android:background="@android:drawable/ic_menu_edit"
+        android:src="@android:drawable/ic_menu_edit"
+        android:background="?attr/selectableItemBackground"
         android:layout_alignRight="@+id/epImgPhoto"
         android:layout_alignBottom="@+id/epImgPhoto"
         android:layout_margin="1dp"

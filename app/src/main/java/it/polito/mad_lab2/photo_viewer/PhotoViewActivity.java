@@ -1,6 +1,7 @@
 package it.polito.mad_lab2.photo_viewer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class PhotoViewActivity extends EditableBaseActivity {
 
         setContentView(R.layout.activity_photo_view);
 
-        InitializeFABButtons(true, true, false);
+        InitializeFABButtons(false, true, false);
 
         touchImageView = (TouchImageView)findViewById(R.id.photoView);
 
@@ -68,7 +69,10 @@ public class PhotoViewActivity extends EditableBaseActivity {
 
     @Override
     protected void OnDeleteButtonPressed() {
-
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("toBeDeteted",true);
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
     }
 
     @Override

@@ -2,5 +2,7 @@
     <declare-styleable name="PhotoViewer">
         <attr name="isLogo" format="boolean"/>
         <attr name="initialBackground" format="reference"/>
+        <attr name="widthInDP" format="integer"/>
+        <attr name="heightInDP" format="integer"/>
     </declare-styleable>
 </resources>
