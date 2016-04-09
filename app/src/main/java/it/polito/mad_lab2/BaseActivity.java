@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -78,14 +79,15 @@ public abstract class BaseActivity extends AppCompatActivity{
                 if(hideShadow  ){
                     if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
                         view.findViewById(R.id.shadow).setVisibility(View.GONE);
+
                     else
                        view.findViewById(R.id.appbar).setElevation(0);
                 }
                 if(hideToolbar) {
                     //getSupportActionBar().hide();
                     titleTextView.setVisibility(View.GONE);
-                    toolbar.setBackgroundColor(Color.TRANSPARENT);
-                    toolbar.bringToFront();
+                    //toolbar.setBackgroundColor(Color.TRANSPARENT);
+                    toolbar.setBackgroundResource(R.drawable.shadow);
                 }
                 // Get access to the custom title view
                 titleTextView.setText(activityTitle);

@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         }
 
         SetSaveButtonVisibility(true);
-        SetCalendarButtonVisibility(true);
+        SetCalendarButtonVisibility(false);
         SetBackButtonVisibility(false);
         SetSaveButtonVisibility(false);
         setTitleTextView(getResources().getString(R.string.app_name));
