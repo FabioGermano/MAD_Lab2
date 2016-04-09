@@ -67,12 +67,12 @@
             android:name="it.polito.mad_lab2.photo_viewer.PhotoViewer"
             android:layout_below="@id/button_testMO"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             custom:isEditable="true"
             custom:isLogo="false"
             custom:heightInDP="200"
             custom:widthInDP="200"
-            custom:initialBackground="@drawable/default_dish_icon"
-            android:layout_height="wrap_content" />
+            custom:initialBackground="@drawable/default_dish_icon" />
 
         <include  layout="@layout/fat_buttons" />
     </RelativeLayout>
