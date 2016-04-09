@@ -1,6 +1,7 @@
 package it.polito.mad_lab2;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,7 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected RelativeLayout alertDetailsView;
     String activityTitle =  "Lab2";
 
-    private boolean hideToolbar=false, save_visibility=false, calendar_visibility=false, alert_visibility = true, backbutton_visibility=true;;
+    private boolean hideToolbar=false, hideShadow=false, save_visibility=false, calendar_visibility=false, alert_visibility = true, backbutton_visibility=true;;
 
     private int alertCount = 0;
     private boolean isAlertExpanded = false;
@@ -61,7 +63,9 @@ public abstract class BaseActivity extends AppCompatActivity{
         hideToolbar = bool;
 
     }
-
+    protected void hideShadow(boolean bool){
+        hideShadow=bool;
+    }
     private void configureToolbar(View view) {
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -71,10 +75,17 @@ public abstract class BaseActivity extends AppCompatActivity{
                 getSupportActionBar().setDisplayHomeAsUpEnabled(backbutton_visibility);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
                 titleTextView = (TextView) toolbar.findViewById(R.id.toolbar_title);
+                if(hideShadow  ){
+                    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                        view.findViewById(R.id.shadow).setVisibility(View.GONE);
+                    else
+                       view.findViewById(R.id.appbar).setElevation(0);
+                }
                 if(hideToolbar) {
                     //getSupportActionBar().hide();
                     titleTextView.setVisibility(View.GONE);
                     toolbar.setBackgroundColor(Color.TRANSPARENT);
+                    toolbar.bringToFront();
                 }
                 // Get access to the custom title view
                 titleTextView.setText(activityTitle);

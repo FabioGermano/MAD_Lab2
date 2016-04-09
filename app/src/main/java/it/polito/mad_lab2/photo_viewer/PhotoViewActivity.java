@@ -20,8 +20,8 @@ public class PhotoViewActivity extends EditableBaseActivity {
 
         SetSaveButtonVisibility(false);
         SetCalendarButtonVisibility(false);
-        SetAlertButtonVisibility(true);
-
+        SetAlertButtonVisibility(false);
+        hideToolbar(true);
         setContentView(R.layout.activity_photo_view);
 
         InitializeFABButtons(true, true, false);

@@ -12,7 +12,7 @@
         <!-- definitions for both v<21 and v>=21 -->
 
     </style>
-    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="android:background">@color/themeColor</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="selectableItemBackground">?android:selectableItemBackground</item>
@@ -24,5 +24,11 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">21sp</item>
         <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="ToolbarTheme.Transparent" parent="ToolbarTheme">
+        <item name="android:background">@null</item>
+        <item name="background" >@null</item>
+        <item name="android:windowActionBarOverlay">true</item>
     </style>
 </resources>
