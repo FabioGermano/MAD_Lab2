@@ -2,6 +2,7 @@ package it.polito.mad_lab2;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -213,9 +214,9 @@ public class ModifyMenuDish extends EditableBaseActivity {
                 return;
             }
 
+            GestioneDB DB = new GestioneDB();
             if (newDish){
                 //aggiorno il db locale
-                GestioneDB DB = new GestioneDB();
 
                 JSONObject newDishObj = new JSONObject();
 
@@ -258,7 +259,39 @@ public class ModifyMenuDish extends EditableBaseActivity {
                 }
             }
             else {
-                //modifico piatto
+
+                //da aggiungere implementazione cambio tipologia piatto --> cambia array in ram!
+
+
+                //gestion db locale
+                String db = DB.leggiDB(this, "db_menu");
+
+
+                JSONObject jsonRootObject = new JSONObject(db);
+                JSONArray jsonArray = jsonRootObject.getJSONArray("lista_piatti");
+
+                for(int i=0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    int id_JSON = Integer.parseInt(jsonObject.optString("id").toString());
+                    if(dish.getId() == id_JSON){
+                        jsonObject.put("nome", dish.getName());
+                        jsonObject.put("prezzo", dish.getCost());
+
+                        if (dish.getDishType() == Oggetto_piatto.type_enum.PRIMI){
+                            jsonObject.put("tipo", "Primo");
+                        }
+                        else if (dish.getDishType() == Oggetto_piatto.type_enum.SECONDI){
+                            jsonObject.put("tipo", "Secondo");
+                        }
+                        else if (dish.getDishType() == Oggetto_piatto.type_enum.DESSERT){
+                            jsonObject.put("tipo", "Dessert");
+                        }
+                        else if (dish.getDishType() == Oggetto_piatto.type_enum.ALTRO){
+                            jsonObject.put("tipo", "Altro");
+                        }
+                    }
+                }
+                DB.updateDB(this, jsonRootObject, "db_menu");
             }
 
 
