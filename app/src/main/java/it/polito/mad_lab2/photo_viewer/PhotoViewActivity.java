@@ -71,9 +71,6 @@ public class PhotoViewActivity extends EditableBaseActivity {
 
     @Override
     protected void OnBackButtonPressed() {
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("toBeDeteted",false);
-        setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
 

@@ -63,6 +63,12 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        this.isPhotoClicked = false;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.photo_viewer, container, false);
@@ -216,7 +222,6 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == VIEW_PHOTO && resultCode == Activity.RESULT_OK){
-            this.isPhotoClicked = false;
             boolean toBeDeleted = data.getBooleanExtra("toBeDeteted", false);
             if(toBeDeleted) {
                 OnRemoveButtonListener();
