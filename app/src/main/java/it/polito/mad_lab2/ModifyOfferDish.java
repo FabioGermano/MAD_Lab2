@@ -123,12 +123,19 @@ public class ModifyOfferDish extends EditableBaseActivity {
                     offer.setName(text);
             }
 
+
             if (editPrice != null) {
-                int cost = Integer.parseInt(editPrice.getText().toString());
-                if(cost < 0)
+                String price =  editPrice.getText().toString();
+                if (price.compareTo("") != 0) {
+                    int cost = Integer.parseInt(price);
+                    /*if (cost < 0)
+                        offer.setCost(-1);
+                    else*/
+                        offer.setCost(cost);
+                }
+                else{
                     offer.setCost(-1);
-                else
-                    offer.setCost(cost);
+                }
             }
 
             if (editNotes != null) {
@@ -142,6 +149,7 @@ public class ModifyOfferDish extends EditableBaseActivity {
 
             //la foto può essere null (default)
             if(offer.getName() == null || offer.getCost() == -1 || offer.getNote() == null){
+                System.out.println(R.string.error_complete);
                 AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
                 miaAlert.setTitle(getResources().getString(R.string.error));
                 miaAlert.setMessage(getResources().getString(R.string.error_complete));

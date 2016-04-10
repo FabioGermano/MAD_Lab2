@@ -134,7 +134,6 @@ public class ModifyMenuDish extends EditableBaseActivity {
 
                                 if (imageDish != null) {
                                     //carico l'immagine e setto OnClickListener
-
                                     imageDish.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -194,11 +193,16 @@ public class ModifyMenuDish extends EditableBaseActivity {
             }
 
             if (editPrice != null) {
-                int cost = Integer.parseInt(editPrice.getText().toString());
-                if(cost < 0)
-                    dish.setCost(-1);
+                String price =  editPrice.getText().toString();
+                if (price.compareTo("") != 0) {
+                    int cost = Integer.parseInt(editPrice.getText().toString());
+                    /*if (cost < 0)
+                        dish.setCost(-1);
+                    else*/
+                        dish.setCost(cost);
+                }
                 else
-                    dish.setCost(cost);
+                    dish.setCost(-1);
             }
 
             //la foto può essere null (default)

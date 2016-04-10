@@ -26,15 +26,19 @@ public class GestioneOfferte extends EditableBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            SetSaveButtonVisibility(false);
-            SetCalendarButtonVisibility(false);
-            SetSaveButtonVisibility(false);
-            SetAlertButtonVisibility(true);
-            setTitleTextView(getResources().getString(R.string.menu_edit_offer));
-            setContentView(R.layout.activity_gestione_offerte);
 
-            InitializeFABButtons(false, false, true);
+        SetSaveButtonVisibility(false);
+        SetCalendarButtonVisibility(false);
+        SetSaveButtonVisibility(false);
+        SetAlertButtonVisibility(true);
+        setTitleTextView(getResources().getString(R.string.menu_edit_offer));
+        setContentView(R.layout.activity_gestione_offerte);
+
+        InitializeFABButtons(false, false, true);
+
+
+        try {
+
 
 
             //recupero eventuali modifiche apportate ad un piatto
@@ -164,7 +168,11 @@ public class GestioneOfferte extends EditableBaseActivity {
     protected void OnAddButtonPressed() {
         //debug
         System.out.println("Aggiungo nuova offerta");
-        //b.putBoolean("new", true);
-
+        Intent intent = new Intent(getApplicationContext(), ModifyOfferDish.class);
+        Bundle b = new Bundle();
+        b.putSerializable("offer_list", lista_offerte);
+        b.putBoolean("new", true);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 }

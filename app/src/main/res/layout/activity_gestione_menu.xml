@@ -36,4 +36,5 @@
     <include  layout="@layout/fat_buttons"  />
 
 </RelativeLayout>
+
 </LinearLayout>
