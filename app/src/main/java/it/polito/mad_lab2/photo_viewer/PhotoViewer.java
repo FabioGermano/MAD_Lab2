@@ -1,5 +1,6 @@
 package it.polito.mad_lab2.photo_viewer;
 
+import com.soundcloud.android.crop.Crop;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -236,6 +237,26 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode == 6709 && resultCode == Activity.RESULT_OK){
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), Crop.getOutput(data));
+                Bitmap thumb = resizeBitmap(bitmap, 196);
+                if(!this.isLogo) {
+                    Bitmap large = resizeBitmap(bitmap, 1024);
+                    //bitmap.recycle();
+                    this.setThumbBitmap(thumb);
+                    notifyPhotoChanged(thumb, large);
+                }
+                else{
+                    this.setThumbBitmap(thumb);
+                    notifyPhotoChanged(thumb, null);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         if(requestCode == VIEW_PHOTO && resultCode == Activity.RESULT_OK){
             boolean toBeDeleted = data.getBooleanExtra("toBeDeteted", false);
             if(toBeDeleted) {
@@ -244,52 +265,17 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
             return;
         }
 
-        if(this.isLogo) {
-            if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
-                Bitmap thumb = (Bitmap) data.getExtras().get("data");
-                thumb = resizeBitmap(thumb, 196);
-                this.setThumbBitmap(thumb);
-                notifyPhotoChanged(thumb, null);
-            }
-            else if (requestCode == SELECT_FILE && resultCode == Activity.RESULT_OK) {
-                Uri imageUri = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
-                    Bitmap thumb = resizeBitmap(bitmap, 196);
-                    //bitmap.recycle();
-                    this.setThumbBitmap(thumb);
-                    notifyPhotoChanged(thumb, null);
-                } catch (IOException e) {
-                    Log.d(e.getMessage(), e.getMessage(), e);
-                }
+        if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
+            File imgFile = new  File(pictureImagePath);
+            if(imgFile.exists()){
+                Uri destination = Uri.fromFile(new File(getActivity().getExternalCacheDir(), "cropped"));
+                Crop.of(android.net.Uri.parse( imgFile.toURI().toString()), destination).asSquare().start(getActivity(), this);
             }
         }
-        else
-        {
-            if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
-                File imgFile = new  File(pictureImagePath);
-                if(imgFile.exists()){
-                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                    Bitmap thumb = resizeBitmap(myBitmap, 196);
-                    Bitmap large = resizeBitmap(myBitmap, 1024);
-                    //myBitmap.recycle();
-                    this.setThumbBitmap(thumb);
-                    notifyPhotoChanged(thumb, large);
-                }
-            }
-            else if (requestCode == SELECT_FILE && resultCode == Activity.RESULT_OK) {
-                Uri imageUri = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
-                    Bitmap thumb = resizeBitmap(bitmap, 196);
-                    Bitmap large = resizeBitmap(bitmap, 1024);
-                    //bitmap.recycle();
-                    this.setThumbBitmap(thumb);
-                    notifyPhotoChanged(thumb, large);
-                } catch (IOException e) {
-                    Log.d(e.getMessage(), e.getMessage(), e);
-                }
-            }
+        else if (requestCode == SELECT_FILE && resultCode == Activity.RESULT_OK) {
+            Uri imageUri = data.getData();
+            Uri destination = Uri.fromFile(new File(getActivity().getExternalCacheDir(), "cropped"));
+            Crop.of(imageUri, destination).asSquare().start(getActivity(), this);
         }
     }
 
@@ -311,14 +297,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
     /* dialog management */
     @Override
     public void OnCameraButtonPressed() {
-        if(this.isLogo) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, REQUEST_CAMERA);
-        }
-        else
-        {
-            manageCameraForLargePhoto();
-        }
+        manageCameraForLargePhoto();
     }
 
     private void manageCameraForLargePhoto()

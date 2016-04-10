@@ -109,4 +109,14 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         //DB.deleteDB(this, "db_offerte");
         DB.creaDB(this);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        /*if (requestCode == 6709) {
+            Toast toast = Toast.makeText(getApplicationContext(), "infatti", Toast.LENGTH_SHORT);
+            toast.show();
+        }*/
+    }
 }

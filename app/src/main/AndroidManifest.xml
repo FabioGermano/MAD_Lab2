@@ -52,7 +52,7 @@
             android:name=".ModifyOfferDish"
             android:label="ModifyOfferDish"
             android:parentActivityName=".GestioneOfferte"/>
-
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
     </application>
 
 </manifest>
