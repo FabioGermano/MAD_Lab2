@@ -29,6 +29,7 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
     private Oggetto_menu dish_list= null;
     private int position = -1;
     private boolean newDish = false;
+    private Oggetto_piatto.type_enum initialType = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,8 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                         //è una modifica
                         position = extras.getInt("position");
                         extras.clear();
+
+                        initialType = dish_type;
 
                         if (position != -1) {
 
@@ -263,10 +266,6 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                 }
             }
             else {
-
-                //da aggiungere implementazione cambio tipologia piatto --> cambia array in ram!
-
-
                 //gestion db locale
                 String db = DB.leggiDB(this, "db_menu");
 
@@ -297,6 +296,37 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                     }
                 }
                 DB.updateDB(this, jsonRootObject, "db_menu");
+
+                //implementazione cambio tipologia piatto --> cambia array in ram!
+                if(initialType != dish.getDishType()){
+                    //rimuovo piatto dalla lista vecchia
+                    if (initialType == Oggetto_piatto.type_enum.PRIMI){
+                        dish_list.getPrimi().remove(position);
+                    }
+                    else if (initialType == Oggetto_piatto.type_enum.SECONDI){
+                        dish_list.getSecondi().remove(position);
+                    }
+                    else if (initialType == Oggetto_piatto.type_enum.DESSERT){
+                        dish_list.getDessert().remove(position);
+                    }
+                    else if (initialType == Oggetto_piatto.type_enum.ALTRO){
+                        dish_list.getAltro().remove(position);
+                    }
+
+                    //aggiungo piatto alla nuova lista
+                    if (dish.getDishType() == Oggetto_piatto.type_enum.PRIMI){
+                        dish_list.getPrimi().add(dish);
+                    }
+                    else if (dish.getDishType() == Oggetto_piatto.type_enum.SECONDI){
+                        dish_list.getSecondi().add(dish);
+                    }
+                    else if (dish.getDishType() == Oggetto_piatto.type_enum.DESSERT){
+                        dish_list.getDessert().add(dish);
+                    }
+                    else if (dish.getDishType() == Oggetto_piatto.type_enum.ALTRO){
+                        dish_list.getAltro().add(dish);
+                    }
+                }
             }
 
             return true;
