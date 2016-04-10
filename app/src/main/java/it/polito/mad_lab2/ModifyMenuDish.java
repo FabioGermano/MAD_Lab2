@@ -196,10 +196,7 @@ public class ModifyMenuDish extends EditableBaseActivity {
                 String price =  editPrice.getText().toString();
                 if (price.compareTo("") != 0) {
                     int cost = Integer.parseInt(editPrice.getText().toString());
-                    /*if (cost < 0)
-                        dish.setCost(-1);
-                    else*/
-                        dish.setCost(cost);
+                    dish.setCost(cost);
                 }
                 else
                     dish.setCost(-1);

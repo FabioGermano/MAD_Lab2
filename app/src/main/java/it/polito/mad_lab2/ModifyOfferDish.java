@@ -128,10 +128,7 @@ public class ModifyOfferDish extends EditableBaseActivity {
                 String price =  editPrice.getText().toString();
                 if (price.compareTo("") != 0) {
                     int cost = Integer.parseInt(price);
-                    /*if (cost < 0)
-                        offer.setCost(-1);
-                    else*/
-                        offer.setCost(cost);
+                    offer.setCost(cost);
                 }
                 else{
                     offer.setCost(-1);
