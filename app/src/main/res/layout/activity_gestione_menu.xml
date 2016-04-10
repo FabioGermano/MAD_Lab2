@@ -21,7 +21,8 @@
         android:background="@color/themeColor"
         app:tabTextColor="#d3d3d3"
         app:tabSelectedTextColor="#ffffff"
-        app:tabIndicatorColor="#ff00ff"
+        app:tabIndicatorColor="#4278c9"
+        app:tabIndicatorHeight="5dp"
         android:minHeight="?attr/actionBarSize"
         />
 
