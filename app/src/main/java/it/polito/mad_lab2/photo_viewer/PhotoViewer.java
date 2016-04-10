@@ -42,7 +42,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
     private final int SELECT_FILE = 1;
     private final int VIEW_PHOTO = 2;
     private int initialImage = -1, widthInDP, heightInDP;
-    private boolean isBitmapSetted = false, isLogo = false, isEditable;
+    private boolean isBitmapSetted = false, isLogo = false, isEditable, isAddByClickOnImage;
     private String pictureImagePath;
     private boolean isPhotoClicked = false;
 
@@ -89,6 +89,10 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
                 editButtonPressed();
             }
         });
+        if(this.isAddByClickOnImage) {
+            this.editButton.setVisibility(View.GONE);
+        }
+
         this.imgPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +111,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
             if(thumb != null)
             {
                 this.imgPhoto.setImageBitmap(thumb);
-                this.isBitmapSetted = true;
+                SetIsBitmapSetted(true);
             }
         }
         else
@@ -149,6 +153,21 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
                 case R.styleable.PhotoViewer_isEditable:
                     this.isEditable = a.getBoolean(attr, false);
                     break;
+                case R.styleable.PhotoViewer_addImageMode:
+                    String value = a.getString(attr);
+                    if(value.equals("clickOnButton"))
+                    {
+                        this.isAddByClickOnImage = false;
+                    }
+                    else if (value.equals("clickOnImage"))
+                    {
+                        this.isAddByClickOnImage = true;
+                    }
+                    else
+                    {
+                        this.isAddByClickOnImage = false;
+                    }
+                    break;
             }
         }
 
@@ -163,7 +182,11 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
 
     private void photoPressed()
     {
-        if(!this.isLogo && this.isBitmapSetted && !this.isPhotoClicked)
+        if(this.isAddByClickOnImage && !this.isBitmapSetted)
+        {
+            editButtonPressed(); // add a photo that actually doas not yet exist
+        }
+        else if(!this.isLogo && this.isBitmapSetted && !this.isPhotoClicked)
         {
             this.isPhotoClicked = true;
 
@@ -221,7 +244,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
         }*/
 
         this.imgPhoto.setImageBitmap(bitmap);
-        this.isBitmapSetted = true;
+        SetIsBitmapSetted(true);
     }
 
     public void setSizeInDP(int DP_width, int DP_height)
@@ -321,7 +344,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
 
     @Override
     public void OnRemoveButtonListener() {
-        this.isBitmapSetted = false;
+        SetIsBitmapSetted(false);
         this.imgPhoto.setImageResource(initialImage);
         notifyPhotoRemoved();
     }
@@ -333,5 +356,22 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
         super.onSaveInstanceState(outState);
 
         outState.putParcelable("thumbImage", ((BitmapDrawable) this.imgPhoto.getDrawable()).getBitmap());
+    }
+
+    private void SetIsBitmapSetted(boolean setted)
+    {
+        this.isBitmapSetted = setted;
+
+        if(this.isAddByClickOnImage)
+        {
+            if(!setted)
+            {
+                this.editButton.setVisibility(View.GONE);
+            }
+            else
+            {
+                this.editButton.setVisibility(View.VISIBLE);
+            }
+        }
     }
 }

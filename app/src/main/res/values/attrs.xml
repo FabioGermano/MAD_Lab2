@@ -5,5 +5,6 @@
         <attr name="widthInDP" format="integer"/>
         <attr name="heightInDP" format="integer"/>
         <attr name="isEditable" format="boolean" />
+        <attr name="addImageMode" format="string" /> <!-- clickOnButton, clickOnImage -->
     </declare-styleable>
 </resources>

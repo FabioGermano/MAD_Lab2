@@ -82,7 +82,9 @@
             custom:isLogo="false"
             custom:heightInDP="200"
             custom:widthInDP="200"
+            custom:addImageMode="clickOnButton"
             custom:initialBackground="@drawable/default_dish_icon" />
+        <!--custom:addImageMode can be: clickOnButton, clickOnImage -->
 
         <include  layout="@layout/fat_buttons" />
     </RelativeLayout>
