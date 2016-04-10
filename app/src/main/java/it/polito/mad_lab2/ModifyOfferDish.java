@@ -2,6 +2,7 @@ package it.polito.mad_lab2;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,10 +14,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import it.polito.mad_lab2.photo_viewer.PhotoViewerListener;
+
 /**
  * Created by Euge on 10/04/2016.
  */
-public class ModifyOfferDish extends EditableBaseActivity {
+public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewerListener{
 
     private Oggetto_offerta offer = null;
     private ArrayList<Oggetto_offerta> offer_list = null;
@@ -271,6 +274,21 @@ public class ModifyOfferDish extends EditableBaseActivity {
     }
 
     private void modifyPhoto(){
+
+    }
+
+    @Override
+    public void OnPhotoChanged(int fragmentId, Bitmap thumb, Bitmap large) {
+
+    }
+
+    @Override
+    public Bitmap OnPhotoViewerActivityStarting(int fragmentId) {
+        return null;
+    }
+
+    @Override
+    public void OnPhotoRemoved(int fragmentId) {
 
     }
 }

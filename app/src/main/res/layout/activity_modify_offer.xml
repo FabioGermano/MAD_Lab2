@@ -19,7 +19,7 @@ android:orientation="vertical">
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-
+    <!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,22 @@ android:orientation="vertical">
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
+    -->
+    <fragment
+        xmlns:custom="http://schemas.android.com/apk/res/it.polito.mad_lab2"
+        android:id="@+id/imageOffer_modifyOffer"
+        android:name="it.polito.mad_lab2.photo_viewer.PhotoViewer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        custom:isEditable="true"
+        custom:isLogo="false"
+        custom:heightInDP="200"
+        custom:widthInDP="200"
+        custom:initialBackground="@drawable/default_dish_icon" />
 
+    <!--
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -37,7 +52,7 @@ android:orientation="vertical">
         android:layout_below="@+id/titlePhoto_modifyOffer"
         android:layout_centerHorizontal="true"
         android:src="@drawable/default_dish_icon"/>
-
+    -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +61,8 @@ android:orientation="vertical">
         android:id="@+id/text_offerName_modifyOffer"
         android:layout_below="@+id/imageOffer_modifyOffer"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:paddingTop="10dp" />
 
     <EditText
         android:layout_width="wrap_content"

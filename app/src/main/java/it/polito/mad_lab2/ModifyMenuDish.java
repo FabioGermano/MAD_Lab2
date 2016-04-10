@@ -2,6 +2,7 @@ package it.polito.mad_lab2;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ModifyMenuDish extends EditableBaseActivity {
+import it.polito.mad_lab2.photo_viewer.PhotoViewerListener;
+
+public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerListener {
 
     private Oggetto_piatto dish = null;
     private Oggetto_menu dish_list= null;
@@ -358,6 +361,21 @@ public class ModifyMenuDish extends EditableBaseActivity {
     }
 
     private void modifyPhoto(){
+
+    }
+
+    @Override
+    public void OnPhotoChanged(int fragmentId, Bitmap thumb, Bitmap large) {
+
+    }
+
+    @Override
+    public Bitmap OnPhotoViewerActivityStarting(int fragmentId) {
+        return null;
+    }
+
+    @Override
+    public void OnPhotoRemoved(int fragmentId) {
 
     }
 }
