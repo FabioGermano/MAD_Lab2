@@ -38,9 +38,6 @@ public class GestioneOfferte extends EditableBaseActivity {
 
 
         try {
-
-
-
             //recupero eventuali modifiche apportate ad un piatto
             Bundle extras = getIntent().getExtras();
             if (extras != null) {

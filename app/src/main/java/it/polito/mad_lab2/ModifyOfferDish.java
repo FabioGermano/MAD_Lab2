@@ -249,8 +249,7 @@ public class ModifyOfferDish extends EditableBaseActivity {
 
             Bundle b = new Bundle();
             b.putSerializable("offer_list", offer_list);
-
-            Intent intent = new Intent(getApplicationContext(), GestioneMenu.class);
+            Intent intent = new Intent(getApplicationContext(), GestioneOfferte.class);
             intent.putExtras(b);
             startActivity(intent);
         }
