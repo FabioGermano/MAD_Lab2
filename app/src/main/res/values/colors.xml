@@ -9,5 +9,5 @@
     <color name="themeColor">#03A9F4</color>
     <color name="themeColorLighter">#E1F5FE</color>
     <color name="fab_pressed">#90CAF9</color>
-
+    <color name="blackSemitrasparent">#80000000</color>
 </resources>

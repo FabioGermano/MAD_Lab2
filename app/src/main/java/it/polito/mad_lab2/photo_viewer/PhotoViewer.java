@@ -75,10 +75,10 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
 
         this.imgPhoto = (ImageView)rootView.findViewById(R.id.epImgPhoto);
         setSizeInDP(this.widthInDP, this.heightInDP);
+        setInitialImage(savedInstanceState);
 
         this.editButton = (ImageButton)rootView.findViewById(R.id.epEditButton);
-        if(this.isEditable == false)
-        {
+        if(this.isEditable == false) {
             this.editButton.setVisibility(View.GONE);
         }
 
@@ -95,13 +95,28 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
             }
         });
 
-        // consider attributes
-        if(this.initialImage != -1)
-        {
-            this.imgPhoto.setImageResource(this.initialImage);
-        }
-
         return rootView;
+    }
+
+    private void setInitialImage(Bundle savedInstanceState)
+    {
+        if(savedInstanceState != null)
+        {
+            Bitmap thumb = savedInstanceState.getParcelable("thumbImage");
+            if(thumb != null)
+            {
+                this.imgPhoto.setImageBitmap(thumb);
+                this.isBitmapSetted = true;
+            }
+        }
+        else
+        {
+            // consider attributes
+            if(this.initialImage != -1)
+            {
+                this.imgPhoto.setImageResource(this.initialImage);
+            }
+        }
     }
 
     /**
@@ -332,4 +347,11 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
         notifyPhotoRemoved();
     }
     /* end dialog management */
+
+    @Override
+    public void onSaveInstanceState (Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("thumbImage", ((BitmapDrawable) this.imgPhoto.getDrawable()).getBitmap());
+    }
 }
