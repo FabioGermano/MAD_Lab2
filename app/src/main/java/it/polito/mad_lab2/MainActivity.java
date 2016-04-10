@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -82,7 +83,7 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     }
 
     @Override
-    public void OnPhotoChanged(Bitmap thumb, Bitmap large) {
+    public void OnPhotoChanged(int fragmentId, Bitmap thumb, Bitmap large) {
         // Salvo bitmap a DB (serializzate)
         largeBitmap = large;
         Toast toast = Toast.makeText(getApplicationContext(), "Listener", Toast.LENGTH_SHORT);
@@ -90,13 +91,13 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     }
 
     @Override
-    public Bitmap OnPhotoViewerActivityStarting() {
+    public Bitmap OnPhotoViewerActivityStarting(int fragmentId) {
         // leggi bitmap "large" da db
         return largeBitmap;
     }
 
     @Override
-    public void OnPhotoRemoved() {
+    public void OnPhotoRemoved(int fragmentId) {
         Toast toast = Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT);
         toast.show();
     }

@@ -1,5 +1,7 @@
 package it.polito.mad_lab2;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;

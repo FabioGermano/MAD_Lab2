@@ -54,12 +54,12 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
 
     private void notifyPhotoChanged(Bitmap thumb, Bitmap large)
     {
-        listener.OnPhotoChanged(thumb, large);
+        listener.OnPhotoChanged(getId(), thumb, large);
     }
 
     private void notifyPhotoRemoved()
     {
-        listener.OnPhotoRemoved();
+        listener.OnPhotoRemoved(getId());
     }
 
     @Override
@@ -166,7 +166,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
         {
             this.isPhotoClicked = true;
 
-            Bitmap large = listener.OnPhotoViewerActivityStarting();
+            Bitmap large = listener.OnPhotoViewerActivityStarting(getId());
 
             String path = Environment.getExternalStorageDirectory().toString();
             OutputStream fOut = null;

@@ -15,7 +15,7 @@ public interface PhotoViewerListener {
      *              by calling the setThumbBitmap method.
      * @param large Original full size photo.
      */
-    void OnPhotoChanged(Bitmap thumb, Bitmap large);
-    Bitmap OnPhotoViewerActivityStarting();
-    void OnPhotoRemoved();
+    void OnPhotoChanged(int fragmentId, Bitmap thumb, Bitmap large);
+    Bitmap OnPhotoViewerActivityStarting(int fragmentId);
+    void OnPhotoRemoved(int fragmentId);
 }
