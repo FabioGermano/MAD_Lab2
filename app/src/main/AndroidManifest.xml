@@ -43,6 +43,12 @@
             android:parentActivityName=".MainActivity" />
 
         <activity
+            android:name=".AlertActivity"
+            android:label="AlertActivity"
+            android:theme="@style/Theme.Transparent"
+            />
+
+        <activity
             android:name=".ModifyOfferDish"
             android:label="ModifyOfferDish"
             android:parentActivityName=".GestioneOfferte"/>

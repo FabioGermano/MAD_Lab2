@@ -1,5 +1,6 @@
 package it.polito.mad_lab2;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.view.MenuItemCompat;
@@ -116,6 +117,8 @@ public abstract class BaseActivity extends AppCompatActivity{
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.AlertActivity.class);
+                    startActivity(intent);
                     OnAlertButtonPressed();
                 }
             };
