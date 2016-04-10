@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/logo"
-            android:textAlignment="left"
             android:id="@+id/textView"
             android:padding="10dp"/>
         <fragment
@@ -43,7 +42,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="left"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/covers"
             android:id="@+id/cover"
@@ -133,7 +131,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/restaurant_name"
             android:id="@+id/restaurant_name"
-            android:textAlignment="left"
             android:layout_below="@id/horizontalScrollView"
 
             />
@@ -150,7 +147,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/address"
             android:id="@+id/address"
-            android:textAlignment="left"
             android:layout_below="@id/edit_name"
 
             />
@@ -168,7 +164,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/phone_number"
             android:id="@+id/phone"
-            android:textAlignment="left"
             android:layout_below="@id/edit_address"
 
             />
@@ -186,7 +181,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/email"
             android:id="@+id/email"
-            android:textAlignment="left"
             android:layout_below="@id/edit_phone"
             />
         <EditText
@@ -203,7 +197,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/description"
             android:id="@+id/description"
-            android:textAlignment="left"
             android:layout_below="@id/edit_email"
             />
         <EditText

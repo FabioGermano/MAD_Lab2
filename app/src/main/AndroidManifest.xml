@@ -57,6 +57,8 @@
             android:label="EditRestaurantProfile"
             android:parentActivityName=".MainActivity"/>
 
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+
     </application>
 
 </manifest>
