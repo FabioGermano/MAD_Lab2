@@ -30,5 +30,13 @@
     <string name="menu_edit_offer">Edit offer</string>
 
     <string name="dataSaved">DATA SAVED</string>
+    <string name="edit_restaurant_profile">Edit profile</string>
+    <string name="description">Description</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone number</string>
+    <string name="address">Address</string>
+    <string name="restaurant_name">Restaurant name</string>
+    <string name="covers">Covers</string>
+    <string name="logo">Logo</string>
 
 </resources>

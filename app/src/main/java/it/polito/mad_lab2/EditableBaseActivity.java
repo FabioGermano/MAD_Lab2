@@ -1,6 +1,5 @@
 package it.polito.mad_lab2;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;

@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
-import java.io.File;
-
 import it.polito.mad_lab2.EditableBaseActivity;
 import it.polito.mad_lab2.R;
 

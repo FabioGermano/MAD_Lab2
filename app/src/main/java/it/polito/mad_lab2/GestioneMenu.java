@@ -17,12 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class GestioneMenu extends EditableBaseActivity {
 
     //private ArrayList<Oggetto_piatto> list_piatti = new ArrayList<>();

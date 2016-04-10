@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -82,12 +81,27 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         startActivity(intent);
     }
 
+    public void eseguiActivityModificaProfilo(View v){
+        Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.EditRestaurantProfile.class);
+        startActivity(intent);
+    }
+
+
+    /**** created by Roby on 07/04/2016 *****/
+    public void checkDB(){
+        GestioneDB DB = new GestioneDB();
+        //DB.deleteDB(this, "db_menu");
+        //DB.deleteDB(this, "db_offerte");
+        DB.creaDB(this);
+    }
+
     @Override
     public void OnPhotoChanged(int fragmentId, Bitmap thumb, Bitmap large) {
         // Salvo bitmap a DB (serializzate)
         largeBitmap = large;
         Toast toast = Toast.makeText(getApplicationContext(), "Listener", Toast.LENGTH_SHORT);
         toast.show();
+
     }
 
     @Override
@@ -100,23 +114,5 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     public void OnPhotoRemoved(int fragmentId) {
         Toast toast = Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT);
         toast.show();
-    }
-
-    /**** created by Roby on 07/04/2016 *****/
-    public void checkDB(){
-        GestioneDB DB = new GestioneDB();
-        //DB.deleteDB(this, "db_menu");
-        //DB.deleteDB(this, "db_offerte");
-        DB.creaDB(this);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        /*if (requestCode == 6709) {
-            Toast toast = Toast.makeText(getApplicationContext(), "infatti", Toast.LENGTH_SHORT);
-            toast.show();
-        }*/
     }
 }

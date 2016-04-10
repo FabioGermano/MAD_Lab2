@@ -27,6 +27,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import it.polito.mad_lab2.R;
+
 
 /**
  * To be extended by every activity.
@@ -107,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
 
         toolbar.inflateMenu(R.menu.action_bar);
-        MenuItem notification = menu.findItem(R.id.menu_notify);
+        final MenuItem notification = menu.findItem(R.id.menu_notify);
         notification.setVisible(alert_visibility);
         if(alert_visibility){
 
@@ -117,9 +119,8 @@ public abstract class BaseActivity extends AppCompatActivity{
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.AlertActivity.class);
-                    startActivity(intent);
                     OnAlertButtonPressed();
+                    onOptionsItemSelected(notification);
                 }
             };
             notificationLayout.setOnClickListener(listener);
@@ -151,7 +152,8 @@ public abstract class BaseActivity extends AppCompatActivity{
                 OnCalendarButtonPressed();
                 break;
             case R.id.menu_notify:
-                OnAlertButtonPressed();
+                Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.AlertActivity.class);
+                startActivity(intent);
             default:
                 break;
         }
