@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
 
-<include layout="@layout/toolbar_view" android:layout_height="wrap_content" android:layout_width="match_parent"></include>
+<include layout="@layout/toolbar_view"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"></include>
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -17,12 +19,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="@string/dishPhoto"
-        android:id="@+id/titlePhoto_modifyMenu"
+        android:id="@+id/titlePhoto_modifyOffer"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
@@ -30,8 +33,8 @@
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:id="@+id/imageDish_modifyMenu"
-        android:layout_below="@+id/titlePhoto_modifyMenu"
+        android:id="@+id/imageOffer_modifyOffer"
+        android:layout_below="@+id/titlePhoto_modifyOffer"
         android:layout_centerHorizontal="true"
         android:src="@drawable/default_dish_icon"/>
 
@@ -39,18 +42,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="@string/dishName"
-        android:id="@+id/text_dishName_modifyMenu"
-        android:layout_below="@+id/imageDish_modifyMenu"
+        android:text="@string/offerName"
+        android:id="@+id/text_offerName_modifyOffer"
+        android:layout_below="@+id/imageOffer_modifyOffer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_dishName_modifyMenu"
+        android:id="@+id/edit_offerName_modifyOffer"
         android:ems="10"
-        android:layout_below="@+id/text_dishName_modifyMenu"
+        android:layout_below="@+id/text_offerName_modifyOffer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="#000000" />
@@ -59,9 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="@string/dishPrice"
-        android:id="@+id/text_dishPrice_modifyMenu"
-        android:layout_below="@+id/edit_dishName_modifyMenu"
+        android:text="@string/offerPrice"
+        android:id="@+id/text_offerPrice_modifyOffer"
+        android:layout_below="@+id/edit_offerName_modifyOffer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -70,8 +73,8 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/edit_dishPrice_modifyMenu"
-        android:layout_below="@+id/text_dishPrice_modifyMenu"
+        android:id="@+id/edit_offerPrice_modifyOffer"
+        android:layout_below="@+id/text_offerPrice_modifyOffer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="#000000" />
@@ -80,19 +83,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="@string/dishType"
-        android:id="@+id/text_dishType_modifyMenu"
-        android:layout_below="@+id/edit_dishPrice_modifyMenu"
+        android:text="@string/notesOffer"
+        android:id="@+id/text_offerNote_modifyOffer"
+        android:layout_below="@+id/edit_offerPrice_modifyOffer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Spinner
-        android:id="@+id/list_dishType_modifyMenu"
+    <EditText
+        android:id="@+id/edit_offerNote_modifyOffer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_dishType_modifyMenu"
+        android:layout_below="@id/text_offerNote_modifyOffer"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:textColor="#000000"
+        android:ems="10"
+        />
 
 </RelativeLayout>
 </LinearLayout>

@@ -1,7 +1,9 @@
 package it.polito.mad_lab2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,7 +143,14 @@ public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapte
 
         //modifico offerta
         private void modifyItem(){
+            Bundle b = new Bundle();
+            b.putSerializable("offer_list", lista_offerte);
+            b.putInt("position", position);
+            b.putBoolean("new", false);
 
+            Intent intent = new Intent(context, ModifyOfferDish.class);
+            intent.putExtras(b);
+            context.startActivity(intent);
         }
     }
 }

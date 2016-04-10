@@ -34,7 +34,6 @@ public class ModifyMenuDish extends EditableBaseActivity {
         SetCalendarButtonVisibility(false);
         setTitleTextView(getResources().getString(R.string.manu_edit_dish));
         setContentView(R.layout.activity_modify_menu_dish);
-        //InitializeFABButtons(false, true, false);
 
         SetSaveButtonVisibility(true);
 
@@ -128,8 +127,6 @@ public class ModifyMenuDish extends EditableBaseActivity {
                             }
 
                             if (!error) {
-                                int id = dish.getId();
-
                                 //carico le informazioni nella pagina di modifica
                                 ImageView imageDish = (ImageView) findViewById(R.id.imageDish_modifyMenu);
                                 EditText editName = (EditText) findViewById(R.id.edit_dishName_modifyMenu);
@@ -181,7 +178,7 @@ public class ModifyMenuDish extends EditableBaseActivity {
         }
     }
 
-    private void saveInfo(){
+    private boolean saveInfo(){
 
         // aggiorno l'oggetto piatto con tutte le nuove informazioni e passo indietro, all'activity di modifica menu principale, l'intere tabelle
         try {
@@ -211,14 +208,17 @@ public class ModifyMenuDish extends EditableBaseActivity {
                 miaAlert.setMessage(getResources().getString(R.string.error_complete));
                 AlertDialog alert = miaAlert.create();
                 alert.show();
-                return;
+                return false;
             }
 
             GestioneDB DB = new GestioneDB();
             if (newDish){
                 //aggiorno il db locale
 
+                dish.setId(dish_list.getNewId());
+
                 JSONObject newDishObj = new JSONObject();
+
 
                 newDishObj.put("id", dish_list.getNewId());
                 newDishObj.put("nome", dish.getName());
@@ -289,27 +289,22 @@ public class ModifyMenuDish extends EditableBaseActivity {
                         else if (dish.getDishType() == Oggetto_piatto.type_enum.ALTRO){
                             jsonObject.put("tipo", "Altro");
                         }
+                        break;
                     }
                 }
                 DB.updateDB(this, jsonRootObject, "db_menu");
             }
 
-
-            Bundle b = new Bundle();
-            b.putSerializable("dish_list", dish_list);
-
-            Intent intent = new Intent(getApplicationContext(), GestioneMenu.class);
-            intent.putExtras(b);
-            startActivity(intent);
+            return true;
 
         } catch (Exception e){
             System.out.println("Exception: " + e.getMessage());
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.exceptionError, Toast.LENGTH_SHORT);
+            toast.show();
 
-            AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-            miaAlert.setTitle(getResources().getString(R.string.error));
-            miaAlert.setMessage(getResources().getString(R.string.error_complete));
-            AlertDialog alert = miaAlert.create();
-            alert.show();
+            Intent intent = new Intent(getApplicationContext(), GestioneMenu.class);
+            startActivity(intent);
+            return false;
         }
 
     }
@@ -317,7 +312,18 @@ public class ModifyMenuDish extends EditableBaseActivity {
     @Override
     protected void OnSaveButtonPressed() {
         //salvo le info e torno alla schermata di gestione menu principale
-        saveInfo();
+        boolean ris = saveInfo();
+        if(ris) {
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.dataSaved, Toast.LENGTH_SHORT);
+            toast.show();
+
+            Bundle b = new Bundle();
+            b.putSerializable("dish_list", dish_list);
+
+            Intent intent = new Intent(getApplicationContext(), GestioneMenu.class);
+            intent.putExtras(b);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -332,7 +338,6 @@ public class ModifyMenuDish extends EditableBaseActivity {
 
     @Override
     protected void OnBackButtonPressed() {
-
     }
 
     @Override

@@ -70,6 +70,33 @@ public class Oggetto_menu implements Serializable {
     }
 
     public int getNewId(){
-        return getPrimi().size()+getSecondi().size()+getDessert().size()+getAltro().size()+1;
+
+        int max = 1;
+        boolean trovato = false;
+
+        int tot_length =getPrimi().size()+getSecondi().size()+getDessert().size()+getAltro().size();
+
+        for (Oggetto_piatto o : primi) {
+            if(o.getId() > max){
+                max = o.getId();
+            }
+        }
+        for (Oggetto_piatto o : secondi) {
+            if(o.getId() > max){
+                max = o.getId();
+            }
+        }
+        for (Oggetto_piatto o : dessert) {
+            if(o.getId() > max){
+                max = o.getId();
+            }
+        }
+        for (Oggetto_piatto o : altro) {
+            if(o.getId() > max){
+                max = o.getId();
+            }
+        }
+
+        return max+1;
     }
 }

@@ -4,9 +4,13 @@
     <string name="dishName">Name of the dish:</string>
     <string name="dishPrice">Price:</string>
     <string name="dishType">Typology:</string>
+    <string name="notesOffer">Notes:</string>
     <string name="money_value">euro</string>
+    <string name="offerPrice">Price:</string>
+    <string name="offerName">Name of the offer:</string>
 
     <string name="error">Error</string>
+    <string name="exceptionError">Sorry, an exception is occurred</string>
     <string name="error_complete">Please, complete correctly all fields</string>
 
     <string name="first">First</string>
@@ -23,5 +27,8 @@
     <string name="calendar">Calendar</string>
     <string name="manu_edit_title">Edit menu</string>
     <string name="manu_edit_dish">Edit dish</string>
+    <string name="menu_edit_offer">Edit offer</string>
+
+    <string name="dataSaved">DATA SAVED</string>
 
 </resources>

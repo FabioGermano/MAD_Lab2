@@ -140,6 +140,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         switch(id){
             case android.R.id.home:
                 OnBackButtonPressed();
+                break;
             case R.id.menu_save:
                 OnSaveButtonPressed();
                 break;

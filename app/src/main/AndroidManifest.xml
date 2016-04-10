@@ -23,19 +23,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".GestioneMenu"
             android:label="GestioneMenu"
             android:parentActivityName=".MainActivity" />
+
         <activity
             android:name=".ModifyMenuDish"
             android:label="ModifyMenuDish"
             android:parentActivityName=".GestioneMenu" />
 
-        <activity android:name=".photo_viewer.PhotoViewActivity"></activity>
-        <activity android:name=".GestioneOfferte"
+        <activity
+            android:name=".photo_viewer.PhotoViewActivity"></activity>
+
+        <activity
+            android:name=".GestioneOfferte"
             android:label="GestioneOfferte"
             android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".ModifyOfferDish"
+            android:label="ModifyOfferDish"
+            android:parentActivityName=".GestioneOfferte"/>
+
     </application>
 
 </manifest>

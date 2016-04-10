@@ -1,10 +1,12 @@
 package it.polito.mad_lab2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +31,7 @@ public class GestioneOfferte extends EditableBaseActivity {
             SetCalendarButtonVisibility(false);
             SetSaveButtonVisibility(false);
             SetAlertButtonVisibility(true);
+            setTitleTextView(getResources().getString(R.string.menu_edit_offer));
             setContentView(R.layout.activity_gestione_offerte);
 
             InitializeFABButtons(false, false, true);
@@ -117,6 +120,17 @@ public class GestioneOfferte extends EditableBaseActivity {
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5  && keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     protected void OnSaveButtonPressed() {
         //in questa schermata è disabilitato
     }
@@ -149,6 +163,8 @@ public class GestioneOfferte extends EditableBaseActivity {
     @Override
     protected void OnAddButtonPressed() {
         //debug
-        System.out.println("Aggiungo nuovo piatto");
+        System.out.println("Aggiungo nuova offerta");
+        //b.putBoolean("new", true);
+
     }
 }
