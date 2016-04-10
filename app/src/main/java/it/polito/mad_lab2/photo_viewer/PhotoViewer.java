@@ -352,6 +352,7 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
     public void onSaveInstanceState (Bundle outState)
     {
         super.onSaveInstanceState(outState);
+
         outState.putParcelable("thumbImage", ((BitmapDrawable) this.imgPhoto.getDrawable()).getBitmap());
     }
 }
