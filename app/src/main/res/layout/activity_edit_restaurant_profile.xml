@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             custom:isEditable="true"
-            custom:isLogo="false"
+            custom:isLogo="true"
             custom:heightInDP="100"
             custom:widthInDP="100"
             custom:initialBackground="@drawable/default_dish_icon"
