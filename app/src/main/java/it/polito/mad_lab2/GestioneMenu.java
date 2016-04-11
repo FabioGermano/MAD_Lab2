@@ -23,6 +23,7 @@ public class GestioneMenu extends EditableBaseActivity {
     private Oggetto_menu lista_menu = null;
     private String fileName = "database";
     private JSONObject  jsonRootObject;
+    private boolean availability_mode=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,7 +189,7 @@ public class GestioneMenu extends EditableBaseActivity {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
     private class MyPageAdapter extends FragmentPagerAdapter {
         private int NumOfPage = 4;
-        String tabTitles[] = new String[] { "Primi", "Secondi", "Dessert", "Altro" };
+        String tabTitles[] = new String[] { getResources().getString(R.string.first), getResources().getString(R.string.second), getResources().getString(R.string.dessert), getResources().getString(R.string.other)};
         Context context;
 
         public MyPageAdapter(FragmentManager fm, Context context) {
@@ -203,24 +204,25 @@ public class GestioneMenu extends EditableBaseActivity {
             switch (position) {
                 case 0:
                     // sono nei primi
-                    menuFragment = new BlankMenuFragment();
+                    menuFragment = new BlankMenuFragment(availability_mode);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.PRIMI, this.context);
                     return menuFragment;
                 case 1:
                     // sono nei secondi
-                    menuFragment = new BlankMenuFragment();
+                    menuFragment = new BlankMenuFragment(availability_mode);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.SECONDI, this.context);
                     return menuFragment;
                 case 2:
                     // sono nei contorni
-                    menuFragment = new BlankMenuFragment();
+                    menuFragment = new BlankMenuFragment(availability_mode);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.DESSERT, this.context);
                     return menuFragment;
                 case 3:
                     // sono in altro
-                    menuFragment = new BlankMenuFragment();
+                    menuFragment = new BlankMenuFragment(availability_mode);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.ALTRO, this.context);
                     return menuFragment;
+
             }
 
             return null;

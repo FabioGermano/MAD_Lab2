@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -24,17 +25,20 @@ import java.util.ArrayList;
 public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapter_offerte.MyViewHolder_offerta> {
     private ArrayList<Oggetto_offerta> lista_offerte;
     private LayoutInflater myInflater;
+    private boolean availability_mode;
 
-    public RecyclerAdapter_offerte(Context context, ArrayList<Oggetto_offerta> data) {
+    public RecyclerAdapter_offerte(Context context, ArrayList<Oggetto_offerta> data, boolean availability_mode) {
         this.lista_offerte = data;
         myInflater = LayoutInflater.from(context);
+        this.availability_mode = availability_mode;
     }
 
     @Override
     public MyViewHolder_offerta onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = myInflater.inflate(R.layout.riga_lista, parent, false);
         MyViewHolder_offerta holder = new MyViewHolder_offerta(v);
-        holder.setListeners();
+        if(!availability_mode)
+            holder.setListeners();
         return holder;
     }
 
@@ -59,6 +63,7 @@ public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapte
         private TextView dish_price;
         private ImageButton dish_delete;
         private ImageButton dish_modify;
+        private Switch dish_availability;
         private Context context;
 
         public MyViewHolder_offerta(View itemView) {
@@ -68,6 +73,13 @@ public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapte
             dish_price = (TextView) itemView.findViewById(R.id.dish_price_menu);
             dish_delete = (ImageButton) itemView.findViewById(R.id.img_delete_menu);
             dish_modify = (ImageButton) itemView.findViewById(R.id.img_modify_menu);
+            dish_availability = (Switch) itemView.findViewById(R.id.switch1);
+            if(availability_mode){
+                dish_delete.setVisibility(View.GONE);
+                dish_modify.setVisibility(View.GONE);
+                dish_availability.setVisibility(View.VISIBLE);
+
+            }
 
             context = itemView.getContext();
         }

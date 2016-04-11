@@ -13,8 +13,8 @@
     <string name="exceptionError">Sorry, an exception is occurred</string>
     <string name="error_complete">Please, complete correctly all fields</string>
 
-    <string name="first">First</string>
-    <string name="second">Second</string>
+    <string name="first">Main courses</string>
+    <string name="second">Second courses</string>
     <string name="dessert">Dessert</string>
     <string name="other">Other</string>
     <string name="take_photo">Camera</string>
@@ -58,5 +58,9 @@
     <string name="bancomat">Bancomat</string>
     <string name="seatsoutside">Seats outside</string>
     <string name="music">Music</string>
+    <string name="available">Available</string>
+    <string name="not_available">Not available</string>
+    <string name="edit_availability">Edit today availability</string>
+    <string name="offers">Offers</string>
 
 </resources>

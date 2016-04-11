@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<include layout="@layout/toolbar_view" android:layout_height="wrap_content" android:layout_width="match_parent"></include>
+<include layout="@layout/toolbar_view" android:layout_height="wrap_content" android:layout_width="match_parent"/>
+
     <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:visibility="gone"
@@ -71,11 +72,21 @@
             android:layout_alignParentStart="true"
             android:onClick="eseguiActivityModificaProfilo"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test modifica disponibilità"
+            android:id="@+id/button_testMD"
+            android:layout_below="@id/button_testMP"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:onClick="eseguiActivityModificaDisponibilita"/>
+
         <fragment
             xmlns:custom="http://schemas.android.com/apk/res/it.polito.mad_lab2"
             android:id="@+id/ad_fragment"
             android:name="it.polito.mad_lab2.photo_viewer.PhotoViewer"
-            android:layout_below="@id/button_testMP"
+            android:layout_below="@id/button_testMD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             custom:isEditable="true"

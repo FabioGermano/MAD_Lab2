@@ -42,7 +42,10 @@
             android:name=".GestioneOfferte"
             android:label="GestioneOfferte"
             android:parentActivityName=".MainActivity" />
-
+        <activity
+            android:name=".EditAvailability"
+            android:label="EditAvailability"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AlertActivity"
             android:label="AlertActivity"
