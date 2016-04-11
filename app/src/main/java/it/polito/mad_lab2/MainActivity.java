@@ -42,7 +42,6 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         SetSaveButtonVisibility(false);
         setTitleTextView(getResources().getString(R.string.app_name));
         setContentView(R.layout.activity_main);
-
         PhotoViewer currentFragment = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.ad_fragment);
 
         checkDB();
@@ -85,6 +84,10 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     }
     public void eseguiActivityModificaProfilo(View v){
         Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.EditRestaurantProfile.class);
+        startActivity(intent);
+    }
+    public void eseguiActivityModificaDisponibilita(View v){
+        Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.EditAvailability.class);
         startActivity(intent);
     }
 

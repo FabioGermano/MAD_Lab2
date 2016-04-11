@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -37,10 +38,12 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
     private Oggetto_piatto.type_enum menu_type;
     //accesso veloce alla lista in esame ??
     private ArrayList<Oggetto_piatto> current_list;
+    private boolean availability_mode;
 
 
-    public RecyclerAdapter_menu(Context context, Oggetto_menu data, Oggetto_piatto.type_enum type){
+    public RecyclerAdapter_menu(Context context, Oggetto_menu data, Oggetto_piatto.type_enum type, boolean availability_mode){
         this.dish_list = data;
+        this.availability_mode=availability_mode;
         myInflater = LayoutInflater.from(context);
         this.menu_type = type;
         switch(type){
@@ -66,7 +69,8 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = myInflater.inflate(R.layout.riga_lista, parent, false);
         MyViewHolder holder = new MyViewHolder(v);
-        holder.setListeners();
+        if(!availability_mode)
+            holder.setListeners();
         return holder;
     }
 
@@ -124,6 +128,7 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
         private TextView dish_price;
         private ImageButton dish_delete;
         private ImageButton dish_modify;
+        private Switch dish_availability;
         private Context context;
 
 
@@ -134,7 +139,13 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
             dish_price = (TextView) itemView.findViewById(R.id.dish_price_menu);
             dish_delete = (ImageButton) itemView.findViewById(R.id.img_delete_menu);
             dish_modify = (ImageButton) itemView.findViewById(R.id.img_modify_menu);
+            dish_availability = (Switch) itemView.findViewById(R.id.switch1);
+            if(availability_mode){
+                dish_delete.setVisibility(View.GONE);
+                dish_modify.setVisibility(View.GONE);
+                dish_availability.setVisibility(View.VISIBLE);
 
+            }
             context = itemView.getContext();
         }
 
@@ -157,6 +168,7 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
         public void setListeners(){
             dish_delete.setOnClickListener(MyViewHolder.this);
             dish_modify.setOnClickListener(MyViewHolder.this);
+
         }
 
         @Override

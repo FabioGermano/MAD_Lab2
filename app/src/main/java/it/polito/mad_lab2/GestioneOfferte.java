@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class GestioneOfferte extends EditableBaseActivity {
     private ArrayList<Oggetto_offerta> lista_offerte = null;
     private JSONObject jsonRootObject;
+    private boolean availability_mode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +110,7 @@ public class GestioneOfferte extends EditableBaseActivity {
     private void setUpRecyclerView(){
         System.out.println("Imposto CardView e adapter");
         RecyclerView rView = (RecyclerView) findViewById(R.id.recyclerView_offerte);
-        RecyclerAdapter_offerte myAdapter = new RecyclerAdapter_offerte(this, lista_offerte);
+        RecyclerAdapter_offerte myAdapter = new RecyclerAdapter_offerte(this, lista_offerte, availability_mode);
         if(rView != null) {
             rView.setAdapter(myAdapter);
 
