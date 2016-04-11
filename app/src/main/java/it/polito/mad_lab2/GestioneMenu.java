@@ -201,25 +201,31 @@ public class GestioneMenu extends EditableBaseActivity {
         @Override
         public Fragment getItem(int position) {
             BlankMenuFragment menuFragment;
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("availability", availability_mode);
             switch (position) {
                 case 0:
                     // sono nei primi
-                    menuFragment = new BlankMenuFragment(availability_mode);
+                    menuFragment = new BlankMenuFragment();
+                    menuFragment.setArguments(bundle);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.PRIMI, this.context);
                     return menuFragment;
                 case 1:
                     // sono nei secondi
-                    menuFragment = new BlankMenuFragment(availability_mode);
+                    menuFragment = new BlankMenuFragment();
+                    menuFragment.setArguments(bundle);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.SECONDI, this.context);
                     return menuFragment;
                 case 2:
                     // sono nei contorni
-                    menuFragment = new BlankMenuFragment(availability_mode);
+                    menuFragment = new BlankMenuFragment();
+                    menuFragment.setArguments(bundle);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.DESSERT, this.context);
                     return menuFragment;
                 case 3:
                     // sono in altro
-                    menuFragment = new BlankMenuFragment(availability_mode);
+                    menuFragment = new BlankMenuFragment();
+                    menuFragment.setArguments(bundle);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.ALTRO, this.context);
                     return menuFragment;
 

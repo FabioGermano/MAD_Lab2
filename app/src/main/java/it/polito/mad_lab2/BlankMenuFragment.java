@@ -21,9 +21,9 @@ public class BlankMenuFragment extends Fragment {
 
     //TODO utilizzare setArgument nel fragment invece del costruttore con passaggio di paramentri
 
-    public BlankMenuFragment(boolean mode) {
+    public BlankMenuFragment() {
         // Required empty public constructor
-        this.mode=mode;
+
     }
 
     public void setValue(Oggetto_menu obj, Oggetto_piatto.type_enum e, Context c){
@@ -35,7 +35,7 @@ public class BlankMenuFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.mode=getArguments().getBoolean("availability");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class BlankMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_blank_menu, container, false);
-        
+
         RecyclerView rView = (RecyclerView) rootView.findViewById(R.id.recyclerView_menu);
         RecyclerAdapter_menu myAdapter = new RecyclerAdapter_menu(context, m_list, type, mode);
         if(rView != null) {

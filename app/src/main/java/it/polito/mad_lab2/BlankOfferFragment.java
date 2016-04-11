@@ -21,11 +21,10 @@ public class BlankOfferFragment extends Fragment {
     private Context context;
     private boolean mode;
 
-    //TODO utilizzare setArgument nel fragment invece del costruttore con passaggio di paramentri
 
-    public BlankOfferFragment(boolean mode) {
+    public BlankOfferFragment() {
         // Required empty public constructor
-        this.mode=mode;
+
     }
 
     public void setValue(ArrayList<Oggetto_offerta> obj,  Context c){
@@ -36,7 +35,7 @@ public class BlankOfferFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.mode= getArguments().getBoolean("availability");
     }
 
     @Override
