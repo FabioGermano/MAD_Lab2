@@ -242,9 +242,15 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
                 old.recycle();
             }
         }*/
-
-        this.imgPhoto.setImageBitmap(bitmap);
-        SetIsBitmapSetted(true);
+        if(bitmap == null && this.initialImage != -1)
+        {
+            this.imgPhoto.setImageResource(this.initialImage);
+        }
+        else
+        {
+            this.imgPhoto.setImageBitmap(bitmap);
+            SetIsBitmapSetted(true);
+        }
     }
 
     public void setSizeInDP(int DP_width, int DP_height)
