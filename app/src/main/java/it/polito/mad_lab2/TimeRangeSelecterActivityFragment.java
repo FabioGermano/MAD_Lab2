@@ -47,7 +47,6 @@ public class TimeRangeSelecterActivityFragment extends Fragment implements TimeR
         monday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final TimeRangePickerDialog timePickerDialog = TimeRangePickerDialog.newInstance(
                         TimeRangeSelecterActivityFragment.this, false, 0);
                 timePickerDialog.show(getActivity().getSupportFragmentManager(), TIMERANGEPICKER_TAG);
@@ -111,7 +110,41 @@ public class TimeRangeSelecterActivityFragment extends Fragment implements TimeR
     @Override
     public void onTimeRangeSelected(int startHour, int startMin, int endHour, int endMin, int id) {
 
-        String str = "From "+ startHour+":"+ startMin+" to"+endHour+":"+endMin;
+        String start="", end = "";
+        if (startHour < 10){
+            start += "0"+ String.valueOf(startHour);
+        }
+        else{
+            start += String.valueOf(startHour);
+        }
+
+        if (startMin < 10){
+            start += ":0"+ String.valueOf(startMin);
+        }
+        else{
+            start += ":" + String.valueOf(startMin);
+        }
+
+        if (endHour < 10){
+            end += "0"+ String.valueOf(endHour);
+        }
+        else{
+            end += String.valueOf(endHour);
+        }
+
+        if (endMin < 10){
+            end += ":0"+ String.valueOf(endMin);
+        }
+        else{
+            end += ":" + String.valueOf(endMin);
+        }
+
+        //###################################################################
+        //######    aggiungere caso in cui fine posteriore a inizio   #######
+        //###################################################################
+
+        //String str = startHour+":"+ startMin+" - "+endHour+":"+endMin;
+        String str = start + " - " + end;
         setText(str, id);
     }
 
@@ -119,38 +152,37 @@ public class TimeRangeSelecterActivityFragment extends Fragment implements TimeR
     public void closed(int id) {
         String str = "Closed";
         setText(str, id);
-
     }
 
     void setText(String string, int id){
 
         switch (id){
             case 0:
-                monday.setText(getResources().getString(R.string.monday).toUpperCase()+" - "+string);
+                monday.setText(getResources().getString(R.string.monday).toUpperCase()+"\n"+string);
                 //monday_text.setText(string);
                 break;
             case 1:
-                tuesday.setText(getResources().getString(R.string.tuesday).toUpperCase()+" - "+string);
+                tuesday.setText(getResources().getString(R.string.tuesday).toUpperCase()+"\n"+string);
                 //tuesday_text.setText(string);
                 break;
             case 2:
-                wednesday.setText(getResources().getString(R.string.wednesday).toUpperCase()+" - "+string);
+                wednesday.setText(getResources().getString(R.string.wednesday).toUpperCase()+"\n"+string);
                 //wednesday_text.setText(string);
                 break;
             case 3:
-                thursday.setText(getResources().getString(R.string.thursday).toUpperCase()+" - "+string);
+                thursday.setText(getResources().getString(R.string.thursday).toUpperCase()+"\n"+string);
                 //thursday_text.setText(string);
                 break;
             case 4:
-                friday.setText(getResources().getString(R.string.friday).toUpperCase()+" - "+string);
+                friday.setText(getResources().getString(R.string.friday).toUpperCase()+"\n"+string);
                 //friday_text.setText(string);
                 break;
             case 5:
-                saturday.setText(getResources().getString(R.string.saturday).toUpperCase()+" - "+string);
+                saturday.setText(getResources().getString(R.string.saturday).toUpperCase()+"\n"+string);
                 //saturday_text.setText(string);
                 break;
             case 6:
-                sunday.setText(getResources().getString(R.string.sunday).toUpperCase()+" - "+string);
+                sunday.setText(getResources().getString(R.string.sunday).toUpperCase()+"\n"+string);
                 //sunday_text.setText(string);
                 break;
         }

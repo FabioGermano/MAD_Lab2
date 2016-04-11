@@ -3,6 +3,7 @@ package it.polito.mad_lab2;
 import android.content.Context;
 import android.os.Build;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -68,6 +69,7 @@ public class GestioneDB {
                 fos.close();
                 dbFile.close();
                 System.out.println("***** DB OFFERTE CREATO *****");
+
             }
             else {
                 System.out.println("***** DB OFFERTE ESISTENTE *****");
@@ -156,20 +158,63 @@ public class GestioneDB {
         return true;
     }
 
+    public int[] getOrario(Context context, int id){
+        try{
+            int[] orario = new int[4];
+            String tmp;
 
+            String db = leggiDB(context, "db_profilo");;
+            JSONObject jsonRootObject = new JSONObject(db);
+            JSONArray jsonArray = jsonRootObject.optJSONArray("profilo");
+            JSONObject orari = jsonArray.getJSONObject(1);
 
+            switch (id){
+                case 0:
+                    tmp = orari.optString("lun").toString();
+                    break;
+                case 1:
+                    tmp = orari.optString("mar").toString();
+                    break;
+                case 2:
+                    tmp = orari.optString("mer").toString();
+                    break;
+                case 3:
+                    tmp = orari.optString("gio").toString();
+                    break;
+                case 4:
+                    tmp = orari.optString("ven").toString();
+                    break;
+                case 5:
+                    tmp = orari.optString("sab").toString();
+                    break;
+                case 6:
+                    tmp = orari.optString("dom").toString();
+                    break;
+                default:
+                    return null;
+            }
 
+            if (tmp.compareTo("null") == 0 || tmp.compareTo("CLOSED") == 0){
+                return null;
+            }
 
+            int n1  = tmp.indexOf(":");
+            int n2 = tmp.indexOf(" - ");
+            int n3 = tmp.indexOf(":", n2);
 
+            orario[0] = Integer.parseInt(tmp.substring(0, n1));
+            orario[1] = Integer.parseInt(tmp.substring(n1+1, n2));
+            orario[2] = Integer.parseInt(tmp.substring(n2+3, n3));
+            orario[3] = Integer.parseInt(tmp.substring(n3+1, tmp.length()));
 
+            return orario;
+        }
+        catch (Exception e){
+            System.out.println("Eccezione:" + e.getMessage());
+            return null;
+        }
 
-
-
-
-
-
-
-
+    }
 
 }
 

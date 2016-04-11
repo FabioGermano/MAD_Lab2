@@ -5,6 +5,8 @@ package it.polito.mad_lab2;
  */
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -65,6 +67,7 @@ public class TimeRangePickerDialog extends DialogFragment implements View.OnClic
         tabs.setup();
         TabHost.TabSpec tabpage1 = tabs.newTabSpec("one");
         tabpage1.setContent(R.id.startTimeGroup);
+
         tabpage1.setIndicator("Start Time");
 
         TabHost.TabSpec tabpage2 = tabs.newTabSpec("two");
@@ -74,6 +77,17 @@ public class TimeRangePickerDialog extends DialogFragment implements View.OnClic
         tabs.addTab(tabpage1);
         tabs.addTab(tabpage2);
 
+        GestioneDB DB = new GestioneDB();
+        int[] orario = DB.getOrario(getContext(), id);
+
+        if (orario != null){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                startTimePicker.setHour(orario[0]);
+                startTimePicker.setMinute(orario[1]);
+                endTimePicker.setHour(orario[2]);
+                endTimePicker.setMinute(orario[3]);
+            }
+        }
 
         return root;
     }

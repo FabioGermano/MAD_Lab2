@@ -1,11 +1,32 @@
 {
-  "profilo":[
+  "profilo":
+  [
+  {
+        "nome":"HOT JALAPENO",
+        "indirizzo":"Via Acapulco, 14",
+        "telefono":"1234567890",
+        "email":"info@hot_jalapeno.com",
+        "descrizione":"bellissimo ristorante messicano."
+  },
+  {
+        "lun":"CLOSED",
+        "mar":"null",
+        "mer":"null",
+        "gio":"null",
+        "ven":"null",
+        "sab":"null",
+        "dom":"null"
+  },
     {
-      "nome":"HOT JALAPENO",
-      "indirizzo":"Via Acapulco, 14",
-      "telefono":"1234567890",
-      "email":"info@hot_jalapeno.com",
-      "descrizione": "bellissimo ristorante messicano."
+      "Logo_thumb": "A",
+      "Logo_large": "B"
+    } ,
+    {
+      "Cover1_thumb" : "A",
+      "Cover1_large" : "B",
+      "Cover2_thumb" : "A",
+      "Cover2_large" : "B",
+      "Cover3_thumb" : "A",
+      "Cover3_large" : "B"
     }
-  ]
-}
+]}
