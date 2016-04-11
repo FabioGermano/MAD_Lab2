@@ -28,5 +28,15 @@
       "Cover2_large" : "B",
       "Cover3_thumb" : "A",
       "Cover3_large" : "B"
+    },
+    {
+      "reservations": "true",
+      "wifi": "false",
+      "seats": "false",
+      "creditCard": "false",
+      "bancomat": "false",
+      "music": "false",
+      "parking": "false"
     }
+
 ]}

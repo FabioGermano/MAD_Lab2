@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
 
             JSONObject info = jsonArray.getJSONObject(0);
             JSONObject orari = jsonArray.getJSONObject(1);
+            JSONObject features = jsonArray.getJSONObject(4);
 
 
             String name = info.optString("nome").toString();
@@ -87,6 +89,13 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
                 dom += "\n" + orari.optString("dom");
             }
 
+            boolean res = features.optBoolean("reservations");
+            boolean wifi = features.optBoolean("wifi");
+            boolean seats = features.optBoolean("seats");
+            boolean card = features.optBoolean("creditCard");
+            boolean bancomat = features.optBoolean("bancomat");
+            boolean music = features.optBoolean("music");
+            boolean park = features.optBoolean("parking");
 
 
             EditText edit_name = (EditText) findViewById(R.id.edit_name);
@@ -103,23 +112,22 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             Button sabBtn = (Button) findViewById(R.id.saturday_butt);
             Button domBtn = (Button) findViewById(R.id.sunday_butt);
 
+            Switch resSwitch = (Switch) findViewById(R.id.reservation);
+            Switch wifiSwitch = (Switch) findViewById(R.id.wifi);
+            Switch seatsSwitch = (Switch) findViewById(R.id.seats);
+            Switch creditSwitch = (Switch) findViewById(R.id.creditcard);
+            Switch bancomatSwitch = (Switch) findViewById(R.id.bancomat);
+            Switch musicSwitch = (Switch) findViewById(R.id.music);
+            Switch parkSwitch = (Switch) findViewById(R.id.parking);
 
-            if (edit_name != null){
-                edit_name.setText(name);
-            }
-            if (edit_address != null){
-                edit_address.setText(address);
-            }
-            if (edit_phone != null){
-                edit_phone.setText(phone);
-            }
-            if (edit_email != null){
-                edit_email.setText(email);
-            }
-            if (edit_description != null){
-                edit_description.setText(description);
-            }
 
+
+
+            if (edit_name != null){ edit_name.setText(name); }
+            if (edit_address != null){ edit_address.setText(address); }
+            if (edit_phone != null){ edit_phone.setText(phone); }
+            if (edit_email != null){ edit_email.setText(email); }
+            if (edit_description != null){ edit_description.setText(description); }
 
             if (lunBtn != null){ lunBtn.setText(lun); }
             if (marBtn != null){ marBtn.setText(mar); }
@@ -128,6 +136,15 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             if (venBtn != null){ venBtn.setText(ven); }
             if (sabBtn != null){ sabBtn.setText(sab); }
             if (domBtn != null){ domBtn.setText(dom); }
+
+            if (resSwitch != null) { resSwitch.setChecked(res); };
+            if (wifiSwitch != null) { wifiSwitch.setChecked(wifi); };
+            if (seatsSwitch != null) { seatsSwitch.setChecked(seats); };
+            if (creditSwitch != null) { creditSwitch.setChecked(card); };
+            if (bancomatSwitch != null) { bancomatSwitch.setChecked(bancomat); };
+            if (musicSwitch != null) { musicSwitch.setChecked(music); };
+            if (parkSwitch != null) { parkSwitch.setChecked(park); };
+
 
         }
         catch(Exception e){
@@ -157,6 +174,15 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             Button venBtn = (Button) findViewById(R.id.friday_butt);
             Button sabBtn = (Button) findViewById(R.id.saturday_butt);
             Button domBtn = (Button) findViewById(R.id.sunday_butt);
+
+            Switch resSwitch = (Switch) findViewById(R.id.reservation);
+            Switch wifiSwitch = (Switch) findViewById(R.id.wifi);
+            Switch seatsSwitch = (Switch) findViewById(R.id.seats);
+            Switch creditSwitch = (Switch) findViewById(R.id.creditcard);
+            Switch bancomatSwitch = (Switch) findViewById(R.id.bancomat);
+            Switch musicSwitch = (Switch) findViewById(R.id.music);
+            Switch parkSwitch = (Switch) findViewById(R.id.parking);
+
 
 
             if (lunBtn != null){
@@ -263,7 +289,8 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             else
                 description = null;
 
-            if (name != null && address != null && phone != null && email != null && description != null && lun != null && mar != null && mer != null && gio != null && ven != null && sab != null && dom != null){
+            if (name != null && address != null && phone != null && email != null && description != null && lun != null && mar != null && mer != null && gio != null && ven != null && sab != null && dom != null && resSwitch != null &&
+                    wifiSwitch != null && seatsSwitch != null && creditSwitch != null && bancomatSwitch != null && musicSwitch != null && parkSwitch != null){
 
                 if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty() || description.isEmpty() || lun.isEmpty() || mar.isEmpty() || mer.isEmpty() || gio.isEmpty() || ven.isEmpty() || sab.isEmpty() || dom.isEmpty()){
                     AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
@@ -281,6 +308,7 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
                 JSONArray jsonArray = jsonRootObject.getJSONArray("profilo");
                 JSONObject info = jsonArray.getJSONObject(0);
                 JSONObject orari = jsonArray.getJSONObject(1);
+                JSONObject features = jsonArray.getJSONObject(4);
 
                 info.put("nome", name);
                 info.put("indirizzo", address);
@@ -294,6 +322,14 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
                 orari.put("ven", ven);
                 orari.put("sab", sab);
                 orari.put("dom", dom);
+                features.put("reservations", resSwitch.isChecked());
+                features.put("wifi", wifiSwitch.isChecked());
+                features.put("seats", seatsSwitch.isChecked());
+                features.put("creditCard", creditSwitch.isChecked());
+                features.put("bancomat", bancomatSwitch.isChecked());
+                features.put("music", musicSwitch.isChecked());
+                features.put("parking", parkSwitch.isChecked());
+
 
                 DB.updateDB(this, jsonRootObject, "db_profilo");
                 return true;
