@@ -3,8 +3,8 @@ dichiaro come campo private: PhottoManager x;
 nel onCreate dell'activity che usa il PhotoViewer, scriviamo qualcosa di simile a:
 
 PhotoViewer currentFragment = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.ad_fragment);
-String pathThumbPhoto = leggo da db (deve essre null e non c'è)
-String pathLargePhoto = leggo da db (deve essre null e non c'è)
+String pathThumbPhoto = leggo da db (deve essre null se non c'è)
+String pathLargePhoto = leggo da db (deve essre null se non c'è)
 x= new PhotoManager(getApplicationContext(), PhotoType.PROFILE, pathThumbPhoto, pathLargePhoto); // secondo argomento può essere: PROFILE (se sono nell'activiy del profilo), MENU (se sono nel menu), OFFER (se sono nelle offete). Questo serve per mantenere sul file system una gerarchia di cartelle
 currentFragment.setThumbBitmap(BitmapFactory.decodeFile(x.getThumb("ID_PHOTO"))); // ogni foto deve avere un id (stringa) univoco. Nel caso del menu, può essere il suo id, nel caso di logo del ristoratore può essere "logo", nelle cover "cover1", "cover2"...
 
