@@ -3,6 +3,9 @@ package it.polito.mad_lab2;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import it.polito.mad_lab2.photo_viewer.PhotoViewerListener;
 
@@ -17,6 +20,8 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
         SetCalendarButtonVisibility(false);
 
         setContentView(R.layout.activity_edit_restaurant_profile);
+        // Construct the data source
+
     }
 
     @Override

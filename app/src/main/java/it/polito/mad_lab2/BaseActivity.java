@@ -119,10 +119,10 @@ public abstract class BaseActivity extends AppCompatActivity{
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    OnAlertButtonPressed();
                     onOptionsItemSelected(notification);
                 }
             };
+            alertButton.setOnClickListener(listener);
             notificationLayout.setOnClickListener(listener);
             SetAlertCount(4);
             if(alertCount==0){

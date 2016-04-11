@@ -38,5 +38,18 @@
     <string name="restaurant_name">Restaurant name</string>
     <string name="covers">Covers</string>
     <string name="logo">Logo</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="done">Done</string>
+    <string name="closed">Closed</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="opening_time">Opening time</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="features">Features</string>
 
 </resources>
