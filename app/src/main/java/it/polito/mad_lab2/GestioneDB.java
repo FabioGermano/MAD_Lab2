@@ -21,12 +21,14 @@ public class GestioneDB {
 
     private String filename_menu = "db_menu";
     private String filename_offerte = "db_offerte";
+    private String filename_profilo = "db_profilo";
 
     public boolean creaDB(Context context){
         int ch;
 
         File f1 = new File(context.getFilesDir(), filename_menu);
         File f2 = new File(context.getFilesDir(), filename_offerte);
+        File f3 = new File(context.getFilesDir(), filename_profilo);
 
 
         try {
@@ -69,6 +71,25 @@ public class GestioneDB {
             }
             else {
                 System.out.println("***** DB OFFERTE ESISTENTE *****");
+            }
+
+            if (!f3.exists()) {
+                //creazione file locale db profilo
+                str = new StringBuffer("");
+                dbFile = context.getResources().openRawResource(R.raw.db_profilo);
+                fos = context.openFileOutput(filename_profilo, Context.MODE_PRIVATE);
+
+                while ((ch = dbFile.read()) != -1) {
+                    str.append((char) ch);
+                }
+                fos.write(str.toString().getBytes());
+
+                fos.close();
+                dbFile.close();
+                System.out.println("***** DB PROFILO CREATO *****");
+            }
+            else {
+                System.out.println("***** DB PROFILO ESISTENTE *****");
             }
 
             return true;
