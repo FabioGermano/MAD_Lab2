@@ -12,4 +12,5 @@
     <color name="fab_pressed">#90CAF9</color>
     <color name="blackSemitrasparent">#80000000</color>
     <color name="secondary_text_default_material_dark">#b3ffffff</color>
+    <color name="lightGrey">#E6E6FA</color>
 </resources>

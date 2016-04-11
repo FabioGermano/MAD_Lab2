@@ -134,19 +134,8 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
 
                             if (!error) {
                                 //carico le informazioni nella pagina di modifica
-                                ImageView imageDish = (ImageView) findViewById(R.id.imageDish_modifyMenu);
                                 EditText editName = (EditText) findViewById(R.id.edit_dishName_modifyMenu);
                                 EditText editPrice = (EditText) findViewById(R.id.edit_dishPrice_modifyMenu);
-
-                                if (imageDish != null) {
-                                    //carico l'immagine e setto OnClickListener
-                                    imageDish.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            modifyPhoto();
-                                        }
-                                    });
-                                }
 
                                 if (editName != null) {
                                     editName.setText(dish.getName());
@@ -180,6 +169,8 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
             }
         } catch(Exception e){
             System.out.println("Eccezione: " + e.getMessage());
+            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 

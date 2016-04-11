@@ -64,20 +64,9 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                         if (position != -1) {
                             offer = offer_list.get(position);
 
-                            ImageView imageOffer = (ImageView) findViewById(R.id.imageOffer_modifyOffer);
                             EditText editName = (EditText) findViewById(R.id.edit_offerName_modifyOffer);
                             EditText editPrice = (EditText) findViewById(R.id.edit_offerPrice_modifyOffer);
                             EditText editNotes = (EditText) findViewById(R.id.edit_offerNote_modifyOffer);
-
-                            if (imageOffer != null) {
-                                //carico l'immagine e setto OnClickListener
-                                imageOffer.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        modifyPhoto();
-                                    }
-                                });
-                            }
 
                             if (editName != null) {
                                 editName.setText(offer.getName());
