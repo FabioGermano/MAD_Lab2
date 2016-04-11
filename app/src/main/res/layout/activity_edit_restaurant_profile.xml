@@ -9,16 +9,17 @@
 
     <include layout="@layout/toolbar_view" android:layout_height="wrap_content" android:layout_width="match_parent"></include>
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,31 +37,35 @@
             android:layout_height="wrap_content"
             custom:isEditable="true"
             custom:isLogo="false"
-            custom:heightInDP="150"
-            custom:widthInDP="150"
+            custom:heightInDP="100"
+            custom:widthInDP="100"
             custom:initialBackground="@drawable/default_dish_icon"
-            android:layout_below="@+id/textView"   />
+           />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/covers"
             android:id="@+id/cover"
-            android:paddingTop="10dp"
-            android:layout_below="@id/logo_fragment" />
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            />
 
         <HorizontalScrollView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/horizontalScrollView"
-            android:padding="10dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/cover">
+            android:paddingBottom="40dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_gravity="center_horizontal"
+            >
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingLeft="50dp"
+
                 android:layout_gravity="center"
                 >
                 <fragment
@@ -73,8 +78,8 @@
                     android:layout_marginRight="10dp"
                     custom:isEditable="true"
                     custom:isLogo="false"
-                    custom:heightInDP="150"
-                    custom:widthInDP="150"
+                    custom:heightInDP="100"
+                    custom:widthInDP="100"
                     custom:initialBackground="@drawable/default_dish_icon"
                     />
 
@@ -88,8 +93,8 @@
                     android:layout_height="wrap_content"
                     custom:isEditable="true"
                     custom:isLogo="false"
-                    custom:heightInDP="150"
-                    custom:widthInDP="150"
+                    custom:heightInDP="100"
+                    custom:widthInDP="100"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     custom:initialBackground="@drawable/default_dish_icon"
@@ -104,8 +109,8 @@
                     custom:isLogo="false"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    custom:heightInDP="150"
-                    custom:widthInDP="150"
+                    custom:heightInDP="100"
+                    custom:widthInDP="100"
                     custom:initialBackground="@drawable/default_dish_icon"
                       />
                 <fragment
@@ -116,8 +121,8 @@
                     android:layout_height="wrap_content"
                     custom:isEditable="true"
                     custom:isLogo="false"
-                    custom:heightInDP="150"
-                    custom:widthInDP="150"
+                    custom:heightInDP="100"
+                    custom:widthInDP="100"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     custom:initialBackground="@drawable/default_dish_icon"
@@ -126,22 +131,22 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/restaurant_name"
             android:id="@+id/restaurant_name"
-            android:layout_below="@id/horizontalScrollView"
+
             />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_name"
-            android:layout_below="@id/restaurant_name"
-            android:padding="10dp"
             android:textColor="@android:color/black"/>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -149,25 +154,24 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/address"
             android:id="@+id/address"
-            android:layout_below="@id/edit_name"
-
+            android:paddingTop="20dp"
             />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_address"
             android:inputType="textPostalAddress"
             android:ems="10"
-            android:layout_below="@id/address"
-            android:padding="10dp"
             android:textColor="@android:color/black"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/phone_number"
             android:id="@+id/phone"
-            android:layout_below="@id/edit_address"
+            android:paddingTop="20dp"
 
             />
         <EditText
@@ -176,8 +180,6 @@
             android:id="@+id/edit_phone"
             android:inputType="phone"
             android:ems="10"
-            android:layout_below="@id/phone"
-            android:padding="10dp"
             android:textColor="@android:color/black"/>
         <TextView
             android:layout_width="wrap_content"
@@ -185,6 +187,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/email"
             android:id="@+id/email"
+            android:paddingTop="20dp"
             android:layout_below="@id/edit_phone"
             />
         <EditText
@@ -193,16 +196,15 @@
             android:id="@+id/edit_email"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:textColor="@android:color/black"
-            android:layout_below="@id/email"
-            android:padding="10dp"/>
+            android:textColor="@android:color/black"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/description"
             android:id="@+id/description"
-            android:layout_below="@id/edit_email"
+            android:paddingTop="20dp"
             />
         <EditText
             android:layout_width="match_parent"
@@ -210,29 +212,128 @@
             android:id="@+id/edit_description"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:textColor="@android:color/black"
-            android:layout_below="@id/description"
-            android:padding="10dp"/>
+            android:textColor="@android:color/black"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/opening_time"
             android:id="@+id/opening_time"
-            android:layout_below="@id/edit_description"
+            android:paddingTop="20dp"
             />
         <fragment
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/timetable"
-            android:layout_below="@id/edit_description"
             android:name="it.polito.mad_lab2.TimeRangeSelecterActivityFragment"
             tools:layout="@layout/fragment_time_range_selecter"
             android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content" />
 
-    </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/features"
+            android:id="@+id/feature_header"
+            android:paddingTop="20dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reservation"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/reservation"
+            android:switchPadding="50dp"
+            android:checked="false"
+            android:textOn="@string/yes"
+            android:textOff="@string/no"
+            android:padding="10dp"
+            />
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wifi"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/wifi"
+            android:switchPadding="50dp"
+            android:checked="false"
+            android:textOn="@string/yes"
+            android:textOff="@string/no"
+            android:padding="10dp"
+            />
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/seatsoutside"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/seats"
+            android:switchPadding="50dp"
+            android:checked="false"
+            android:textOn="@string/yes"
+            android:textOff="@string/no"
+            android:padding="10dp"
+            />
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/creditcard"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/creditcard"
+            android:switchPadding="50dp"
+            android:checked="false"
+            android:textOn="@string/yes"
+            android:textOff="@string/no"
+            android:padding="10dp"
+
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bancomat"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/bancomat"
+            android:switchPadding="50dp"
+            android:checked="false"
+            android:textOn="@string/yes"
+            android:textOff="@string/no"
+            android:padding="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/music"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/music"
+            android:switchPadding="50dp"
+            android:checked="false"
+            android:textOn="@string/yes"
+            android:textOff="@string/no"
+            android:padding="10dp"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/parking"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/parking"
+            android:switchPadding="50dp"
+            android:checked="false"
+            android:textOn="@string/yes"
+            android:textOff="@string/no"
+            android:padding="10dp"
+            />
+
+
+
+    </LinearLayout>
 
     </ScrollView>
+
 </LinearLayout>

@@ -51,5 +51,12 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="features">Features</string>
+    <string name="wifi">WiFi</string>
+    <string name="creditcard">Creditcard payment</string>
+    <string name="reservation">Reservations</string>
+    <string name="parking">Parking</string>
+    <string name="bancomat">Bancomat</string>
+    <string name="seatsoutside">Seats outside</string>
+    <string name="music">Music</string>
 
 </resources>
