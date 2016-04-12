@@ -18,16 +18,17 @@
         "dom":"null"
   },
     {
-      "Logo_thumb": "A",
-      "Logo_large": "B"
+      "Logo_thumb": "null"
     } ,
     {
-      "Cover1_thumb" : "A",
-      "Cover1_large" : "B",
-      "Cover2_thumb" : "A",
-      "Cover2_large" : "B",
-      "Cover3_thumb" : "A",
-      "Cover3_large" : "B"
+      "coversLargePath_1" : "null",
+      "coversThumbPath_1" : "null",
+      "coversLargePath_2" : "null",
+      "coversThumbPath_2" : "null",
+      "coversLargePath_3" : "null",
+      "coversThumbPath_3" : "null",
+      "coversLargePath_4" : "null",
+      "coversThumbPath_4" : "null"
     },
     {
       "reservations": "true",

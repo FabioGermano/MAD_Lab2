@@ -94,18 +94,20 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
 
             JSONObject info = jsonArray.getJSONObject(0);
             JSONObject orari = jsonArray.getJSONObject(1);
+            JSONObject logo = jsonArray.getJSONObject(2);
+            JSONObject covers = jsonArray.getJSONObject(3);
             JSONObject features = jsonArray.getJSONObject(4);
 
 
             String name = info.optString("nome").toString();
             String address = info.optString("indirizzo").toString();
             String phone = info.optString("telefono");
-            String email =info.optString("email");
+            String email = info.optString("email");
             String description = info.optString("descrizione");
 
             // read logo path
-            this.logoThumbPath = info.optString("logoThumbPath");
-            if(this.logoThumbPath.equals("")){
+            this.logoThumbPath = logo.optString("Logo_thumb");
+            if(this.logoThumbPath.compareTo("null") == 0){
                 this.logoThumbPath = null;
             }
             //this.logoLargePath = jsonObject.optString("logoLargePath");
@@ -116,13 +118,13 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             // read cover path
             for(int i = 0; i<4; i++){
                 this.coversThumbPath[i] = info.optString("coversThumbPath_"+i);
-                if(this.coversThumbPath[i].equals("")){
+                if(this.coversThumbPath[i].equals("null")){
                     this.coversThumbPath[i] = null;
                 }
             }
             for(int i = 0; i<4; i++){
-                this.coversLargePath[i] = info.optString("coversLargePath_"+i);
-                if(this.coversLargePath[i].equals("")){
+                this.coversLargePath[i] = covers.optString("coversLargePath_"+i);
+                if(this.coversLargePath[i].equals("null")){
                     this.coversLargePath[i] = null;
                 }
             }
@@ -215,7 +217,6 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
 
         }
         catch(Exception e){
-
             Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
             toast.show();
             System.out.println("Eccezione: "+e.getMessage());
@@ -453,7 +454,7 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             //save logo paths
             if(this.logoThumbPath != null)
             {
-                info.put("logoThumbPath", this.logoThumbPath);
+                info.put("Logo_thumb", this.logoThumbPath);
             }
             // if(this.logoLargePath != null)
             //{

@@ -208,8 +208,10 @@ public class EditAvailability extends EditableBaseActivity {
 
     private class MyPageAdapter extends FragmentPagerAdapter {
         private int NumOfPage = 5;
+
         String tabTitles[] = new String[] {getResources().getString(R.string.offers), getResources().getString(R.string.first), getResources().getString(R.string.second), getResources().getString(R.string.dessert),
                 getResources().getString(R.string.other)};
+
         Context context;
 
         public MyPageAdapter(FragmentManager fm, Context context) {
