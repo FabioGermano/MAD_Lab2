@@ -13,12 +13,19 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import it.polito.mad_lab2.data.reservation.Reservation;
+import it.polito.mad_lab2.data.reservation.ReservationEntity;
+import it.polito.mad_lab2.data.reservation.ReservedDish;
+import it.polito.mad_lab2.data.reservation.User;
 import it.polito.mad_lab2.photo_viewer.PhotoViewer;
 import it.polito.mad_lab2.photo_viewer.PhotoViewerListener;
 
@@ -46,6 +53,14 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         PhotoViewer currentFragment = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.ad_fragment);
 
         checkDB();
+
+        //provaGson();
+    }
+
+    private void provaGson() {
+        GestioneDB db = new GestioneDB();
+
+        ReservationEntity res = db.getAllReservations(getApplicationContext());
     }
 
     @Override

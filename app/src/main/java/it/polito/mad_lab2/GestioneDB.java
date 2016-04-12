@@ -2,6 +2,10 @@ package it.polito.mad_lab2;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,6 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import it.polito.mad_lab2.data.reservation.ReservationEntity;
+
 /**
  * Created by Roby on 09/04/2016.
  */
@@ -23,6 +29,7 @@ public class GestioneDB {
     private String filename_menu = "db_menu";
     private String filename_offerte = "db_offerte";
     private String filename_profilo = "db_profilo";
+    private final String filename_reservation = "db_reservation";
 
     public boolean creaDB(Context context){
         int ch;
@@ -30,7 +37,7 @@ public class GestioneDB {
         File f1 = new File(context.getFilesDir(), filename_menu);
         File f2 = new File(context.getFilesDir(), filename_offerte);
         File f3 = new File(context.getFilesDir(), filename_profilo);
-
+        File f4 = new File(context.getFilesDir(), filename_reservation);
 
         try {
             StringBuffer str;
@@ -80,6 +87,25 @@ public class GestioneDB {
                 str = new StringBuffer("");
                 dbFile = context.getResources().openRawResource(R.raw.db_profilo);
                 fos = context.openFileOutput(filename_profilo, Context.MODE_PRIVATE);
+
+                while ((ch = dbFile.read()) != -1) {
+                    str.append((char) ch);
+                }
+                fos.write(str.toString().getBytes());
+
+                fos.close();
+                dbFile.close();
+                System.out.println("***** DB PROFILO CREATO *****");
+            }
+            else {
+                System.out.println("***** DB PROFILO ESISTENTE *****");
+            }
+
+            if (!f4.exists()) {
+                //creazione file locale db reservation
+                str = new StringBuffer("");
+                dbFile = context.getResources().openRawResource(R.raw.db_reservation);
+                fos = context.openFileOutput(filename_reservation, Context.MODE_PRIVATE);
 
                 while ((ch = dbFile.read()) != -1) {
                     str.append((char) ch);
@@ -213,9 +239,36 @@ public class GestioneDB {
             System.out.println("Eccezione:" + e.getMessage());
             return null;
         }
-
     }
 
+    public ReservationEntity getAllReservations(Context context)
+    {
+        String jsonReservations = leggiDB(context, filename_reservation);
+        Gson gson = new GsonBuilder().serializeNulls().create();
+
+        return gson.fromJson(jsonReservations, ReservationEntity.class);
+    }
+
+    public boolean UpdateReservations(Context context, ReservationEntity reservationEntity){
+        Gson gson = new GsonBuilder().serializeNulls().create();
+
+        String jsonReservations = gson.toJson(reservationEntity);
+
+        try {
+            FileOutputStream fos = context.openFileOutput(filename_reservation, Context.MODE_PRIVATE);
+            fos.write(jsonReservations.getBytes());
+            fos.close();
+            return true;
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Eccezione: "+e.getMessage());
+            return false;
+        }
+        catch (IOException e){
+            System.out.println("Eccezione: "+e.getMessage());
+            return false;
+        }
+    }
 }
 
 

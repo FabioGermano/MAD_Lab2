@@ -1,0 +1,58 @@
+{
+   "reservations":[
+      {
+         "date":"2016-04-12",
+         "noteByOwner":null,
+         "noteByUser":"no glutine",
+         "places":null,
+         "user":{
+            "name":"Giovanna Galeano",
+            "phone":"5453773"
+         },
+         "reservedDishes":[
+            {
+               "name":"frise",
+               "isOffer":false,
+               "quantity":4
+            },
+            {
+               "name":"minestra",
+               "isOffer":false,
+               "quantity":4
+            }
+         ],
+         "status":"Accepted",
+         "time":"14:30",
+         "reservationId":1,
+		 "isExpired" : false,
+		 "isVerified" : false
+      },
+      {
+         "date":"2016-04-12",
+         "noteByOwner":null,
+         "noteByUser":"no glutine",
+         "places":null,
+         "user":{
+            "name":"Fabio Germano",
+            "phone":"5453333"
+         },
+         "reservedDishes":[
+            {
+               "name":"kebab",
+               "isOffer":false,
+               "quantity":4
+            },
+            {
+               "name":"pizza",
+               "isOffer":true,
+               "quantity":10
+            }
+         ],
+         "status":"Pending",
+         "time":"14:30",
+         "reservationId":0,
+		 "isExpired" : false,
+		 "isVerified" : false
+      }
+   ]
+}
