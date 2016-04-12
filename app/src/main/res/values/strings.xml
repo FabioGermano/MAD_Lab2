@@ -1,40 +1,53 @@
 <resources>
-    <string name="app_name">TestLab2</string>
-    <string name="dishPhoto">Photo:</string>
-    <string name="dishName">Name of the dish:</string>
-    <string name="dishPrice">Price:</string>
-    <string name="dishType">Typology:</string>
-    <string name="notesOffer">Notes:</string>
-    <string name="money_value">euro</string>
-    <string name="offerPrice">Price:</string>
-    <string name="offerName">Name of the offer:</string>
 
-    <string name="attenzione">Attention</string>
+    <string name="app_name">TestLab2</string>
+
+    <!-- Activity names -->
+    <string name="title_activity_reservations">Reservations</string>
+    <string name="title_activity_edit_availability">Today availability</string>
+    <string name="title_activity_edit_restaurant_profile">Edit profile</string>
+    <string name="title_activity_edit_menu">Edit menu</string>
+    <string name="title_activity_edit_dish">Edit dish</string>
+    <string name="title_activity_edit_offer">Edit offers</string>
+
+    <!-- Edit menu dish activity strings-->
+    <string name="dishPhoto">Photo</string>
+    <string name="dishName">Name of the dish</string>
+    <string name="dishPrice">Price</string>
+    <string name="dishType">Typology</string>
+
+    <!--- Edit offer activity strings-->
+    <string name="offer_image">Offer image</string>
+    <string name="offerName">Name of the offer</string>
+    <string name="notesOffer">Notes</string>
+    <string name="money_value">euro</string>
+    <string name="offerPrice">Price</string>
+    <string name="weeklyreapeted">Apply on</string>
+    <string name="offers">Offers</string>
+
+
+    <string name="day_monday">Mo</string>
+    <string name="day_tuedsday">Tu</string>
+    <string name="day_wednesday">We</string>
+    <string name="day_thursday">Th</string>
+    <string name="day_friday">Fr</string>
+    <string name="day_saturday">Sa</string>
+    <string name="day_sunday">Su</string>
+
+    <!-- Notification strings -->
+
+    <string name="dataSaved">DATA SAVED</string>
+    <string name="error">Warning</string>
     <string name="exceptionError">Sorry, an error is occurred</string>
     <string name="error_complete">Please, complete correctly all fields</string>
 
-    <string name="listaVuota">Empty List</string>
-    <string name="msgListaVuotaPiatti">Add here new dishes</string>
-    <string name="msgListaVuotaOfferte">Add here new offers</string>
-
+    <!-- Edit menu activity strings -->
     <string name="first">Main courses</string>
     <string name="second">Second courses</string>
     <string name="dessert">Dessert</string>
     <string name="other">Other</string>
-    <string name="take_photo">Camera</string>
-    <string name="chose_library">Gallery</string>
-    <string name="remove_photo">Remove</string>
-    <string name="add_photo">Photo</string>
-    <string name="notifications">Notifications</string>
-    <string name="action_settings">Settings</string>
-    <string name="save">Save</string>
-    <string name="calendar">Calendar</string>
-    <string name="manu_edit_title">Edit menu</string>
-    <string name="manu_edit_dish">Edit dish</string>
-    <string name="menu_edit_offer">Edit offer</string>
 
-    <string name="dataSaved">DATA SAVED</string>
-    <string name="edit_restaurant_profile">Edit profile</string>
+    <!-- Edit Restaurant profile activity -->
     <string name="description">Description</string>
     <string name="email">Email</string>
     <string name="phone_number">Phone number</string>
@@ -44,14 +57,16 @@
     <string name="logo">Logo</string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
-    <string name="done">Done</string>
-    <string name="closed">Closed</string>
     <string name="wednesday">Wednesday</string>
     <string name="thursday">Thursday</string>
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
+    <string name="done">Done</string>
+    <string name="closed">Closed</string>
     <string name="opening_time">Opening time</string>
+    <string name="orarioApertura">Start Time</string>
+    <string name="orarioChiusura">End Time</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="features">Features</string>
@@ -64,17 +79,29 @@
     <string name="music">Music</string>
     <string name="available">Available</string>
     <string name="not_available">Not available</string>
-    <string name="edit_availability">Today availability</string>
-    <string name="offers">Offers</string>
-    <string name="orarioApertura">Start Time</string>
-    <string name="orarioChiusura">End Time</string>
 
-    <string name="day_monday">M</string>
-    <string name="day_tuedsday">T</string>
-    <string name="day_wednesday">W</string>
-    <string name="day_thursday">T</string>
-    <string name="day_friday">F</string>
-    <string name="day_saturday">S</string>
-    <string name="day_sunday">S</string>
 
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="listaVuota">Empty List</string>
+    <string name="msgListaVuotaPiatti">Add here new dishes</string>
+    <string name="msgListaVuotaOfferte">Add here new offers</string>
+    <string name="attenzione">Attention</string>
+
+    <!-- Photo intent strings -->
+    <string name="take_photo">Camera</string>
+    <string name="chose_library">Gallery</string>
+    <string name="remove_photo">Remove</string>
+    <string name="add_photo">Photo</string>
+
+
+    <!-- toolbar strings -->
+    <string name="notifications">Notifications</string>
+    <string name="action_settings">Settings</string>
+    <string name="save">Save</string>
+    <string name="calendar">Calendar</string>
+
+    <!-- reservations types -->
+    <string name="table">Table</string>
+    <string name="table_with_orders">Table with orders</string>
+    <string name="takeaway">Take-away</string>
 </resources>

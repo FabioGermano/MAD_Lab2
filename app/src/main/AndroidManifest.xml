@@ -9,13 +9,13 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
-        android:windowSoftInputMode="stateVisible|adjustResize"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateVisible|adjustResize">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,22 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".GestioneMenu"
             android:label="GestioneMenu"
             android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".ModifyMenuDish"
             android:label="ModifyMenuDish"
             android:parentActivityName=".GestioneMenu"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-
-        <activity
-            android:name=".photo_viewer.PhotoViewActivity"></activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".photo_viewer.PhotoViewActivity" />
         <activity
             android:name=".GestioneOfferte"
             android:label="GestioneOfferte"
@@ -51,22 +46,28 @@
         <activity
             android:name=".AlertActivity"
             android:label="AlertActivity"
-            android:theme="@style/Theme.Transparent"
-            />
-
+            android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ModifyOfferDish"
             android:label="ModifyOfferDish"
             android:parentActivityName=".GestioneOfferte"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".EditRestaurantProfile"
             android:label="EditRestaurantProfile"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
+        <activity
+            android:name=".reservation.ReservationsActivity"
+            android:label="@string/title_activity_reservations"
+            android:parentActivityName=".MainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.polito.mad_lab2.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

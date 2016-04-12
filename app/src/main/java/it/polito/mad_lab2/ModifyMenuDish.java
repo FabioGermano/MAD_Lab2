@@ -39,7 +39,7 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
         super.onCreate(savedInstanceState);
 
         SetCalendarButtonVisibility(false);
-        setTitleTextView(getResources().getString(R.string.manu_edit_dish));
+        setTitleTextView(getResources().getString(R.string.title_activity_edit_dish));
         setContentView(R.layout.activity_modify_menu_dish);
 
         SetSaveButtonVisibility(true);

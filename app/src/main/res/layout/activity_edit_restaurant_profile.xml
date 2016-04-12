@@ -27,7 +27,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/logo"
                 android:id="@+id/textView"
-                android:padding="10dp"/>
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
             <fragment
                 xmlns:custom="http://schemas.android.com/apk/res/it.polito.mad_lab2"
                 android:id="@+id/logo_fragment"
@@ -61,7 +62,7 @@
                     android:name="it.polito.mad_lab2.photo_viewer.PhotoViewer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     custom:isEditable="true"
                     custom:isLogo="false"
                     custom:heightInDP="100"
@@ -83,7 +84,7 @@
                     custom:isLogo="false"
                     custom:heightInDP="100"
                     custom:widthInDP="100"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     custom:initialBackground="@drawable/default_dish_icon"
                     />
                 <fragment
@@ -95,7 +96,7 @@
                     android:layout_height="wrap_content"
                     custom:isEditable="true"
                     custom:isLogo="false"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     custom:heightInDP="100"
                     custom:widthInDP="100"
                     custom:initialBackground="@drawable/default_dish_icon"
@@ -112,7 +113,7 @@
                     custom:isLogo="false"
                     custom:heightInDP="100"
                     custom:widthInDP="100"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     custom:initialBackground="@drawable/default_dish_icon"
                     />
 

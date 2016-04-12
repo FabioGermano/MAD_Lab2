@@ -42,7 +42,7 @@ public class EditAvailability extends EditableBaseActivity {
         SetSaveButtonVisibility(true);
         SetCalendarButtonVisibility(false);
         hideShadow(true);
-        setTitleTextView(getResources().getString(R.string.edit_availability));
+        setTitleTextView(getResources().getString(R.string.title_activity_edit_availability));
         setContentView(R.layout.activity_gestione_menu);
 
         boolean ris = readMenuData();

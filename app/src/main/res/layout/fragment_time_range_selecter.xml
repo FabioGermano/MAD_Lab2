@@ -50,7 +50,6 @@
             android:id="@+id/wednesday_butt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/wednesday"
             android:drawablePadding="10dp"
             android:drawableRight="@drawable/ic_mode_edit_white_48dp"
             android:padding="10dp"/>
@@ -65,7 +64,6 @@
             android:id="@+id/thursday_butt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/thursday"
             android:drawablePadding="10dp"
             android:drawableRight="@drawable/ic_mode_edit_white_48dp"
             android:padding="10dp"/>
@@ -81,7 +79,7 @@
             android:id="@+id/friday_butt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/friday"
+
             android:drawablePadding="10dp"
             android:drawableRight="@drawable/ic_mode_edit_white_48dp"
             android:padding="10dp"/>

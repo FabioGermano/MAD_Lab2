@@ -37,7 +37,7 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
         super.onCreate(savedInstanceState);
 
         SetCalendarButtonVisibility(false);
-        setTitleTextView(getResources().getString(R.string.menu_edit_offer));
+        setTitleTextView(getResources().getString(R.string.title_activity_edit_dish));
         setContentView(R.layout.activity_modify_offer);
         SetSaveButtonVisibility(true);
 

@@ -28,6 +28,7 @@ import it.polito.mad_lab2.data.reservation.ReservedDish;
 import it.polito.mad_lab2.data.reservation.User;
 import it.polito.mad_lab2.photo_viewer.PhotoViewer;
 import it.polito.mad_lab2.photo_viewer.PhotoViewerListener;
+import it.polito.mad_lab2.reservation.ReservationsActivity;
 
 public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
@@ -109,6 +110,11 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     }
     public void eseguiActivityModificaDisponibilita(View v){
         Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.EditAvailability.class);
+        startActivity(intent);
+    }
+
+    public void eseguiActivityReservations(View v){
+        Intent intent = new Intent(getApplicationContext(), ReservationsActivity.class);
         startActivity(intent);
     }
 

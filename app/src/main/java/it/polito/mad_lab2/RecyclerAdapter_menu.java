@@ -86,7 +86,7 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
 
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MyViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Oggetto_piatto current;
         private int position;

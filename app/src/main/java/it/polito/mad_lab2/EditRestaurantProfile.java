@@ -50,7 +50,7 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitleTextView(getResources().getString(R.string.edit_restaurant_profile));
+        setTitleTextView(getResources().getString(R.string.title_activity_edit_restaurant_profile));
         SetSaveButtonVisibility(true);
         SetCalendarButtonVisibility(false);
 

@@ -19,4 +19,14 @@ public class ReservationEntity {
     }
 
     public ArrayList<Reservation> reservations;
+
+    public ArrayList<Reservation> getReservationsByDateAndType(String date, ReservationType type){
+        ArrayList<Reservation> list = new ArrayList<Reservation>();
+        for ( Reservation r : reservations){
+            if(r.getDate().equals(date) &&  ReservationTypeConverter.toString(type).equals(r.getStatus())){
+                list.add(r);
+            }
+        }
+        return list;
+    }
 }

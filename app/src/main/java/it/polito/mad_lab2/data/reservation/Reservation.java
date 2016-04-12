@@ -46,6 +46,18 @@ public class Reservation {
         return date;
     }
 
+    public String getType(){
+        if(places!=null && (reservedDishes == null || reservedDishes.size()==0)){
+            return "Table";
+        }
+        else if (places== null && reservedDishes.size()>0){
+            return "Take-away";
+        }
+        else {
+            return "Table with orders";
+        }
+    }
+
     public String getTime() {
         return time;
     }
