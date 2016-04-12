@@ -145,46 +145,49 @@ public class TimeRangeSelecterActivityFragment extends Fragment implements TimeR
 
         //String str = startHour+":"+ startMin+" - "+endHour+":"+endMin;
         String str = start + " - " + end;
+        if((startHour == endHour && endMin<startMin) || endHour<startHour) //da testare
+            str = "";
         setText(str, id);
     }
 
     @Override
     public void closed(int id) {
-        String str = "Closed";
+        String str = getResources().getString(R.string.closed);
         setText(str, id);
     }
 
     void setText(String string, int id){
-
-        switch (id){
-            case 0:
-                monday.setText(getResources().getString(R.string.monday).toUpperCase()+"\n"+string);
-                //monday_text.setText(string);
-                break;
-            case 1:
-                tuesday.setText(getResources().getString(R.string.tuesday).toUpperCase()+"\n"+string);
-                //tuesday_text.setText(string);
-                break;
-            case 2:
-                wednesday.setText(getResources().getString(R.string.wednesday).toUpperCase()+"\n"+string);
-                //wednesday_text.setText(string);
-                break;
-            case 3:
-                thursday.setText(getResources().getString(R.string.thursday).toUpperCase()+"\n"+string);
-                //thursday_text.setText(string);
-                break;
-            case 4:
-                friday.setText(getResources().getString(R.string.friday).toUpperCase()+"\n"+string);
-                //friday_text.setText(string);
-                break;
-            case 5:
-                saturday.setText(getResources().getString(R.string.saturday).toUpperCase()+"\n"+string);
-                //saturday_text.setText(string);
-                break;
-            case 6:
-                sunday.setText(getResources().getString(R.string.sunday).toUpperCase()+"\n"+string);
-                //sunday_text.setText(string);
-                break;
+        if(string.compareTo("") != 0) {
+            switch (id) {
+                case 0:
+                    monday.setText(getResources().getString(R.string.monday).toUpperCase() + "\n" + string);
+                    //monday_text.setText(string);
+                    break;
+                case 1:
+                    tuesday.setText(getResources().getString(R.string.tuesday).toUpperCase() + "\n" + string);
+                    //tuesday_text.setText(string);
+                    break;
+                case 2:
+                    wednesday.setText(getResources().getString(R.string.wednesday).toUpperCase() + "\n" + string);
+                    //wednesday_text.setText(string);
+                    break;
+                case 3:
+                    thursday.setText(getResources().getString(R.string.thursday).toUpperCase() + "\n" + string);
+                    //thursday_text.setText(string);
+                    break;
+                case 4:
+                    friday.setText(getResources().getString(R.string.friday).toUpperCase() + "\n" + string);
+                    //friday_text.setText(string);
+                    break;
+                case 5:
+                    saturday.setText(getResources().getString(R.string.saturday).toUpperCase() + "\n" + string);
+                    //saturday_text.setText(string);
+                    break;
+                case 6:
+                    sunday.setText(getResources().getString(R.string.sunday).toUpperCase() + "\n" + string);
+                    //sunday_text.setText(string);
+                    break;
+            }
         }
     }
 }

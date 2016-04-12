@@ -181,13 +181,26 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
             EditText editName = (EditText) findViewById(R.id.edit_dishName_modifyMenu);
             EditText editPrice = (EditText) findViewById(R.id.edit_dishPrice_modifyMenu);
 
+            /* ##################################
+                 Lettura campi dalla schermata
+               ##################################
+             */
             if (editName != null) {
                 String text = editName.getText().toString();
-                if(text.compareTo("")==0)
-                    dish.setName(null);
+                if(text.compareTo("")==0){
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
+                }
                 else
                     dish.setName(text);
             }
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+
 
             if (editPrice != null) {
                 String price =  editPrice.getText().toString();
@@ -195,20 +208,42 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                     int cost = Integer.parseInt(editPrice.getText().toString());
                     dish.setCost(cost);
                 }
-                else
-                    dish.setCost(-1);
+                else{
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
+                }
+            }
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
             }
 
+
             //la foto può essere null (default)
-            if(dish.getName() == null || dish.getCost() == -1 || dish.getDishType() == null){
+            /*if(dish.getName() == null || dish.getCost() == -2){
+                AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
+                miaAlert.setTitle(getResources().getString(R.string.error));
+                miaAlert.setMessage(getResources().getString(R.string.exceptionError));
+                AlertDialog alert = miaAlert.create();
+                alert.show();
+                return false;
+            }
+
+            if(dish.getName().isEmpty() || dish.getCost() == -1 || dish.getDishType() ==null ){
                 AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
                 miaAlert.setTitle(getResources().getString(R.string.error));
                 miaAlert.setMessage(getResources().getString(R.string.error_complete));
                 AlertDialog alert = miaAlert.create();
                 alert.show();
                 return false;
-            }
+            }*/
 
+            /* ##################################
+                        Gestione Database
+               ##################################
+             */
             GestioneDB DB = new GestioneDB();
             if (newDish){
                 //aggiorno il db locale
@@ -332,6 +367,15 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
             return false;
         }
 
+    }
+
+    private void printAlert(String msg){
+        System.out.println(msg);
+        AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
+        miaAlert.setTitle(getResources().getString(R.string.error));
+        miaAlert.setMessage(msg);
+        AlertDialog alert = miaAlert.create();
+        alert.show();
     }
 
     @Override

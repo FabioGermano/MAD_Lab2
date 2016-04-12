@@ -137,13 +137,23 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
             ToggleButton domBtn = (ToggleButton) findViewById(R.id.dom_Button);
 
 
-            //leggo i campi dalla schermata
+            /* ##################################
+                 Lettura campi dalla schermata
+               ##################################
+             */
             if (editName != null) {
                 String text = editName.getText().toString();
-                if(text.compareTo("")==0)
-                    offer.setName(null);
+                if(text.compareTo("")==0){
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
+                }
                 else
                     offer.setName(text);
+            } else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
             }
 
             if (editPrice != null) {
@@ -152,32 +162,87 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                     int cost = Integer.parseInt(price);
                     offer.setCost(cost);
                 }
-                else{
-                    offer.setCost(-1);
+                else {
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
                 }
+            }
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
             }
 
             if (editNotes != null) {
                 String notes = editNotes.getText().toString();
-                if(notes.compareTo("")==0)
-                    offer.setNote(null);
+                if(notes.compareTo("")==0) {
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
+                }
                 else
                     offer.setNote(notes);;
+            } else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
             }
 
             boolean[] days = new boolean[7];
+            for(int i=0; i<days.length; i++){
+                days[i] = false;
+            }
 
-            if (lunBtn != null){ days[0] = lunBtn.isChecked(); }
-            if (marBtn != null){ days[1] = marBtn.isChecked(); }
-            if (merBtn != null){ days[2] = merBtn.isChecked(); }
-            if (gioBtn != null){ days[3] = gioBtn.isChecked(); }
-            if (venBtn != null){ days[4] = venBtn.isChecked(); }
-            if (sabBtn != null){ days[5] = sabBtn.isChecked(); }
-            if (domBtn != null){ days[6] = domBtn.isChecked(); }
+            if (lunBtn != null){ days[0] = lunBtn.isChecked(); } else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+            if (marBtn != null){ days[1] = marBtn.isChecked(); } else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+            if (merBtn != null){ days[2] = merBtn.isChecked(); } else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+            if (gioBtn != null){ days[3] = gioBtn.isChecked(); } else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+            if (venBtn != null){ days[4] = venBtn.isChecked(); } else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+            if (sabBtn != null){ days[5] = sabBtn.isChecked(); } else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+            if (domBtn != null){ days[6] = domBtn.isChecked(); } else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+
             offer.setDays(days);
 
             //la foto può essere null (default)
-            if(offer.getName() == null || offer.getCost() == -1 || offer.getNote() == null){
+            /*if(errore){
+                AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
+                miaAlert.setTitle(getResources().getString(R.string.error));
+                miaAlert.setMessage(getResources().getString(R.string.exceptionError));
+                AlertDialog alert = miaAlert.create();
+                alert.show();
+                return false;
+            }
+
+            if(campoVuoto){
                 System.out.println(R.string.error_complete);
                 AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
                 miaAlert.setTitle(getResources().getString(R.string.error));
@@ -185,7 +250,12 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                 AlertDialog alert = miaAlert.create();
                 alert.show();
                 return false;
-            }
+            }*/
+
+            /* ##################################
+                        Gestione Database
+               ##################################
+             */
 
             GestioneDB DB = new GestioneDB();
 
@@ -267,9 +337,15 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
             startActivity(intent);
             return false;
         }
+    }
 
-
-
+    private void printAlert(String msg){
+        System.out.println(msg);
+        AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
+        miaAlert.setTitle(getResources().getString(R.string.error));
+        miaAlert.setMessage(msg);
+        AlertDialog alert = miaAlert.create();
+        alert.show();
     }
 
     @Override

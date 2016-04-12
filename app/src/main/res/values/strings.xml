@@ -9,8 +9,8 @@
     <string name="offerPrice">Price:</string>
     <string name="offerName">Name of the offer:</string>
 
-    <string name="error">Error</string>
-    <string name="exceptionError">Sorry, an exception is occurred</string>
+    <string name="error">Warning</string>
+    <string name="exceptionError">Sorry, an error is occurred</string>
     <string name="error_complete">Please, complete correctly all fields</string>
 
     <string name="first">Main courses</string>
@@ -62,6 +62,8 @@
     <string name="not_available">Not available</string>
     <string name="edit_availability">Edit today availability</string>
     <string name="offers">Offers</string>
+    <string name="orarioApertura">Start Time</string>
+    <string name="orarioChiusura">End Time</string>
 
     <string name="day_monday">M</string>
     <string name="day_tuedsday">T</string>

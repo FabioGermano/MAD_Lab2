@@ -251,112 +251,175 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             Switch parkSwitch = (Switch) findViewById(R.id.parking);
 
 
-
+            /* ##################################
+                 Lettura campi dalla schermata
+               ##################################
+             */
             if (lunBtn != null){
                 tmp = lunBtn.getText().toString();
-                if (tmp.compareTo(getResources().getString(R.string.monday)) == 0){
-                    lun = "";
+                if (tmp.compareTo(getResources().getString(R.string.monday).toUpperCase()) == 0){
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
                 }
                 else
                     lun = tmp.substring(tmp.indexOf("\n")+1,tmp.length());
             }
-            else
-                lun = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
 
             if (marBtn != null){
                 tmp = marBtn.getText().toString();
-                if (tmp.compareTo(getResources().getString(R.string.tuesday)) == 0){
-                    mar = "";
+                if (tmp.compareTo(getResources().getString(R.string.tuesday).toUpperCase()) == 0){
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
                 }
                 else
                     mar = tmp.substring(tmp.indexOf("\n")+1,tmp.length());
             }
-            else
-                mar = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
 
 
             if (merBtn != null) {
                 tmp = merBtn.getText().toString();
-                if (tmp.compareTo(getResources().getString(R.string.wednesday)) == 0) {
-                    mer = "";
+                if (tmp.compareTo(getResources().getString(R.string.wednesday).toUpperCase()) == 0) {
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
                 } else
                     mer = tmp.substring(tmp.indexOf("\n") + 1, tmp.length());
             }
-            else
-                mer = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
 
             if (gioBtn != null){
                 tmp = gioBtn.getText().toString();
-                if (tmp.compareTo(getResources().getString(R.string.thursday)) == 0){
-                    gio = "";
+                if (tmp.compareTo(getResources().getString(R.string.thursday).toUpperCase()) == 0){
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
                 }
                 else
                     gio = tmp.substring(tmp.indexOf("\n")+1,tmp.length());
             }
-            else
-                gio = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
 
             if (venBtn != null){
                 tmp = venBtn.getText().toString();
-                if (tmp.compareTo(getResources().getString(R.string.friday)) == 0){
-                    ven = "";
+                if (tmp.compareTo(getResources().getString(R.string.friday).toUpperCase()) == 0){
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
                 }
                 else
                     ven = tmp.substring(tmp.indexOf("\n")+1,tmp.length());
             }
-            else
-                ven = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
 
             if (sabBtn != null){
                 tmp = sabBtn.getText().toString();
-                if (tmp.compareTo(getResources().getString(R.string.saturday)) == 0){
-                    sab = "";
+                if (tmp.compareTo(getResources().getString(R.string.saturday).toUpperCase()) == 0){
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
                 }
                 else
                     sab = tmp.substring(tmp.indexOf("\n")+1,tmp.length());
             }
-            else
-                sab = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
 
             if (domBtn != null){
                 tmp = domBtn.getText().toString();
-                if (tmp.compareTo(getResources().getString(R.string.sunday)) == 0){
-                    dom = "";
+                if (tmp.compareTo(getResources().getString(R.string.sunday).toUpperCase()) == 0){
+                    //campo vuoto
+                    printAlert(getResources().getString(R.string.error_complete));
+                    return false;
                 }
                 else
                     dom = tmp.substring(tmp.indexOf("\n")+1,tmp.length());
             }
-            else
-                dom = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
 
 
             if (edit_name != null) {
                 name = edit_name.getText().toString();
             }
-            else
-                name = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+
             if (edit_address != null) {
                 address = edit_address.getText().toString();
             }
-            else
-                address = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+
             if (edit_phone != null) {
                 phone = edit_phone.getText().toString();
             }
-            else
-                phone = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+
             if (edit_email != null) {
                 email = edit_email.getText().toString();
             }
-            else
-                email = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
+
             if (edit_description != null) {
                 description = edit_description.getText().toString();
             }
-            else
-                description = null;
+            else {
+                //errore
+                printAlert(getResources().getString(R.string.exceptionError));
+                return false;
+            }
 
-            if (name != null && address != null && phone != null && email != null && description != null && lun != null && mar != null && mer != null && gio != null && ven != null && sab != null && dom != null && resSwitch != null &&
+            if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty() || description.isEmpty()){
+                //campo vuoto
+                printAlert(getResources().getString(R.string.error_complete));
+                return false;
+            }
+
+           /* if (name != null && address != null && phone != null && email != null && description != null && lun != null && mar != null && mer != null && gio != null && ven != null && sab != null && dom != null && resSwitch != null &&
                     wifiSwitch != null && seatsSwitch != null && creditSwitch != null && bancomatSwitch != null && musicSwitch != null && parkSwitch != null){
 
                 if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty() || description.isEmpty() || lun.isEmpty() || mar.isEmpty() || mer.isEmpty() || gio.isEmpty() || ven.isEmpty() || sab.isEmpty() || dom.isEmpty()){
@@ -366,64 +429,68 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
                     AlertDialog alert = miaAlert.create();
                     alert.show();
                     return false;
-                }
+                }*/
 
-                GestioneDB DB = new GestioneDB();
-                String profilo = DB.leggiDB(this, "db_profilo");
+            /* ##################################
+                    Gestione Database
+               ##################################
+             */
+            GestioneDB DB = new GestioneDB();
+            String profilo = DB.leggiDB(this, "db_profilo");
 
-                JSONObject jsonRootObject = new JSONObject(profilo);
-                JSONArray jsonArray = jsonRootObject.getJSONArray("profilo");
-                JSONObject info = jsonArray.getJSONObject(0);
-                JSONObject orari = jsonArray.getJSONObject(1);
-                JSONObject features = jsonArray.getJSONObject(4);
+            JSONObject jsonRootObject = new JSONObject(profilo);
+            JSONArray jsonArray = jsonRootObject.getJSONArray("profilo");
+            JSONObject info = jsonArray.getJSONObject(0);
+            JSONObject orari = jsonArray.getJSONObject(1);
+            JSONObject features = jsonArray.getJSONObject(4);
 
-                info.put("nome", name);
-                info.put("indirizzo", address);
-                info.put("telefono", phone);
-                info.put("email", email);
-                info.put("descrizione", description);
+            info.put("nome", name);
+            info.put("indirizzo", address);
+            info.put("telefono", phone);
+            info.put("email", email);
+            info.put("descrizione", description);
 
-                //save logo paths
-                if(this.logoThumbPath != null)
-                {
-                    info.put("logoThumbPath", this.logoThumbPath);
-                }
-                // if(this.logoLargePath != null)
-                //{
-                //    jsonObject.put("logoLargePath", this.logoLargePath);
-                //}
-
-                //save cover path
-                for(int i = 0; i<4; i++){
-                    if(this.coversThumbPath[i] != null) {
-                        info.put("coversThumbPath_" + i, this.coversThumbPath[i]);
-                    }
-                }
-                for(int i = 0; i<4; i++){
-                    if(this.coversLargePath[i] != null) {
-                        info.put("coversLargePath_" + i, this.coversLargePath[i]);
-                    }
-                }
-
-                orari.put("lun", lun);
-                orari.put("mar", mar);
-                orari.put("mer", mer);
-                orari.put("gio", gio);
-                orari.put("ven", ven);
-                orari.put("sab", sab);
-                orari.put("dom", dom);
-                features.put("reservations", resSwitch.isChecked());
-                features.put("wifi", wifiSwitch.isChecked());
-                features.put("seats", seatsSwitch.isChecked());
-                features.put("creditCard", creditSwitch.isChecked());
-                features.put("bancomat", bancomatSwitch.isChecked());
-                features.put("music", musicSwitch.isChecked());
-                features.put("parking", parkSwitch.isChecked());
-
-
-                DB.updateDB(this, jsonRootObject, "db_profilo");
-                return true;
+            //save logo paths
+            if(this.logoThumbPath != null)
+            {
+                info.put("logoThumbPath", this.logoThumbPath);
             }
+            // if(this.logoLargePath != null)
+            //{
+            //    jsonObject.put("logoLargePath", this.logoLargePath);
+            //}
+
+            //save cover path
+            for(int i = 0; i<4; i++){
+                if(this.coversThumbPath[i] != null) {
+                    info.put("coversThumbPath_" + i, this.coversThumbPath[i]);
+                }
+            }
+            for(int i = 0; i<4; i++){
+                if(this.coversLargePath[i] != null) {
+                    info.put("coversLargePath_" + i, this.coversLargePath[i]);
+                }
+            }
+
+            orari.put("lun", lun);
+            orari.put("mar", mar);
+            orari.put("mer", mer);
+            orari.put("gio", gio);
+            orari.put("ven", ven);
+            orari.put("sab", sab);
+            orari.put("dom", dom);
+            features.put("reservations", resSwitch.isChecked());
+            features.put("wifi", wifiSwitch.isChecked());
+            features.put("seats", seatsSwitch.isChecked());
+            features.put("creditCard", creditSwitch.isChecked());
+            features.put("bancomat", bancomatSwitch.isChecked());
+            features.put("music", musicSwitch.isChecked());
+            features.put("parking", parkSwitch.isChecked());
+
+
+            DB.updateDB(this, jsonRootObject, "db_profilo");
+            return true;
+            /*}
             else{
                 AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
                 miaAlert.setTitle(getResources().getString(R.string.error));
@@ -431,7 +498,7 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
                 AlertDialog alert = miaAlert.create();
                 alert.show();
                 return false;
-            }
+            }*/
 
         }
         catch (Exception e){
@@ -439,7 +506,15 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             return false;
         }
 
+    }
 
+    private void printAlert(String msg){
+        System.out.println(msg);
+        AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
+        miaAlert.setTitle(getResources().getString(R.string.error));
+        miaAlert.setMessage(msg);
+        AlertDialog alert = miaAlert.create();
+        alert.show();
     }
 
     private void commitPhotos() {
