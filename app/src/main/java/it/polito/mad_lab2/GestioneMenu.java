@@ -1,21 +1,27 @@
 package it.polito.mad_lab2;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class GestioneMenu extends EditableBaseActivity {
 
@@ -49,13 +55,45 @@ public class GestioneMenu extends EditableBaseActivity {
                 boolean ris = readData();
             }
 
-            //setUpRecyclerView();
-
             // Get the ViewPager and set it's PagerAdapter so that it can display items
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_menu);
             MyPageAdapter pagerAdapter = new MyPageAdapter(getSupportFragmentManager(), GestioneMenu.this);
             if (viewPager != null) {
                 viewPager.setAdapter(pagerAdapter);
+
+                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+                    public void onPageScrollStateChanged(int arg0) {
+                    }
+
+                    public void onPageScrolled(int arg0, float arg1, int arg2) {
+                    }
+
+                    public void onPageSelected(int currentPage) {
+                        //currentPage is the position that is currently displayed.
+                        switch(currentPage){
+                            case 0:
+                                // sono nei primi
+                                modificaSchermata(lista_menu.getPrimi());
+
+                                break;
+                            case 1:
+                                // sono nei secondi
+                                modificaSchermata(lista_menu.getSecondi());
+                                break;
+                            case 2:
+                                // sono nei dessert
+                                modificaSchermata(lista_menu.getDessert());
+                                break;
+                            case 3:
+                                // sono in altro
+                                modificaSchermata(lista_menu.getAltro());
+                                break;
+
+                        }
+                    }
+
+                });
             }
 
             // Give the TabLayout the ViewPager
@@ -76,6 +114,44 @@ public class GestioneMenu extends EditableBaseActivity {
         } catch (Exception e){
             System.out.println("Eccezione: " + e.getMessage());
         }
+    }
+
+    private void modificaSchermata(ArrayList<Oggetto_piatto> list){
+        if(list.size() == 0){
+            printAlertEmpty();
+            resetAddButton();
+
+        } else if(list.size() > 7) {
+            Toast toast = Toast.makeText(getApplicationContext(), "SPOSTO", Toast.LENGTH_SHORT);
+            toast.show();
+            moveAddButton();
+        }
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(),"RESETTO", Toast.LENGTH_SHORT);
+            toast.show();
+            resetAddButton();
+        }
+    }
+
+    private void printAlertEmpty(){
+        AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
+        miaAlert.setMessage(getResources().getString(R.string.msgListaVuotaPiatti));
+
+        //titolo personalizzato
+        TextView title = new TextView(this);
+        title.setText(getResources().getString(R.string.listaVuota));
+        title.setBackgroundColor(Color.DKGRAY);
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(20);
+        miaAlert.setCustomTitle(title);
+        AlertDialog alert = miaAlert.create();
+        alert.show();
+
+        //centrare il messaggio
+        TextView messageView = (TextView)alert.findViewById(android.R.id.message);
+        messageView.setGravity(Gravity.CENTER);
     }
 
     private boolean readData(){
@@ -152,7 +228,6 @@ public class GestioneMenu extends EditableBaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-
     @Override
     protected void OnDeleteButtonPressed() {
         throw new UnsupportedOperationException();
@@ -217,7 +292,7 @@ public class GestioneMenu extends EditableBaseActivity {
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.SECONDI, this.context);
                     return menuFragment;
                 case 2:
-                    // sono nei contorni
+                    // sono nei dessert
                     menuFragment = new BlankMenuFragment();
                     menuFragment.setArguments(bundle);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.DESSERT, this.context);

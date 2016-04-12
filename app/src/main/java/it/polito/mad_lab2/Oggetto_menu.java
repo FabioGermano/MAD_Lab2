@@ -99,5 +99,4 @@ public class Oggetto_menu implements Serializable {
 
         return max+1;
     }
-
 }

@@ -41,22 +41,27 @@ public class BlankMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_blank_menu, container, false);
+        try {
+            // Inflate the layout for this fragment
+            View rootView = inflater.inflate(R.layout.fragment_blank_menu, container, false);
 
-        RecyclerView rView = (RecyclerView) rootView.findViewById(R.id.recyclerView_menu);
-        RecyclerAdapter_menu myAdapter = new RecyclerAdapter_menu(context, m_list, type, mode);
-        if(rView != null) {
-            rView.setAdapter(myAdapter);
+            RecyclerView rView = (RecyclerView) rootView.findViewById(R.id.recyclerView_menu);
+            RecyclerAdapter_menu myAdapter = new RecyclerAdapter_menu(context, m_list, type, mode);
+            if (rView != null) {
+                rView.setAdapter(myAdapter);
 
-            LinearLayoutManager myLLM_vertical = new LinearLayoutManager(getActivity());
-            myLLM_vertical.setOrientation(LinearLayoutManager.VERTICAL);
-            rView.setLayoutManager(myLLM_vertical);
+                LinearLayoutManager myLLM_vertical = new LinearLayoutManager(getActivity());
+                myLLM_vertical.setOrientation(LinearLayoutManager.VERTICAL);
+                rView.setLayoutManager(myLLM_vertical);
 
-            rView.setItemAnimator(new DefaultItemAnimator());
+                rView.setItemAnimator(new DefaultItemAnimator());
+            }
+
+
+            return rootView;
+        } catch (Exception e){
+            return null;
         }
-
-        return rootView;
     }
 
 }

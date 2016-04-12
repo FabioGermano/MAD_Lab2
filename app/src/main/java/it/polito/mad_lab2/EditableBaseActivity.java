@@ -2,6 +2,7 @@ package it.polito.mad_lab2;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -18,6 +19,25 @@ public abstract class EditableBaseActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    //una prova da vedere se va bene, se piace, etc..
+    protected void moveAddButton(){
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fab_add.getLayoutParams();
+        if(params.rightMargin != 200) {
+            params.rightMargin = 200;
+            FAB_layout.removeView(fab_add);
+            FAB_layout.addView(fab_add);
+        }
+    }
+
+    protected void resetAddButton(){
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) fab_add.getLayoutParams();
+        if(params.rightMargin != 0) {
+            params.rightMargin = 0;
+            FAB_layout.removeView(fab_add);
+            FAB_layout.addView(fab_add);
+        }
     }
 
     protected void InitializeFABButtons(boolean editVisibility, boolean removeViibility, boolean addVisibility)

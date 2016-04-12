@@ -3,10 +3,13 @@ package it.polito.mad_lab2;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -327,11 +330,12 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
 
         } catch (Exception e){
             System.out.println("Exception: " + e.getMessage());
-            Toast toast = Toast.makeText(getApplicationContext(), R.string.exceptionError, Toast.LENGTH_SHORT);
-            toast.show();
+            printAlert(getResources().getString(R.string.exceptionError));
 
-            Intent intent = new Intent(getApplicationContext(), GestioneMenu.class);
-            startActivity(intent);
+            //O torniamo con tutte le schermate: questa, EditResturantProfile, EditAvailability, ModifyMunuDish
+            //o con nessuna no?
+            /*Intent intent = new Intent(getApplicationContext(), GestioneMenu.class);
+            startActivity(intent);*/
             return false;
         }
     }
@@ -339,10 +343,24 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
     private void printAlert(String msg){
         System.out.println(msg);
         AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-        miaAlert.setTitle(getResources().getString(R.string.error));
         miaAlert.setMessage(msg);
+
+        //titolo personalizzato
+        TextView title = new TextView(this);
+        title.setText(getResources().getString(R.string.attenzione));
+        title.setBackgroundColor(Color.DKGRAY);
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(20);
+        miaAlert.setCustomTitle(title);
+
         AlertDialog alert = miaAlert.create();
         alert.show();
+
+        //centrare il messaggio
+        TextView messageView = (TextView)alert.findViewById(android.R.id.message);
+        messageView.setGravity(Gravity.CENTER);
     }
 
     @Override

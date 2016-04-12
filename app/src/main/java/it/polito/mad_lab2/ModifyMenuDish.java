@@ -3,9 +3,11 @@ package it.polito.mad_lab2;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -372,10 +375,24 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
     private void printAlert(String msg){
         System.out.println(msg);
         AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-        miaAlert.setTitle(getResources().getString(R.string.error));
         miaAlert.setMessage(msg);
+
+        //titolo personalizzato
+        TextView title = new TextView(this);
+        title.setText(getResources().getString(R.string.attenzione));
+        title.setBackgroundColor(Color.DKGRAY);
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(20);
+        miaAlert.setCustomTitle(title);
+
         AlertDialog alert = miaAlert.create();
         alert.show();
+
+        //centrare il messaggio
+        TextView messageView = (TextView)alert.findViewById(android.R.id.message);
+        messageView.setGravity(Gravity.CENTER);
     }
 
     @Override

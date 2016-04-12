@@ -4,15 +4,18 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -503,7 +506,8 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
 
         }
         catch (Exception e){
-            System.out.println("Eccezione: "+e.getMessage());
+            //errore
+            printAlert(getResources().getString(R.string.exceptionError));
             return false;
         }
 
@@ -512,10 +516,24 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
     private void printAlert(String msg){
         System.out.println(msg);
         AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-        miaAlert.setTitle(getResources().getString(R.string.error));
         miaAlert.setMessage(msg);
+
+        //titolo personalizzato
+        TextView title = new TextView(this);
+        title.setText(getResources().getString(R.string.attenzione));
+        title.setBackgroundColor(Color.DKGRAY);
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(20);
+        miaAlert.setCustomTitle(title);
+
         AlertDialog alert = miaAlert.create();
         alert.show();
+
+        //centrare il messaggio
+        TextView messageView = (TextView)alert.findViewById(android.R.id.message);
+        messageView.setGravity(Gravity.CENTER);
     }
 
     private void commitPhotos() {

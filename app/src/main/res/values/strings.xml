@@ -9,9 +9,13 @@
     <string name="offerPrice">Price:</string>
     <string name="offerName">Name of the offer:</string>
 
-    <string name="error">Warning</string>
+    <string name="attenzione">Attention</string>
     <string name="exceptionError">Sorry, an error is occurred</string>
     <string name="error_complete">Please, complete correctly all fields</string>
+
+    <string name="listaVuota">Empty List</string>
+    <string name="msgListaVuotaPiatti">Add here new dishes</string>
+    <string name="msgListaVuotaOfferte">Add here new offers</string>
 
     <string name="first">Main courses</string>
     <string name="second">Second courses</string>

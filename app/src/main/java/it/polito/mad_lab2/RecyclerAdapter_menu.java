@@ -78,45 +78,12 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Oggetto_piatto currentObj = current_list.get(position);
         holder.setData(currentObj, position);
-        /*switch(menu_type){
-            case PRIMI:
-                currentObj = dish_list.getPrimi().get(position);
-                holder.setData(currentObj, position);
-                break;
-            case SECONDI:
-                currentObj = dish_list.getSecondi().get(position);
-                holder.setData(currentObj, position);
-                break;
-            case DESSERT:
-                currentObj = dish_list.getDessert().get(position);
-                holder.setData(currentObj, position);
-                break;
-            case ALTRO:
-                currentObj = dish_list.getAltro().get(position);
-                holder.setData(currentObj, position);
-                break;
-            default:
-                System.out.println("Typology unknown");
-                break;
-        }*/
     }
 
     @Override
     public int getItemCount() {
         return current_list.size();
-        /*switch(menu_type){
-            case PRIMI:
-                return dish_list.getPrimi().size();
-            case SECONDI:
-                return dish_list.getSecondi().size();
-            case DESSERT:
-                return dish_list.getDessert().size();
-            case ALTRO:
-                return dish_list.getAltro().size();
-            default:
-                System.out.println("Typology unknown");
-                return 0;
-        }*/
+
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -167,7 +134,6 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
             if(dish_img != null){
 
             }
-
         }
 
         public void setListeners(){
