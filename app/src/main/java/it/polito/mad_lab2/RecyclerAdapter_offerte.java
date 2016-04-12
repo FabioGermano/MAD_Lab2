@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,8 +38,7 @@ public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapte
     public MyViewHolder_offerta onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = myInflater.inflate(R.layout.riga_lista, parent, false);
         MyViewHolder_offerta holder = new MyViewHolder_offerta(v);
-        if(!availability_mode)
-            holder.setListeners();
+        holder.setListeners();
         return holder;
     }
 
@@ -93,6 +93,11 @@ public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapte
                 String tmp = String.valueOf(currentObj.getCost()) + " " + context.getResources().getString(R.string.money_value);
                 this.dish_price.setText(tmp);
             }
+            if(availability_mode){
+                if(dish_availability != null){
+                    dish_availability.setChecked(currentObj.isAvailable());
+                }
+            }
             //carico foto
             if(dish_img != null){
 
@@ -101,8 +106,12 @@ public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapte
         }
 
         public void setListeners(){
-            dish_delete.setOnClickListener(MyViewHolder_offerta.this);
-            dish_modify.setOnClickListener(MyViewHolder_offerta.this);
+            if(availability_mode){
+                dish_availability.setOnClickListener(MyViewHolder_offerta.this);
+            } else {
+                dish_delete.setOnClickListener(MyViewHolder_offerta.this);
+                dish_modify.setOnClickListener(MyViewHolder_offerta.this);
+            }
         }
 
         @Override
@@ -114,7 +123,14 @@ public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapte
                 case R.id.img_modify_menu:
                     modifyItem();
                     break;
+                case R.id.switch1:
+                    updateAvailability();
+                    break;
             }
+        }
+
+        private void updateAvailability(){
+            lista_offerte.get(position).setTmpAv(dish_availability.isChecked());
         }
 
         //rimuovo offerta

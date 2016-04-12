@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,8 +70,7 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = myInflater.inflate(R.layout.riga_lista, parent, false);
         MyViewHolder holder = new MyViewHolder(v);
-        if(!availability_mode)
-            holder.setListeners();
+        holder.setListeners();
         return holder;
     }
 
@@ -158,6 +158,11 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
                 String tmp = String.valueOf(currentObj.getCost()) + " " + context.getResources().getString(R.string.money_value);
                 this.dish_price.setText(tmp);
             }
+            if(availability_mode){
+                if(dish_availability != null){
+                    dish_availability.setChecked(currentObj.isAvailable());
+                }
+            }
             //carico foto
             if(dish_img != null){
 
@@ -166,9 +171,12 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
         }
 
         public void setListeners(){
-            dish_delete.setOnClickListener(MyViewHolder.this);
-            dish_modify.setOnClickListener(MyViewHolder.this);
-
+            if (availability_mode)
+                dish_availability.setOnClickListener(MyViewHolder.this);
+            else {
+                dish_delete.setOnClickListener(MyViewHolder.this);
+                dish_modify.setOnClickListener(MyViewHolder.this);
+            }
         }
 
         @Override
@@ -180,8 +188,23 @@ public class RecyclerAdapter_menu extends RecyclerView.Adapter<RecyclerAdapter_m
                 case R.id.img_modify_menu:
                     modifyItem();
                     break;
+                case R.id.switch1:
+                    updateAvailability();
+                    break;
             }
         }
+
+        private void updateAvailability(){
+            try {
+                current_list.get(position).setTmpAv(dish_availability.isChecked());
+            }
+            catch (Exception e){
+                System.out.println("Eccezione: " + e.getMessage());
+            }
+
+
+        }
+
 
         //rimuovo piatto
         private void removeItem(){

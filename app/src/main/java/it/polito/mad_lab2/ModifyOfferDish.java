@@ -190,9 +190,6 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
             }
 
             boolean[] days = new boolean[7];
-            for(int i=0; i<days.length; i++){
-                days[i] = false;
-            }
 
             if (lunBtn != null){ days[0] = lunBtn.isChecked(); } else {
                 //errore

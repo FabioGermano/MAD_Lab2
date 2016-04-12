@@ -1,6 +1,8 @@
 package it.polito.mad_lab2;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,7 +71,109 @@ public class EditAvailability extends EditableBaseActivity {
 
     @Override
     protected void OnSaveButtonPressed() {
+        boolean ris = saveInfo();
+        if(ris) {
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.dataSaved, Toast.LENGTH_SHORT);
+            toast.show();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
+    }
 
+    private boolean saveInfo(){
+        GestioneDB db = new GestioneDB();
+
+        String menu = db.leggiDB(this, "db_menu");
+        String offerte = db.leggiDB(this, "db_offerte");
+
+        try {
+            JSONObject jsonRootObject = new JSONObject(menu);
+            JSONArray jsonArray = jsonRootObject.optJSONArray("lista_piatti");
+
+            for (Oggetto_piatto o : lista_menu.getPrimi()) {
+                if (o.isAvailable() != o.getTmpAv()) {
+                    //disponiblità cambiata!
+                    int id = o.getId();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObj = jsonArray.getJSONObject(i);
+                        if (id == Integer.parseInt(jsonObj.optString("id")))
+                            jsonObj.put("available", o.getTmpAv());
+                    }
+                    o.setAvailability(o.getTmpAv());
+                }
+            }
+            for (Oggetto_piatto o : lista_menu.getSecondi()) {
+                if (o.isAvailable() != o.getTmpAv()) {
+                    //disponiblità cambiata!
+                    int id = o.getId();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObj = jsonArray.getJSONObject(i);
+                        if (id == Integer.parseInt(jsonObj.optString("id")))
+                            jsonObj.put("available", o.getTmpAv());
+                    }
+                    o.setAvailability(o.getTmpAv());
+                }
+            }
+            for (Oggetto_piatto o : lista_menu.getDessert()) {
+                if (o.isAvailable() != o.getTmpAv()) {
+                    //disponiblità cambiata!
+                    int id = o.getId();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObj = jsonArray.getJSONObject(i);
+                        if (id == Integer.parseInt(jsonObj.optString("id")))
+                            jsonObj.put("available", o.getTmpAv());
+                    }
+                    o.setAvailability(o.getTmpAv());
+                }
+            }
+            for (Oggetto_piatto o : lista_menu.getAltro()) {
+                if (o.isAvailable() != o.getTmpAv()) {
+                    //disponiblità cambiata!
+                    int id = o.getId();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObj = jsonArray.getJSONObject(i);
+                        if (id == Integer.parseInt(jsonObj.optString("id")))
+                            jsonObj.put("available", o.getTmpAv());
+                    }
+                    o.setAvailability(o.getTmpAv());
+                }
+            }
+            db.updateDB(this, jsonRootObject, "db_menu");
+
+            jsonRootObject = new JSONObject(offerte);
+            jsonArray = jsonRootObject.optJSONArray("lista_offerte");
+
+            for (Oggetto_offerta o : lista_offerte) {
+                if (o.isAvailable() != o.getTmpAv()) {
+                    //disponiblità cambiata!
+                    int id = o.getId();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObj = jsonArray.getJSONObject(i);
+                        if (id == Integer.parseInt(jsonObj.optString("id")))
+                            jsonObj.put("available", o.getTmpAv());
+                    }
+                    o.setAvailability(o.getTmpAv());
+                }
+            }
+            db.updateDB(this, jsonRootObject, "db_offerte");
+
+            return true;
+        }
+        catch (JSONException e)
+        {
+            //errore
+            printAlert(getResources().getString(R.string.exceptionError));
+            return false;
+        }
+    }
+
+    private void printAlert(String msg){
+        System.out.println(msg);
+        AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
+        miaAlert.setTitle(getResources().getString(R.string.error));
+        miaAlert.setMessage(msg);
+        AlertDialog alert = miaAlert.create();
+        alert.show();
     }
 
     @Override
@@ -103,8 +208,8 @@ public class EditAvailability extends EditableBaseActivity {
 
     private class MyPageAdapter extends FragmentPagerAdapter {
         private int NumOfPage = 5;
-        String tabTitles[] = new String[] { getResources().getString(R.string.first), getResources().getString(R.string.second), getResources().getString(R.string.dessert),
-                getResources().getString(R.string.other), getResources().getString(R.string.offers)};
+        String tabTitles[] = new String[] {getResources().getString(R.string.offers), getResources().getString(R.string.first), getResources().getString(R.string.second), getResources().getString(R.string.dessert),
+                getResources().getString(R.string.other)};
         Context context;
 
         public MyPageAdapter(FragmentManager fm, Context context) {
@@ -120,31 +225,31 @@ public class EditAvailability extends EditableBaseActivity {
             Bundle bundle = new Bundle();
             bundle.putBoolean("availability", availability_mode);
             switch (position) {
-                case 0:
+                case 1:
                     // sono nei primi
                     menuFragment = new BlankMenuFragment();
                     menuFragment.setArguments(bundle);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.PRIMI, this.context);
                     return menuFragment;
-                case 1:
+                case 2:
                     // sono nei secondi
                     menuFragment = new BlankMenuFragment();
                     menuFragment.setArguments(bundle);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.SECONDI, this.context);
                     return menuFragment;
-                case 2:
+                case 3:
                     // sono nei contorni
                     menuFragment = new BlankMenuFragment();
                     menuFragment.setArguments(bundle);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.DESSERT, this.context);
                     return menuFragment;
-                case 3:
+                case 4:
                     // sono in altro
                     menuFragment = new BlankMenuFragment();
                     menuFragment.setArguments(bundle);
                     menuFragment.setValue(lista_menu, Oggetto_piatto.type_enum.ALTRO, this.context);
                     return menuFragment;
-                case 4:
+                case 0:
                     offerFragment = new BlankOfferFragment();
                     offerFragment.setArguments(bundle);
                     offerFragment.setValue(lista_offerte, this.context);
@@ -179,7 +284,6 @@ public class EditAvailability extends EditableBaseActivity {
             Oggetto_piatto obj;
             lista_menu = new Oggetto_menu();
 
-
             GestioneDB DB = new GestioneDB();
             String db = DB.leggiDB(this, "db_menu");
 
@@ -195,29 +299,38 @@ public class EditAvailability extends EditableBaseActivity {
                 String nome = jsonObject.optString("nome").toString();
                 int prezzo = Integer.parseInt(jsonObject.optString("prezzo").toString());
                 String type = jsonObject.optString("tipo").toString();
+                boolean av = jsonObject.optBoolean("available");
                 //creo le differenti liste
                 switch(type){
                     case "Primo":
                         obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.PRIMI);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                        obj.setAvailability(av);
+                        obj.setTmpAv(av);
                         lista_menu.addPrimo(obj);
                         System.out.println("Aggiunto primo");
                         break;
                     case "Secondo":
                         obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.SECONDI);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                        obj.setAvailability(av);
+                        obj.setTmpAv(av);
                         lista_menu.addSecondo(obj);
                         System.out.println("Aggiunto secondo");
                         break;
                     case "Dessert":
                         obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.DESSERT);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                        obj.setAvailability(av);
+                        obj.setTmpAv(av);
                         lista_menu.addDessert(obj);
                         System.out.println("Aggiunto dessert");
                         break;
                     case "Altro":
                         obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.ALTRO);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                        obj.setAvailability(av);
+                        obj.setTmpAv(av);
                         lista_menu.addAltro(obj);
                         System.out.println("Aggiunto altro");
                         break;
@@ -258,11 +371,25 @@ public class EditAvailability extends EditableBaseActivity {
                     String nome = jsonObject.optString("nome").toString();
                     int prezzo = Integer.parseInt(jsonObject.optString("prezzo").toString());
                     String note = jsonObject.optString("note".toString());
+                    boolean av = jsonObject.optBoolean("available");
+
+                    boolean[] days= new boolean[7];
+                    days[0] = jsonObject.optBoolean("lun");
+                    days[1] = jsonObject.optBoolean("mar");
+                    days[2] = jsonObject.optBoolean("mer");
+                    days[3] = jsonObject.optBoolean("gio");
+                    days[4] = jsonObject.optBoolean("ven");
+                    days[5] = jsonObject.optBoolean("sab");
+                    days[6] = jsonObject.optBoolean("dom");
+
+
                     //creo la lista delle offerte
 
                     //<DA CONTROLLARE IN SEGUITO ALL'AGGIUNTA DEI GIORNI DELLE OFFERTE
-                    Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, null, null);
+                    Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, null, days);
                     obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                    obj.setAvailability(av);
+                    obj.setTmpAv(av);
                     obj.setNote(note);
                     lista_offerte.add(obj);
                     System.out.println("Offerta aggiunta");

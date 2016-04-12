@@ -15,12 +15,15 @@ public class Oggetto_piatto implements Serializable {
     private type_enum type = null;
     private int id;
     public enum type_enum {PRIMI, SECONDI, DESSERT, ALTRO }
+    private boolean availability;
+    private boolean tmpAv;
 
     public Oggetto_piatto(String name, int cost, String path, type_enum type){
         this.piatto_name = name;
         this.photo_path = path;
         this.cost = cost;
         this.type = type;
+        this.availability = true;
     }
 
     public void setId(int num){
@@ -63,4 +66,17 @@ public class Oggetto_piatto implements Serializable {
         return this.type;
     }
 
+    public boolean isAvailable() { return availability; }
+
+    public void setAvailability(boolean arg){
+        this.availability = arg;
+    }
+
+    public void setTmpAv(boolean av){
+        this.tmpAv = av;
+    }
+
+    public boolean getTmpAv(){
+        return tmpAv;
+    }
 }

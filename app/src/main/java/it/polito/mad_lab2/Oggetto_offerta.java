@@ -13,12 +13,15 @@ public class Oggetto_offerta implements Serializable {
     private int id;
     private String note = "";
     private boolean[] days = null;
+    private boolean availability;
+    private boolean tmpAv;
 
     public Oggetto_offerta(String name, int cost, String path, boolean[] days){
         this.piatto_name = name;
         this.photo_path = path;
         this.cost = cost;
         this.days = days;
+        this.availability = true;
     }
 
     public void setId(int num){
@@ -62,5 +65,21 @@ public class Oggetto_offerta implements Serializable {
 
     public String getNote(){
         return this.note;
+    }
+
+    public boolean isAvailable(){
+        return availability;
+    }
+
+    public void setAvailability(boolean arg){
+        this.availability = arg;
+    }
+
+    public void setTmpAv(boolean av){
+        this.tmpAv = av;
+    }
+
+    public boolean getTmpAv(){
+        return tmpAv;
     }
 }

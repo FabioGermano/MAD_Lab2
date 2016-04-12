@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -45,6 +46,11 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         PhotoViewer currentFragment = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.ad_fragment);
 
         checkDB();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     @Override
