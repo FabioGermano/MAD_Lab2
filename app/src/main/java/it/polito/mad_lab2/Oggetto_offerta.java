@@ -12,11 +12,13 @@ public class Oggetto_offerta implements Serializable {
     private int cost = 0;
     private int id;
     private String note = "";
+    private boolean[] days = null;
 
-    public Oggetto_offerta(String name, int cost, String path){
+    public Oggetto_offerta(String name, int cost, String path, boolean[] days){
         this.piatto_name = name;
         this.photo_path = path;
         this.cost = cost;
+        this.days = days;
     }
 
     public void setId(int num){
@@ -42,6 +44,9 @@ public class Oggetto_offerta implements Serializable {
     public int getCost(){
         return this.cost;
     }
+
+    public boolean[] getDays() { return days; }
+    public void setDays(boolean[] days) { this.days = days; }
 
     public void setPhoto(String path){
         this.photo_path = path;

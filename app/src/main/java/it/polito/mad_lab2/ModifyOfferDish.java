@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,6 +38,10 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
         setContentView(R.layout.activity_modify_offer);
         SetSaveButtonVisibility(true);
 
+        readData();
+    }
+
+    private void readData(){
         try {
             boolean error = false;
             //recupero l'offerta da modificare
@@ -52,7 +57,7 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                 if (offer_list != null)
                     if (newOffer){
                         //è un nuovo piatto --> AGGIUNTA
-                        offer = new Oggetto_offerta(null, -1, null);
+                        offer = new Oggetto_offerta(null, -1, null, null);
                         extras.clear();
                         return;
                     }
@@ -68,6 +73,15 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                             EditText editPrice = (EditText) findViewById(R.id.edit_offerPrice_modifyOffer);
                             EditText editNotes = (EditText) findViewById(R.id.edit_offerNote_modifyOffer);
 
+                            ToggleButton lunBtn = (ToggleButton) findViewById(R.id.lun_Button);
+                            ToggleButton marBtn = (ToggleButton) findViewById(R.id.mar_Button);
+                            ToggleButton merBtn = (ToggleButton) findViewById(R.id.mer_Button);
+                            ToggleButton gioBtn = (ToggleButton) findViewById(R.id.gio_Button);
+                            ToggleButton venBtn = (ToggleButton) findViewById(R.id.ven_Button);
+                            ToggleButton sabBtn = (ToggleButton) findViewById(R.id.sab_Button);
+                            ToggleButton domBtn = (ToggleButton) findViewById(R.id.dom_Button);
+
+
                             if (editName != null) {
                                 editName.setText(offer.getName());
                             }
@@ -79,6 +93,15 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                             if (editNotes != null){
                                 editNotes.setText(offer.getNote());
                             }
+
+
+                            if (lunBtn != null){ lunBtn.setChecked(offer.getDays()[0]); }
+                            if (marBtn != null){ marBtn.setChecked(offer.getDays()[1]); }
+                            if (merBtn != null){ merBtn.setChecked(offer.getDays()[2]); }
+                            if (gioBtn != null){ gioBtn.setChecked(offer.getDays()[3]); }
+                            if (venBtn != null){ venBtn.setChecked(offer.getDays()[4]); }
+                            if (sabBtn != null){ sabBtn.setChecked(offer.getDays()[5]); }
+                            if (domBtn != null){ domBtn.setChecked(offer.getDays()[6]); }
                         }
                         else {
                             //qualche errore durante la lettura / modifica
@@ -105,6 +128,14 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
             EditText editName = (EditText) findViewById(R.id.edit_offerName_modifyOffer);
             EditText editPrice = (EditText) findViewById(R.id.edit_offerPrice_modifyOffer);
             EditText editNotes = (EditText) findViewById(R.id.edit_offerNote_modifyOffer);
+            ToggleButton lunBtn = (ToggleButton) findViewById(R.id.lun_Button);
+            ToggleButton marBtn = (ToggleButton) findViewById(R.id.mar_Button);
+            ToggleButton merBtn = (ToggleButton) findViewById(R.id.mer_Button);
+            ToggleButton gioBtn = (ToggleButton) findViewById(R.id.gio_Button);
+            ToggleButton venBtn = (ToggleButton) findViewById(R.id.ven_Button);
+            ToggleButton sabBtn = (ToggleButton) findViewById(R.id.sab_Button);
+            ToggleButton domBtn = (ToggleButton) findViewById(R.id.dom_Button);
+
 
             //leggo i campi dalla schermata
             if (editName != null) {
@@ -114,7 +145,6 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                 else
                     offer.setName(text);
             }
-
 
             if (editPrice != null) {
                 String price =  editPrice.getText().toString();
@@ -135,6 +165,16 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                     offer.setNote(notes);;
             }
 
+            boolean[] days = new boolean[7];
+
+            if (lunBtn != null){ days[0] = lunBtn.isChecked(); }
+            if (marBtn != null){ days[1] = marBtn.isChecked(); }
+            if (merBtn != null){ days[2] = merBtn.isChecked(); }
+            if (gioBtn != null){ days[3] = gioBtn.isChecked(); }
+            if (venBtn != null){ days[4] = venBtn.isChecked(); }
+            if (sabBtn != null){ days[5] = sabBtn.isChecked(); }
+            if (domBtn != null){ days[6] = domBtn.isChecked(); }
+            offer.setDays(days);
 
             //la foto può essere null (default)
             if(offer.getName() == null || offer.getCost() == -1 || offer.getNote() == null){
@@ -148,6 +188,7 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
             }
 
             GestioneDB DB = new GestioneDB();
+
             if (newOffer){
                 // è una nuova offerta
                 //aggiorno il db locale
@@ -168,6 +209,13 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                 newDishObj.put("nome", offer.getName());
                 newDishObj.put("prezzo", offer.getCost());
                 newDishObj.put("note", offer.getNote());
+                newDishObj.put("lun", days[0]);
+                newDishObj.put("mar", days[1]);
+                newDishObj.put("mer", days[2]);
+                newDishObj.put("gio", days[3]);
+                newDishObj.put("ven", days[4]);
+                newDishObj.put("sab", days[5]);
+                newDishObj.put("dom", days[6]);
 
                 String db = DB.leggiDB(this, "db_offerte");
 
@@ -195,6 +243,13 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                         jsonObject.put("nome", offer.getName());
                         jsonObject.put("prezzo", offer.getCost());
                         jsonObject.put("note", offer.getNote());
+                        jsonObject.put("lun", days[0]);
+                        jsonObject.put("mar", days[1]);
+                        jsonObject.put("mer", days[2]);
+                        jsonObject.put("gio", days[3]);
+                        jsonObject.put("ven", days[4]);
+                        jsonObject.put("sab", days[5]);
+                        jsonObject.put("dom", days[6]);
                         break;
                     }
                 }
