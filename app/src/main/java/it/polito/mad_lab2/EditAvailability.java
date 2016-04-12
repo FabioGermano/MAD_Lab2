@@ -259,7 +259,9 @@ public class EditAvailability extends EditableBaseActivity {
                     int prezzo = Integer.parseInt(jsonObject.optString("prezzo").toString());
                     String note = jsonObject.optString("note".toString());
                     //creo la lista delle offerte
-                    Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, null);
+
+                    //<DA CONTROLLARE IN SEGUITO ALL'AGGIUNTA DEI GIORNI DELLE OFFERTE
+                    Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, null, null);
                     obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
                     obj.setNote(note);
                     lista_offerte.add(obj);

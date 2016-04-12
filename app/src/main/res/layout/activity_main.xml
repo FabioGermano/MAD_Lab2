@@ -60,7 +60,9 @@
             android:layout_below="@id/button_testMM"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:onClick="eseguiActivityModificaOfferte"/>
+            android:onClick="eseguiActivityModificaOfferte"
+            android:layout_alignRight="@+id/button_testMP"
+            android:layout_alignEnd="@+id/button_testMP" />
 
         <Button
             android:layout_width="wrap_content"
@@ -70,7 +72,9 @@
             android:layout_below="@id/button_testMO"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:onClick="eseguiActivityModificaProfilo"/>
+            android:onClick="eseguiActivityModificaProfilo"
+            android:layout_alignRight="@+id/button_testMD"
+            android:layout_alignEnd="@+id/button_testMD" />
 
         <Button
             android:layout_width="wrap_content"

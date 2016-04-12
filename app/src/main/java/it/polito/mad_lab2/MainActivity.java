@@ -115,9 +115,11 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     public void checkDB(){
         GestioneDB DB = new GestioneDB();
 
-        //DB.deleteDB(this, "db_menu");
-        //DB.deleteDB(this, "db_offerte");
-        //DB.deleteDB(this, "db_profilo");
+        /*
+        DB.deleteDB(this, "db_menu");
+        DB.deleteDB(this, "db_offerte");
+        DB.deleteDB(this, "db_profilo");
+        */
 
         DB.creaDB(this);
     }

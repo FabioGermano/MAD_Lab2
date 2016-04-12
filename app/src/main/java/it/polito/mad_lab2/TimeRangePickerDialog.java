@@ -68,11 +68,11 @@ public class TimeRangePickerDialog extends DialogFragment implements View.OnClic
         TabHost.TabSpec tabpage1 = tabs.newTabSpec("one");
         tabpage1.setContent(R.id.startTimeGroup);
 
-        tabpage1.setIndicator("Start Time");
+        tabpage1.setIndicator(getResources().getString(R.string.orarioApertura));
 
         TabHost.TabSpec tabpage2 = tabs.newTabSpec("two");
         tabpage2.setContent(R.id.endTimeGroup);
-        tabpage2.setIndicator("End Time");
+        tabpage2.setIndicator(getResources().getString(R.string.orarioChiusura));
 
         tabs.addTab(tabpage1);
         tabs.addTab(tabpage2);
