@@ -60,7 +60,7 @@
     <string name="music">Music</string>
     <string name="available">Available</string>
     <string name="not_available">Not available</string>
-    <string name="edit_availability">Edit today availability</string>
+    <string name="edit_availability">Today availability</string>
     <string name="offers">Offers</string>
 
 </resources>
