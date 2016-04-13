@@ -152,8 +152,9 @@ public abstract class BaseActivity extends AppCompatActivity{
                 OnCalendarButtonPressed();
                 break;
             case R.id.menu_notify:
-                Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.AlertActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.AlertActivity.class);
+                //startActivity(intent);
+                break;
             default:
                 break;
         }

@@ -177,12 +177,14 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
         if(!state){
             expandOrCollapse(childLayout, "collapse", childLayout.getHeight());
             //expandOrCollapse(containerView, "collapse", containerView.getHeight() - childLayout.getHeight());
+            (containerView.findViewById(R.id.expandeCollapseRow)).setBackgroundResource(android.R.drawable.arrow_up_float);
             state = true;
         }
         else
         {
             expandOrCollapse(childLayout, "expand", childLayout.getHeight());
             //expandOrCollapse(containerView, "expand", containerView.getHeight() - childLayout.getHeight());
+            (containerView.findViewById(R.id.expandeCollapseRow)).setBackgroundResource(android.R.drawable.arrow_down_float);
             state = false;
         }
     }

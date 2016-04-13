@@ -13,5 +13,5 @@
     <color name="blackSemitrasparent">#80000000</color>
     <color name="secondary_text_default_material_dark">#b3ffffff</color>
     <color name="lightGrey">#E6E6FA</color>
-    <color name="colorBackground">#f2eaea</color>
+    <color name="colorBackground">#f4f1efef</color>
 </resources>
