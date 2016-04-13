@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-
     card_view:cardCornerRadius="5dp">
 
     <LinearLayout
@@ -25,13 +24,16 @@
                     android:src="@drawable/ic_account_circle_white_48dp"
                     android:layout_gravity="center_vertical"/>
 
-                <LinearLayout android:orientation="vertical" android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_gravity="center_vertical">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:id="@+id/username"
-                            android:textSize="16sp"
                             android:text="Mr. Smith"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:layout_marginTop="5dp"
@@ -44,7 +46,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:id="@+id/type"
-                        android:textSize="14sp"
                         android:text="Type"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content" />

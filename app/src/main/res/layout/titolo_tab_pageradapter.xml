@@ -6,9 +6,7 @@
         android:id="@+id/custom_text"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"
         android:textSize="16dip"
-        android:textColor="#683434"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
