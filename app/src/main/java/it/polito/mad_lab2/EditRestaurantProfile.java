@@ -423,18 +423,6 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
                 return false;
             }
 
-           /* if (name != null && address != null && phone != null && email != null && description != null && lun != null && mar != null && mer != null && gio != null && ven != null && sab != null && dom != null && resSwitch != null &&
-                    wifiSwitch != null && seatsSwitch != null && creditSwitch != null && bancomatSwitch != null && musicSwitch != null && parkSwitch != null){
-
-                if (name.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty() || description.isEmpty() || lun.isEmpty() || mar.isEmpty() || mer.isEmpty() || gio.isEmpty() || ven.isEmpty() || sab.isEmpty() || dom.isEmpty()){
-                    AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-                    miaAlert.setTitle(getResources().getString(R.string.error));
-                    miaAlert.setMessage(getResources().getString(R.string.error_complete));
-                    AlertDialog alert = miaAlert.create();
-                    alert.show();
-                    return false;
-                }*/
-
             /* ##################################
                     Gestione Database
                ##################################
@@ -496,15 +484,6 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
 
             DB.updateDB(this, jsonRootObject, "db_profilo");
             return true;
-            /*}
-            else{
-                AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-                miaAlert.setTitle(getResources().getString(R.string.error));
-                miaAlert.setMessage(getResources().getString(R.string.exceptionError));
-                AlertDialog alert = miaAlert.create();
-                alert.show();
-                return false;
-            }*/
 
         }
         catch (Exception e){

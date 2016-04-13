@@ -38,6 +38,7 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
     private int position = -1;
     private boolean newDish = false;
     private Oggetto_piatto.type_enum initialType = null;
+    private Oggetto_piatto.type_enum modifiedType = null;
 
     private String imageLarge = null;
     private String imageThumb = null;
@@ -45,14 +46,17 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
     private PhotoViewer imageViewer;
     private String id_image;
 
+    private  Spinner spinner;
+    private ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         SetCalendarButtonVisibility(false);
-        setTitleTextView(getResources().getString(R.string.title_activity_edit_dish));
-        setContentView(R.layout.activity_modify_menu_dish);
+        //setTitleTextView(getResources().getString(R.string.title_activity_edit_dish));
+        //setContentView(R.layout.activity_modify_menu_dish);
 
         SetSaveButtonVisibility(true);
 
@@ -75,42 +79,6 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
 
     private void readData(){
         try {
-            //gestisco il menu a tendina per la tipologia del piatto
-            Spinner spinner = (Spinner)findViewById(R.id.list_dishType_modifyMenu);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    new String[]{getResources().getString(R.string.first), getResources().getString(R.string.second), getResources().getString(R.string.dessert), getResources().getString(R.string.other)}
-            );
-            if(spinner != null) {
-                spinner.setAdapter(adapter);
-
-                //listener per salvare la selezione dell'utente
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> adapter, View view, int pos, long id) {
-                        if(dish != null) {
-                            String selezione = (String) adapter.getItemAtPosition(pos);
-
-                            if(selezione.compareTo(getResources().getString(R.string.first)) == 0){
-                                dish.setDishType(Oggetto_piatto.type_enum.PRIMI);
-                            }
-                            else  if(selezione.compareTo(getResources().getString(R.string.second)) == 0){
-                                dish.setDishType(Oggetto_piatto.type_enum.SECONDI);
-                            }
-                            else  if(selezione.compareTo(getResources().getString(R.string.dessert)) == 0){
-                                dish.setDishType(Oggetto_piatto.type_enum.DESSERT);
-                            }
-                            else  if(selezione.compareTo(getResources().getString(R.string.other)) == 0){
-                                dish.setDishType(Oggetto_piatto.type_enum.ALTRO);
-                            }
-                        }
-                    }
-
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                    }
-                });
-            }
-
             String spinnerType;
             boolean error = false;
             //recupero il piatto da modificare
@@ -127,13 +95,28 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                 if (dish_list != null)
                     if (dish_type == null){
                         //è un nuovo piatto --> AGGIUNTA
+                        /*
+                            settaggio dinamico del titolo
+                         */
+                        setTitleTextView(getResources().getString(R.string.title_activity_new_dish));
+                        setContentView(R.layout.activity_modify_menu_dish);
+                        creaSpinner();
+
                         dish = new Oggetto_piatto(null, -1, null);
                         dish.setId(dish_list.getNewId());
+                        modifiedType = Oggetto_piatto.type_enum.PRIMI; //valore di default
                         newDish = true;
                         extras.clear();
                         return;
                     }
                     else{
+                        /*
+                            settaggio dinamico del titolo
+                         */
+                        setTitleTextView(getResources().getString(R.string.title_activity_edit_dish));
+                        setContentView(R.layout.activity_modify_menu_dish);
+                        creaSpinner();
+
                         //è una modifica
                         position = extras.getInt("position");
                         extras.clear();
@@ -165,6 +148,8 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                                     error = true;
                                     return;
                             }
+
+                            modifiedType = dish.getDishType(); //inizializzo al valore corrente del piatto da modificare
 
                             if (!error) {
                                 //carico le informazioni nella pagina di modifica
@@ -211,6 +196,48 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
         }
     }
 
+    private void creaSpinner(){
+        //gestisco il menu a tendina per la tipologia del piatto
+        spinner = (Spinner)findViewById(R.id.list_dishType_modifyMenu);
+        adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                new String[]{getResources().getString(R.string.first), getResources().getString(R.string.second), getResources().getString(R.string.dessert), getResources().getString(R.string.other)}
+        );
+        if(spinner != null) {
+            spinner.setAdapter(adapter);
+
+            //listener per salvare la selezione dell'utente
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onItemSelected(AdapterView<?> adapter, View view, int pos, long id) {
+                    if(dish != null) {
+                        String selezione = (String) adapter.getItemAtPosition(pos);
+
+                        if(selezione.compareTo(getResources().getString(R.string.first)) == 0){
+                            //dish.setDishType(Oggetto_piatto.type_enum.PRIMI);
+                            modifiedType = Oggetto_piatto.type_enum.PRIMI;
+                        }
+                        else  if(selezione.compareTo(getResources().getString(R.string.second)) == 0){
+                            //dish.setDishType(Oggetto_piatto.type_enum.SECONDI);
+                            modifiedType = Oggetto_piatto.type_enum.SECONDI;
+                        }
+                        else  if(selezione.compareTo(getResources().getString(R.string.dessert)) == 0){
+                            //dish.setDishType(Oggetto_piatto.type_enum.DESSERT);
+                            modifiedType = Oggetto_piatto.type_enum.DESSERT;
+                        }
+                        else  if(selezione.compareTo(getResources().getString(R.string.other)) == 0){
+                            //dish.setDishType(Oggetto_piatto.type_enum.ALTRO);
+                            modifiedType = Oggetto_piatto.type_enum.ALTRO;
+                        }
+                    }
+                }
+
+                public void onNothingSelected(AdapterView<?> arg0) {
+                }
+            });
+        }
+    }
+
     private boolean saveInfo(){
 
         // aggiorno l'oggetto piatto con tutte le nuove informazioni e passo indietro, all'activity di modifica menu principale, l'intere tabelle
@@ -218,19 +245,27 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
             EditText editName = (EditText) findViewById(R.id.edit_dishName_modifyMenu);
             EditText editPrice = (EditText) findViewById(R.id.edit_dishPrice_modifyMenu);
 
+            /*
+                piccola modifica per integrità codice, l'oggetto lo modifico solo se ho letto
+                correttamente tutti i campi, senza nessun errore.
+                Altrimenti, teoricamente, posso riempire alcuni campi si e altri no (nulla di che)
+             */
+            String nomeD;
+            int priceD;
+
             /* ##################################
                  Lettura campi dalla schermata
                ##################################
              */
             if (editName != null) {
-                String text = editName.getText().toString();
-                if(text.compareTo("")==0){
+                nomeD = editName.getText().toString();
+                if(nomeD.compareTo("")==0){
                     //campo vuoto
                     printAlert(getResources().getString(R.string.error_complete));
                     return false;
                 }
-                else
-                    dish.setName(text);
+                //else
+                    //dish.setName(nomeD);
             }
             else {
                 //errore
@@ -242,8 +277,8 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
             if (editPrice != null) {
                 String price =  editPrice.getText().toString();
                 if (price.compareTo("") != 0) {
-                    int cost = Integer.parseInt(editPrice.getText().toString());
-                    dish.setCost(cost);
+                    priceD = Integer.parseInt(editPrice.getText().toString());
+                    //dish.setCost(priceD);
                 }
                 else{
                     //campo vuoto
@@ -257,6 +292,9 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                 return false;
             }
 
+            dish.setName(nomeD);
+            dish.setCost(priceD);
+            dish.setDishType(modifiedType);
             dish.setPhoto(imageThumb, imageLarge);
 
             /* ##################################

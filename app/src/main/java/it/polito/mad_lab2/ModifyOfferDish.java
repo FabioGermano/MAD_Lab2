@@ -49,8 +49,8 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
         super.onCreate(savedInstanceState);
 
         SetCalendarButtonVisibility(false);
-        setTitleTextView(getResources().getString(R.string.title_activity_edit_dish));
-        setContentView(R.layout.activity_modify_offer);
+        //setTitleTextView(getResources().getString(R.string.title_activity_edit_offer));
+        //setContentView(R.layout.activity_modify_offer);
         SetSaveButtonVisibility(true);
 
         readData();
@@ -83,7 +83,13 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                 newOffer = (boolean) extras.getBoolean("new");
                 if (offer_list != null)
                     if (newOffer){
-                        //è un nuovo piatto --> AGGIUNTA
+                        //è una nuova offerta --> AGGIUNTA
+                        /*
+                            settaggio dinamico del titolo
+                         */
+                        setTitleTextView(getResources().getString(R.string.title_activity_new_offer));
+                        setContentView(R.layout.activity_modify_offer);
+
                         offer = new Oggetto_offerta(null, -1, null);
                         //recupero l'id da usare
                         for (Oggetto_offerta o : offer_list){
@@ -98,6 +104,12 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                     }
                     else{
                         //è una modifica
+                        /*
+                            settaggio dinamico del titolo
+                         */
+                        setTitleTextView(getResources().getString(R.string.title_activity_edit_offer));
+                        setContentView(R.layout.activity_modify_offer);
+
                         position = extras.getInt("position");
                         extras.clear();
 
@@ -173,20 +185,28 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
             ToggleButton sabBtn = (ToggleButton) findViewById(R.id.sab_Button);
             ToggleButton domBtn = (ToggleButton) findViewById(R.id.dom_Button);
 
+            /*
+                piccola modifica per integrità codice, l'oggetto lo modifico solo se ho letto
+                correttamente tutti i campi, senza nessun errore.
+                Altrimenti, teoricamente, posso riempire alcuni campi si e altri no (nulla di che)
+             */
+            String nomeO;
+            int priceO;
+            String notesO;
 
             /* ##################################
                  Lettura campi dalla schermata
                ##################################
              */
             if (editName != null) {
-                String text = editName.getText().toString();
-                if(text.compareTo("")==0){
+                nomeO = editName.getText().toString();
+                if(nomeO.compareTo("")==0){
                     //campo vuoto
                     printAlert(getResources().getString(R.string.error_complete));
                     return false;
                 }
-                else
-                    offer.setName(text);
+                //else
+                    //offer.setName(text);
             } else {
                 //errore
                 printAlert(getResources().getString(R.string.exceptionError));
@@ -196,8 +216,8 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
             if (editPrice != null) {
                 String price =  editPrice.getText().toString();
                 if (price.compareTo("") != 0) {
-                    int cost = Integer.parseInt(price);
-                    offer.setCost(cost);
+                    priceO = Integer.parseInt(price);
+                    //offer.setCost(cost);
                 }
                 else {
                     //campo vuoto
@@ -212,14 +232,14 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
             }
 
             if (editNotes != null) {
-                String notes = editNotes.getText().toString();
-                if(notes.compareTo("")==0) {
+                notesO = editNotes.getText().toString();
+                if(notesO.compareTo("")==0) {
                     //campo vuoto
                     printAlert(getResources().getString(R.string.error_complete));
                     return false;
                 }
-                else
-                    offer.setNote(notes);;
+                //else
+                    //offer.setNote(notes);
             } else {
                 //errore
                 printAlert(getResources().getString(R.string.exceptionError));
@@ -263,6 +283,10 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                 printAlert(getResources().getString(R.string.exceptionError));
                 return false;
             }
+
+            offer.setName(nomeO);
+            offer.setCost(priceO);
+            offer.setNote(notesO);
 
             offer.setDays(days);
 
