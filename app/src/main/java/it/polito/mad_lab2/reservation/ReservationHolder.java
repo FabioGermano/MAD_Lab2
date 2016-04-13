@@ -64,6 +64,11 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
         ArrayList<ReservedDish> reservedDish = reservation.getReservedDishes(false);
         ArrayList<ReservedDish> reservedOffers = reservation.getReservedDishes(true);
 
+        if(reservation.getPlaces()==null) {
+            ((TextView) childLayout.findViewById(R.id.seats_number)).setVisibility(View.GONE);
+            ((TextView) childLayout.findViewById(R.id.seats)).setVisibility(View.GONE);
+        }
+
         if(reservedDish.size() > 0) {
             View child = LayoutInflater.from(context).inflate(R.layout.order_row, null);
             TextView name = (TextView) child.findViewById(R.id.food_name);
@@ -84,8 +89,13 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
                 this.dishListLayout.addView(child);
             }
         }
+        else
+        {
+            ((TextView) childLayout.findViewById(R.id.dishes)).setVisibility(View.GONE);
+            ((LinearLayout) childLayout.findViewById(R.id.dishListLayout)).setVisibility(View.GONE);
+        }
 
-        if(reservedDish.size() > 0) {
+        if(reservedOffers.size() > 0) {
             View child = LayoutInflater.from(context).inflate(R.layout.order_row, null);
             TextView name = (TextView) child.findViewById(R.id.food_name);
             name.setText("Name");
@@ -104,6 +114,11 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
 
                 this.offerListLayout.addView(child);
             }
+        }
+        else
+        {
+            ((TextView) childLayout.findViewById(R.id.offers)).setVisibility(View.GONE);
+            ((LinearLayout) childLayout.findViewById(R.id.offerListLayout)).setVisibility(View.GONE);
         }
     }
 

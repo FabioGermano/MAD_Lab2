@@ -26,7 +26,7 @@
                "quantity":4
             }
          ],
-         "status":"Accepted",
+         "status":"Pending",
          "time":"14:30",
          "reservationId":1,
 		 "isExpired" : false,
