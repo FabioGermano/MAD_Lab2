@@ -115,13 +115,13 @@ public class ReservationsActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Pending";
+                    return getResources().getString(R.string.pending);
                 case 1:
-                    return "Accepted";
+                    return getResources().getString(R.string.accepted);
                 case 2:
-                    return "Deleted";
+                    return getResources().getString(R.string.deleted);
                 case 3:
-                    return "Rejected";
+                    return getResources().getString(R.string.rejected);
             }
             return null;
         }

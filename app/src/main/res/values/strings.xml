@@ -107,4 +107,16 @@
     <string name="table">Table</string>
     <string name="table_with_orders">Table with orders</string>
     <string name="takeaway">Take-away</string>
+
+    <string name="seats">Reserved seats</string>
+    <string name="notes">Notes</string>
+    <string name="dishes">Dishes details</string>
+    <string name="dishes_details">Dishes details</string>
+    <string name="offers_details">Offers details</string>
+    <string name="reject">Reject</string>
+    <string name="accept">Accept</string>
+    <string name="accepted">Accepted</string>
+    <string name="rejected">Rejected</string>
+    <string name="pending">Pending</string>
+    <string name="deleted">Deleted</string>
 </resources>
