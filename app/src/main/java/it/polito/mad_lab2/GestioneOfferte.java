@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-import com.melnykov.fab.FloatingActionButton;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +36,7 @@ public class GestioneOfferte extends EditableBaseActivity {
         setTitleTextView(getResources().getString(R.string.title_activity_edit_offer));
         setContentView(R.layout.activity_gestione_offerte);
 
-        //InitializeFABButtons(false, false, true);
+        InitializeFABButtons(false, false, true);
 
 
         try {
@@ -122,8 +120,7 @@ public class GestioneOfferte extends EditableBaseActivity {
     private void setUpRecyclerView(){
         System.out.println("Imposto CardView e adapter");
         RecyclerView rView = (RecyclerView) findViewById(R.id.recyclerView_offerte);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.attachToRecyclerView(rView);
+
         RecyclerAdapter_offerte myAdapter = new RecyclerAdapter_offerte(this, lista_offerte, availability_mode);
         if(rView != null) {
             rView.setAdapter(myAdapter);
