@@ -11,6 +11,7 @@
     <style name="AppTheme" parent="ParentOfAppTheme" >
         <!-- definitions for both v<21 and v>=21 -->
 
+        <item name="android:windowBackground">@color/colorBackground</item>
     </style>
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="android:background">@color/themeColor</item>

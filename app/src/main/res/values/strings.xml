@@ -54,6 +54,7 @@
     <string name="description">Description</string>
     <string name="email">Email</string>
     <string name="phone_number">Phone number</string>
+    <string name="phone_number_with_col">&#8226; Phone number:</string>
     <string name="address">Address</string>
     <string name="restaurant_name">Restaurant name</string>
     <string name="covers">Covers</string>
@@ -108,11 +109,11 @@
     <string name="table_with_orders">Table with orders</string>
     <string name="takeaway">Take-away</string>
 
-    <string name="seats">Reserved seats</string>
-    <string name="notes">Notes</string>
+    <string name="seats">&#8226; Reserved seats:</string>
+    <string name="notes">&#8226; Notes:</string>
     <string name="dishes">Dishes details</string>
-    <string name="dishes_details">Dishes details</string>
-    <string name="offers_details">Offers details</string>
+    <string name="dishes_details">&#8226; Dishes details:</string>
+    <string name="offers_details">&#8226; Offers details:</string>
     <string name="reject">Reject</string>
     <string name="accept">Accept</string>
     <string name="accepted">Accepted</string>
