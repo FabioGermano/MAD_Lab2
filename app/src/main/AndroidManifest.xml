@@ -42,6 +42,7 @@
         <activity
             android:name=".EditAvailability"
             android:label="EditAvailability"
+            android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AlertActivity"

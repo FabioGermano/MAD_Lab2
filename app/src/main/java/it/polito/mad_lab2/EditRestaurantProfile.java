@@ -120,7 +120,7 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
 
             // read cover path
             for(int i = 0; i<4; i++){
-                this.coversThumbPath[i] = info.optString("coversThumbPath_"+i);
+                this.coversThumbPath[i] = covers.optString("coversThumbPath_"+i);
                 if(this.coversThumbPath[i].equals("null")){
                     this.coversThumbPath[i] = null;
                 }
@@ -446,6 +446,8 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             JSONArray jsonArray = jsonRootObject.getJSONArray("profilo");
             JSONObject info = jsonArray.getJSONObject(0);
             JSONObject orari = jsonArray.getJSONObject(1);
+            JSONObject logo = jsonArray.getJSONObject(2);
+            JSONObject covers = jsonArray.getJSONObject(3);
             JSONObject features = jsonArray.getJSONObject(4);
 
             info.put("nome", name);
@@ -457,7 +459,7 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             //save logo paths
             if(this.logoThumbPath != null)
             {
-                info.put("Logo_thumb", this.logoThumbPath);
+                logo.put("Logo_thumb", this.logoThumbPath);
             }
             // if(this.logoLargePath != null)
             //{
@@ -467,12 +469,12 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             //save cover path
             for(int i = 0; i<4; i++){
                 if(this.coversThumbPath[i] != null) {
-                    info.put("coversThumbPath_" + i, this.coversThumbPath[i]);
+                    covers.put("coversThumbPath_" + i, this.coversThumbPath[i]);
                 }
             }
             for(int i = 0; i<4; i++){
                 if(this.coversLargePath[i] != null) {
-                    info.put("coversLargePath_" + i, this.coversLargePath[i]);
+                    covers.put("coversLargePath_" + i, this.coversLargePath[i]);
                 }
             }
 
