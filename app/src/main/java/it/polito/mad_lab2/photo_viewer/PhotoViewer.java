@@ -1,19 +1,27 @@
 package it.polito.mad_lab2.photo_viewer;
 
 import com.soundcloud.android.crop.Crop;
+
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +53,9 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
     private boolean isBitmapSetted = false, isLogo = false, isEditable, isAddByClickOnImage;
     private String pictureImagePath;
     private boolean isPhotoClicked = false;
+
+    private boolean cameraAllowed = false;
+    private boolean storageAllowed = false;
 
     private PhotoViewerListener listener;
 
@@ -331,21 +342,37 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
 
     private void manageCameraForLargePhoto()
     {
-        String imageFileName = "temp.jpg";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        pictureImagePath = storageDir.getAbsolutePath() + "/" + imageFileName;
-        File file = new File(pictureImagePath);
-        Uri outputFileUri = Uri.fromFile(file);
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        startActivityForResult(cameraIntent, REQUEST_CAMERA);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            checkCameraPermission();
+        else
+            cameraAllowed = true;
+
+        if (cameraAllowed) {
+            String imageFileName = "temp.jpg";
+            File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            pictureImagePath = storageDir.getAbsolutePath() + "/" + imageFileName;
+            File file = new File(pictureImagePath);
+            Uri outputFileUri = Uri.fromFile(file);
+            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+            startActivityForResult(cameraIntent, REQUEST_CAMERA);
+        }
     }
 
     @Override
     public void OnGalleryButtonPressed() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*");
-        startActivityForResult(intent, SELECT_FILE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            checkStoragePermission();
+        else
+            storageAllowed = true;
+
+        if (storageAllowed) {
+            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.setType("image/*");
+            startActivityForResult(intent, SELECT_FILE);
+        }
+
     }
 
     @Override
@@ -380,4 +407,52 @@ public class PhotoViewer extends Fragment  implements PhotoDialogListener {
             }
         }
     }
+    private void checkCameraPermission(){
+        int camera = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA);
+        if (camera != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+        }
+        else
+            cameraAllowed = true;
+    }
+
+    private void checkStoragePermission(){
+        int storage = ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (storage != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+        else
+            storageAllowed = true;
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    cameraAllowed = true;
+
+                } else {
+                    cameraAllowed = false;
+                }
+                break;
+            }
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    storageAllowed = true;
+                } else {
+                    storageAllowed = false;
+                }
+                break;
+            }
+        }
+    }
+
 }

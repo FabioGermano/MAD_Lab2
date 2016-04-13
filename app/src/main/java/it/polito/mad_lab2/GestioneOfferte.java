@@ -1,12 +1,21 @@
 package it.polito.mad_lab2;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -38,6 +47,8 @@ public class GestioneOfferte extends EditableBaseActivity {
 
         InitializeFABButtons(false, false, true);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            checkStoragePermission();
 
         try {
             //recupero eventuali modifiche apportate ad un piatto
@@ -187,5 +198,57 @@ public class GestioneOfferte extends EditableBaseActivity {
         b.putBoolean("new", true);
         intent.putExtras(b);
         startActivity(intent);
+    }
+
+    private void checkStoragePermission(){
+        int storage = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (storage != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    finish();
+                    startActivity(getIntent());
+
+                } else {
+                    printAlert("Negando i permessi l'app non funzionerà correttamente");
+
+                }
+                return;
+            }
+        }
+    }
+
+    private void printAlert(String msg){
+        System.out.println(msg);
+        AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
+        miaAlert.setMessage(msg);
+
+        //titolo personalizzato
+        TextView title = new TextView(this);
+        title.setText(getResources().getString(R.string.attenzione));
+        title.setBackgroundColor(Color.DKGRAY);
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(20);
+        miaAlert.setCustomTitle(title);
+
+        AlertDialog alert = miaAlert.create();
+        alert.show();
+
+        //centrare il messaggio
+        TextView messageView = (TextView)alert.findViewById(android.R.id.message);
+        messageView.setGravity(Gravity.CENTER);
     }
 }

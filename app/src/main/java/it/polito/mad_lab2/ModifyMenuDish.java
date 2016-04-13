@@ -2,29 +2,28 @@ package it.polito.mad_lab2;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.jar.Manifest;
 
 import it.polito.mad_lab2.common.PhotoManager;
 import it.polito.mad_lab2.common.PhotoType;
@@ -60,6 +59,9 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
 
         SetSaveButtonVisibility(true);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            checkStoragePermission();
+
         readData();
         initializePhotoManagement();
 
@@ -68,7 +70,7 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
     private void initializePhotoManagement()
     {
         imageViewer = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.imageDish_modifyMenu);
-        imageManager = new PhotoManager(getApplicationContext(), PhotoType.PROFILE, this.imageThumb, this.imageLarge);
+        imageManager = new PhotoManager(getApplicationContext(), PhotoType.MENU, this.imageThumb, this.imageLarge);
 
         id_image = "image_"+ dish.getId();
 
@@ -551,5 +553,44 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
     protected void onDestroy() {
         super.onDestroy();
         this.imageManager.destroy(id_image);
+    }
+
+
+    private void checkPermessi(){
+        int camera = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) ;
+        int storage = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (camera != PackageManager.PERMISSION_GRANTED || storage != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+    private void checkStoragePermission(){
+        int storage = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (storage != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    finish();
+                    startActivity(getIntent());
+
+                } else {
+                    printAlert("Negando i permessi l'app non funzionerà correttamente");
+
+                }
+                return;
+            }
+        }
     }
 }

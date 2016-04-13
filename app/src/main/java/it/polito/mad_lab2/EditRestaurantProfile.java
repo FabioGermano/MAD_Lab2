@@ -2,9 +2,14 @@ package it.polito.mad_lab2;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,7 +60,12 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
         SetCalendarButtonVisibility(false);
 
         setContentView(R.layout.activity_edit_restaurant_profile);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            checkStoragePermission();
+
         // Construct the data source
+
 
         this.coversThumbPath = new String[4];
         this.coversLargePath = new String[4];
@@ -639,6 +649,35 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
         this.logoManager.destroy(id_logo_photo);
         for(int i = 0; i < 4; i++){
             this.coverManagers[i].destroy(ids_cover_photo[i]);
+        }
+    }
+
+    private void checkStoragePermission(){
+        int storage = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (storage != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    finish();
+                    startActivity(getIntent());
+
+                } else {
+                    printAlert("Negando i permessi l'app non funzionerà correttamente");
+
+                }
+                return;
+            }
         }
     }
 }

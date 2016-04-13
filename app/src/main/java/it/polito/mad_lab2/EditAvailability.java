@@ -3,12 +3,17 @@ package it.polito.mad_lab2;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -44,6 +49,9 @@ public class EditAvailability extends EditableBaseActivity {
         hideShadow(true);
         setTitleTextView(getResources().getString(R.string.title_activity_edit_availability));
         setContentView(R.layout.activity_gestione_menu);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            checkStoragePermission();
 
         boolean ris = readMenuData();
         ris = readOfferData();
@@ -426,6 +434,35 @@ public class EditAvailability extends EditableBaseActivity {
         } catch (Exception e){
             System.out.println("Eccezione: " + e.getMessage());
             return false;
+        }
+    }
+
+    private void checkStoragePermission(){
+        int storage = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (storage != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    finish();
+                    startActivity(getIntent());
+
+                } else {
+                    printAlert("Negando i permessi l'app non funzionerà correttamente");
+
+                }
+                return;
+            }
         }
     }
 }

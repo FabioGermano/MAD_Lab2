@@ -2,10 +2,15 @@ package it.polito.mad_lab2;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -53,6 +58,9 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
         //setContentView(R.layout.activity_modify_offer);
         SetSaveButtonVisibility(true);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            checkStoragePermission();
+
         readData();
         initializePhotoManagement();
     }
@@ -61,7 +69,7 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
     private void initializePhotoManagement()
     {
         imageViewer = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.imageOffer_modifyOffer);
-        imageManager = new PhotoManager(getApplicationContext(), PhotoType.PROFILE, this.imageThumb, this.imageLarge);
+        imageManager = new PhotoManager(getApplicationContext(), PhotoType.OFFER, this.imageThumb, this.imageLarge);
 
         id_image = "image_"+ offer.getId();
 
@@ -495,5 +503,34 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
     protected void onDestroy() {
         super.onDestroy();
         this.imageManager.destroy(id_image);
+    }
+
+    private void checkStoragePermission(){
+        int storage = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (storage != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    finish();
+                    startActivity(getIntent());
+
+                } else {
+                    printAlert("Negando i permessi l'app non funzionerà correttamente");
+
+                }
+                return;
+            }
+        }
     }
 }
