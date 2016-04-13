@@ -22,13 +22,14 @@ public class RecyclerAdapterReservations extends RecyclerView.Adapter<Reservatio
 
     public RecyclerAdapterReservations(Context context, ArrayList<Reservation> data) {
         this.data = data;
+        this.context = context;
         this.myInflater = LayoutInflater.from(context);
     }
 
     @Override
     public ReservationHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = myInflater.inflate(R.layout.reservation_row, parent, false);
-        ReservationHolder holder = new ReservationHolder(v);
+        ReservationHolder holder = new ReservationHolder(v, context);
         return holder;
     }
 

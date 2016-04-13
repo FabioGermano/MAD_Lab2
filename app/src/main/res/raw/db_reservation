@@ -16,6 +16,11 @@
                "quantity":4
             },
             {
+                "name":"polpette",
+                "isOffer":false,
+                "quantity":10
+            },
+            {
                "name":"minestra",
                "isOffer":false,
                "quantity":4

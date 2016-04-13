@@ -74,6 +74,18 @@ public class Reservation {
         return reservedDishes;
     }
 
+    public ArrayList<ReservedDish> getReservedDishes(boolean onlyOffer) {
+        ArrayList<ReservedDish> reservedDishes = new ArrayList<ReservedDish>();
+
+        for(ReservedDish rd : this.reservedDishes){
+            if(rd.isOffer() == onlyOffer){
+                reservedDishes.add(rd);
+            }
+        }
+
+        return reservedDishes;
+    }
+
     public String getNoteByUser() {
         return noteByUser;
     }

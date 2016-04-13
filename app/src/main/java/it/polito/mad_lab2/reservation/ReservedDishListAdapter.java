@@ -1,4 +1,4 @@
-package it.polito.mad_lab2;
+package it.polito.mad_lab2.reservation;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,23 +12,28 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polito.mad_lab2.R;
+import it.polito.mad_lab2.data.reservation.ReservedDish;
+
 /**
  * Created by Giovanna on 11/04/2016.
  */
-public class ListAdapter extends ArrayAdapter<ListElement>{
+public class ReservedDishListAdapter extends ArrayAdapter<ReservedDish>{
 
     Context context;
     int layoutResourceId;
+    private ArrayList<ReservedDish> dishes;
 
-    public ListAdapter(Context context, ArrayList<ListElement> objects) {
+    public ReservedDishListAdapter(Context context, ArrayList<ReservedDish> objects) {
         super(context, 0, objects);
         this.context = context;
+        this.dishes = objects;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        ListElement element = getItem(position);
+        ReservedDish element = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.order_row, parent, false);
@@ -39,7 +44,7 @@ public class ListAdapter extends ArrayAdapter<ListElement>{
         // Populate the data into the template view using the data object
 
         name.setText(element.getName());
-        quantity.setText(element.getQuantity());
+        quantity.setText(String.valueOf(element.getQuantity()));
 
         // Return the completed view to render on screen
         return convertView;
