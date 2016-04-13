@@ -39,7 +39,6 @@ public class EditAvailability extends EditableBaseActivity {
     private ArrayList<Oggetto_offerta> lista_offerte = null;
     private boolean availability_mode=true;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
