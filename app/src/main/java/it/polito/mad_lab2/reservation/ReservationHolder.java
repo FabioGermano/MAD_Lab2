@@ -35,7 +35,7 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
     private LinearLayout offerListLayout, dishListLayout;
     private ImageButton expandeCollapseButton;
     private LinearLayout childLayout;
-    private boolean state;
+    private boolean state = true;
     private View containerView;
 
     public ReservationHolder(View v, Context context) {
@@ -175,16 +175,16 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
     @Override
     public void onClick(View v) {
         if(!state){
+            (containerView.findViewById(R.id.expandeCollapseRow)).setBackgroundResource(android.R.drawable.arrow_up_float);
             expandOrCollapse(childLayout, "collapse", childLayout.getHeight());
             //expandOrCollapse(containerView, "collapse", containerView.getHeight() - childLayout.getHeight());
-            (containerView.findViewById(R.id.expandeCollapseRow)).setBackgroundResource(android.R.drawable.arrow_up_float);
             state = true;
         }
         else
         {
+            (containerView.findViewById(R.id.expandeCollapseRow)).setBackgroundResource(android.R.drawable.arrow_down_float);
             expandOrCollapse(childLayout, "expand", childLayout.getHeight());
             //expandOrCollapse(containerView, "expand", containerView.getHeight() - childLayout.getHeight());
-            (containerView.findViewById(R.id.expandeCollapseRow)).setBackgroundResource(android.R.drawable.arrow_down_float);
             state = false;
         }
     }
