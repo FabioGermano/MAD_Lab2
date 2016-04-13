@@ -3,8 +3,10 @@ package it.polito.mad_lab2;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -24,6 +26,9 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import it.polito.mad_lab2.common.PhotoManager;
+import it.polito.mad_lab2.common.PhotoType;
+import it.polito.mad_lab2.photo_viewer.PhotoViewer;
 import it.polito.mad_lab2.photo_viewer.PhotoViewerListener;
 
 public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerListener {
@@ -33,6 +38,13 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
     private int position = -1;
     private boolean newDish = false;
     private Oggetto_piatto.type_enum initialType = null;
+
+    private String imageLarge = null;
+    private String imageThumb = null;
+    private PhotoManager imageManager;
+    private PhotoViewer imageViewer;
+    private String id_image;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +56,24 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
 
         SetSaveButtonVisibility(true);
 
+        readData();
+        initializePhotoManagement();
+
+    }
+
+    private void initializePhotoManagement()
+    {
+        imageViewer = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.imageDish_modifyMenu);
+        imageManager = new PhotoManager(getApplicationContext(), PhotoType.PROFILE, this.imageThumb, this.imageLarge);
+
+        id_image = "image_"+ dish.getId();
+
+        imageViewer.setThumbBitmap(BitmapFactory.decodeFile(imageManager.getThumb(id_image)));
+
+
+    }
+
+    private void readData(){
         try {
             //gestisco il menu a tendina per la tipologia del piatto
             Spinner spinner = (Spinner)findViewById(R.id.list_dishType_modifyMenu);
@@ -97,7 +127,8 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                 if (dish_list != null)
                     if (dish_type == null){
                         //è un nuovo piatto --> AGGIUNTA
-                        dish = new Oggetto_piatto(null, -1, null, null);
+                        dish = new Oggetto_piatto(null, -1, null);
+                        dish.setId(dish_list.getNewId());
                         newDish = true;
                         extras.clear();
                         return;
@@ -139,6 +170,9 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                                 //carico le informazioni nella pagina di modifica
                                 EditText editName = (EditText) findViewById(R.id.edit_dishName_modifyMenu);
                                 EditText editPrice = (EditText) findViewById(R.id.edit_dishPrice_modifyMenu);
+
+                                imageThumb = dish.getPhoto()[0];
+                                imageLarge = dish.getPhoto()[1];
 
                                 if (editName != null) {
                                     editName.setText(dish.getName());
@@ -223,25 +257,7 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                 return false;
             }
 
-
-            //la foto può essere null (default)
-            /*if(dish.getName() == null || dish.getCost() == -2){
-                AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-                miaAlert.setTitle(getResources().getString(R.string.error));
-                miaAlert.setMessage(getResources().getString(R.string.exceptionError));
-                AlertDialog alert = miaAlert.create();
-                alert.show();
-                return false;
-            }
-
-            if(dish.getName().isEmpty() || dish.getCost() == -1 || dish.getDishType() ==null ){
-                AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-                miaAlert.setTitle(getResources().getString(R.string.error));
-                miaAlert.setMessage(getResources().getString(R.string.error_complete));
-                AlertDialog alert = miaAlert.create();
-                alert.show();
-                return false;
-            }*/
+            dish.setPhoto(imageThumb, imageLarge);
 
             /* ##################################
                         Gestione Database
@@ -249,12 +265,9 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
              */
             GestioneDB DB = new GestioneDB();
             if (newDish){
-                //aggiorno il db locale
-
-                dish.setId(dish_list.getNewId());
+                // nuovo piatto - devo aggiungere entry al db
 
                 JSONObject newDishObj = new JSONObject();
-
 
                 newDishObj.put("id", dish_list.getNewId());
                 newDishObj.put("nome", dish.getName());
@@ -271,6 +284,17 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                 else if (dish.getDishType() == Oggetto_piatto.type_enum.ALTRO){
                     newDishObj.put("tipo", "Altro");
                 }
+
+                if (dish.getPhoto()[0] == null)
+                    newDishObj.put("foto_thumb", "null");
+                else
+                    newDishObj.put("foto_thumb", dish.getPhoto()[0]);
+
+                if (dish.getPhoto()[1] == null)
+                    newDishObj.put("foto_large", "null");
+                else
+                    newDishObj.put("foto_large", dish.getPhoto()[1]);
+
 
                 String db = DB.leggiDB(this, "db_menu");
 
@@ -295,7 +319,7 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                 }
             }
             else {
-                //gestion db locale
+                //gestione db locale
                 String db = DB.leggiDB(this, "db_menu");
 
 
@@ -321,6 +345,18 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                         else if (dish.getDishType() == Oggetto_piatto.type_enum.ALTRO){
                             jsonObject.put("tipo", "Altro");
                         }
+
+                        if (dish.getPhoto()[0] == null)
+                            jsonObject.put("foto_thumb", "null");
+                        else
+                            jsonObject.put("foto_thumb", dish.getPhoto()[0]);
+
+                        if (dish.getPhoto()[1] == null)
+                            jsonObject.put("foto_large", "null");
+                        else
+                            jsonObject.put("foto_large", dish.getPhoto()[1]);
+
+
                         break;
                     }
                 }
@@ -395,9 +431,16 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
         messageView.setGravity(Gravity.CENTER);
     }
 
+    private void commitPhotos() {
+            this.imageThumb = this.imageManager.commitThumb(id_image);
+            this.imageLarge = this.imageManager.commitLarge(id_image);
+
+    }
+
     @Override
     protected void OnSaveButtonPressed() {
         //salvo le info e torno alla schermata di gestione menu principale
+        commitPhotos();
         boolean ris = saveInfo();
         if(ris) {
             Toast toast = Toast.makeText(getApplicationContext(), R.string.dataSaved, Toast.LENGTH_SHORT);
@@ -419,7 +462,8 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
 
     @Override
     protected void OnCalendarButtonPressed() {
-        throw new UnsupportedOperationException();
+
+
     }
 
     @Override
@@ -429,7 +473,6 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
     @Override
     protected void OnDeleteButtonPressed() {
         // TO DO
-        throw  new UnsupportedOperationException();
     }
 
     @Override
@@ -442,22 +485,33 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
         throw  new UnsupportedOperationException();
     }
 
-    private void modifyPhoto(){
-
-    }
 
     @Override
     public void OnPhotoChanged(int fragmentId, Bitmap thumb, Bitmap large) {
-
+        if (fragmentId == R.id.imageDish_modifyMenu){
+            this.imageManager.saveThumb(thumb, id_image);
+            this.imageManager.saveLarge(large, id_image);
+        }
     }
 
     @Override
     public Bitmap OnPhotoViewerActivityStarting(int fragmentId) {
+        if (fragmentId == R.id.imageDish_modifyMenu){
+            return BitmapFactory.decodeFile(this.imageManager.getLarge(id_image));
+        }
         return null;
     }
 
     @Override
     public void OnPhotoRemoved(int fragmentId) {
+        if (fragmentId == R.id.imageDish_modifyMenu){
+            this.imageManager.removeThumb(id_image);
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.imageManager.destroy(id_image);
     }
 }

@@ -119,17 +119,13 @@ public class GestioneMenu extends EditableBaseActivity {
     private void modificaSchermata(ArrayList<Oggetto_piatto> list){
         if(list.size() == 0){
             printAlertEmpty();
-            resetAddButton();
+            //resetAddButton();
 
         } else if(list.size() > 7) {
-            Toast toast = Toast.makeText(getApplicationContext(), "SPOSTO", Toast.LENGTH_SHORT);
-            toast.show();
-            moveAddButton();
+            //moveAddButton();
         }
         else{
-            Toast toast = Toast.makeText(getApplicationContext(),"RESETTO", Toast.LENGTH_SHORT);
-            toast.show();
-            resetAddButton();
+            //resetAddButton();
         }
     }
 
@@ -172,32 +168,44 @@ public class GestioneMenu extends EditableBaseActivity {
             for(int i=0; i < arrayDebug.length(); i++){
                 JSONObject jsonObject = arrayDebug.getJSONObject(i);
 
-                String nome = jsonObject.optString("nome").toString();
-                int prezzo = Integer.parseInt(jsonObject.optString("prezzo").toString());
-                String type = jsonObject.optString("tipo").toString();
+                String nome = jsonObject.optString("nome");
+                int prezzo = Integer.parseInt(jsonObject.optString("prezzo"));
+                String type = jsonObject.optString("tipo");
+                String thumb = jsonObject.optString("foto_thumb");
+                String large = jsonObject.optString("foto_large");
+
+                if (thumb.compareTo("null")== 0 || thumb.compareTo("") == 0)
+                    thumb = null;
+                if (large.compareTo("null")==0 || large.compareTo("") == 0)
+                    large = null;
+
                 //creo le differenti liste
                 switch(type){
                     case "Primo":
-                        obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.PRIMI);
+                        obj = new Oggetto_piatto(nome, prezzo, Oggetto_piatto.type_enum.PRIMI);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                        obj.setPhoto(thumb, large);
                         lista_menu.addPrimo(obj);
                         System.out.println("Aggiunto primo");
                         break;
                     case "Secondo":
-                        obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.SECONDI);
+                        obj = new Oggetto_piatto(nome, prezzo, Oggetto_piatto.type_enum.SECONDI);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                        obj.setPhoto(thumb, large);
                         lista_menu.addSecondo(obj);
                         System.out.println("Aggiunto secondo");
                         break;
                     case "Dessert":
-                        obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.DESSERT);
+                        obj = new Oggetto_piatto(nome, prezzo, Oggetto_piatto.type_enum.DESSERT);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                        obj.setPhoto(thumb, large);
                         lista_menu.addDessert(obj);
                         System.out.println("Aggiunto dessert");
                         break;
                     case "Altro":
-                        obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.ALTRO);
+                        obj = new Oggetto_piatto(nome, prezzo, Oggetto_piatto.type_enum.ALTRO);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                        obj.setPhoto(thumb, large);
                         lista_menu.addAltro(obj);
                         System.out.println("Aggiunto altro");
                         break;
@@ -205,8 +213,6 @@ public class GestioneMenu extends EditableBaseActivity {
                         System.out.println("Typology unknown");
                         break;
                 }
-
-                //lista_menu.setJson(jsonRootObject);
 
             }
             return true;

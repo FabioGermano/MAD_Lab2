@@ -321,7 +321,7 @@ public class EditAvailability extends EditableBaseActivity {
                 //creo le differenti liste
                 switch(type){
                     case "Primo":
-                        obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.PRIMI);
+                        obj = new Oggetto_piatto(nome, prezzo, Oggetto_piatto.type_enum.PRIMI);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
                         obj.setAvailability(av);
                         obj.setTmpAv(av);
@@ -329,7 +329,7 @@ public class EditAvailability extends EditableBaseActivity {
                         System.out.println("Aggiunto primo");
                         break;
                     case "Secondo":
-                        obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.SECONDI);
+                        obj = new Oggetto_piatto(nome, prezzo, Oggetto_piatto.type_enum.SECONDI);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
                         obj.setAvailability(av);
                         obj.setTmpAv(av);
@@ -337,7 +337,7 @@ public class EditAvailability extends EditableBaseActivity {
                         System.out.println("Aggiunto secondo");
                         break;
                     case "Dessert":
-                        obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.DESSERT);
+                        obj = new Oggetto_piatto(nome, prezzo, Oggetto_piatto.type_enum.DESSERT);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
                         obj.setAvailability(av);
                         obj.setTmpAv(av);
@@ -345,7 +345,7 @@ public class EditAvailability extends EditableBaseActivity {
                         System.out.println("Aggiunto dessert");
                         break;
                     case "Altro":
-                        obj = new Oggetto_piatto(nome, prezzo, null, Oggetto_piatto.type_enum.ALTRO);
+                        obj = new Oggetto_piatto(nome, prezzo, Oggetto_piatto.type_enum.ALTRO);
                         obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
                         obj.setAvailability(av);
                         obj.setTmpAv(av);
@@ -404,7 +404,7 @@ public class EditAvailability extends EditableBaseActivity {
                     //creo la lista delle offerte
 
                     //<DA CONTROLLARE IN SEGUITO ALL'AGGIUNTA DEI GIORNI DELLE OFFERTE
-                    Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, null, days);
+                    Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, days);
                     obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
                     obj.setAvailability(av);
                     obj.setTmpAv(av);

@@ -3,6 +3,7 @@ package it.polito.mad_lab2;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,6 +19,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import it.polito.mad_lab2.common.PhotoManager;
+import it.polito.mad_lab2.common.PhotoType;
+import it.polito.mad_lab2.photo_viewer.PhotoViewer;
 import it.polito.mad_lab2.photo_viewer.PhotoViewerListener;
 
 /**
@@ -31,6 +35,14 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
     private int position = -1;
     private boolean newOffer = false;
 
+    private String imageLarge = null;
+    private String imageThumb = null;
+    private PhotoManager imageManager;
+    private PhotoViewer imageViewer;
+    private String id_image;
+
+    private int newID = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +54,18 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
         SetSaveButtonVisibility(true);
 
         readData();
+        initializePhotoManagement();
+    }
+
+
+    private void initializePhotoManagement()
+    {
+        imageViewer = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.imageOffer_modifyOffer);
+        imageManager = new PhotoManager(getApplicationContext(), PhotoType.PROFILE, this.imageThumb, this.imageLarge);
+
+        id_image = "image_"+ offer.getId();
+
+        imageViewer.setThumbBitmap(BitmapFactory.decodeFile(imageManager.getThumb(id_image)));
     }
 
     private void readData(){
@@ -60,7 +84,15 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                 if (offer_list != null)
                     if (newOffer){
                         //è un nuovo piatto --> AGGIUNTA
-                        offer = new Oggetto_offerta(null, -1, null, null);
+                        offer = new Oggetto_offerta(null, -1, null);
+                        //recupero l'id da usare
+                        for (Oggetto_offerta o : offer_list){
+                            if (newID < o.getId())
+                                newID = o.getId();
+                        }
+                        newID++;
+                        offer.setId(newID);
+
                         extras.clear();
                         return;
                     }
@@ -97,7 +129,6 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                                 editNotes.setText(offer.getNote());
                             }
 
-
                             if (lunBtn != null){ lunBtn.setChecked(offer.getDays()[0]); }
                             if (marBtn != null){ marBtn.setChecked(offer.getDays()[1]); }
                             if (merBtn != null){ merBtn.setChecked(offer.getDays()[2]); }
@@ -105,6 +136,9 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                             if (venBtn != null){ venBtn.setChecked(offer.getDays()[4]); }
                             if (sabBtn != null){ sabBtn.setChecked(offer.getDays()[5]); }
                             if (domBtn != null){ domBtn.setChecked(offer.getDays()[6]); }
+
+                            imageThumb = offer.getPhoto()[0];
+                            imageLarge = offer.getPhoto()[1];
                         }
                         else {
                             //qualche errore durante la lettura / modifica
@@ -232,25 +266,8 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
 
             offer.setDays(days);
 
-            //la foto può essere null (default)
-            /*if(errore){
-                AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-                miaAlert.setTitle(getResources().getString(R.string.error));
-                miaAlert.setMessage(getResources().getString(R.string.exceptionError));
-                AlertDialog alert = miaAlert.create();
-                alert.show();
-                return false;
-            }
+            offer.setPhoto(imageThumb, imageLarge);
 
-            if(campoVuoto){
-                System.out.println(R.string.error_complete);
-                AlertDialog.Builder miaAlert = new AlertDialog.Builder(this);
-                miaAlert.setTitle(getResources().getString(R.string.error));
-                miaAlert.setMessage(getResources().getString(R.string.error_complete));
-                AlertDialog alert = miaAlert.create();
-                alert.show();
-                return false;
-            }*/
 
             /* ##################################
                         Gestione Database
@@ -263,44 +280,46 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                 // è una nuova offerta
                 //aggiorno il db locale
 
-                //recupero l'id da usare
-                int id = 1;
-                for (Oggetto_offerta o : offer_list){
-                    if (id < o.getId())
-                        id = o.getId();
-                }
-                id++;
+                JSONObject newOfferObj = new JSONObject();
 
-                offer.setId(id);
+                newOfferObj.put("id", newID);
+                newOfferObj.put("nome", offer.getName());
+                newOfferObj.put("prezzo", offer.getCost());
+                newOfferObj.put("note", offer.getNote());
+                newOfferObj.put("lun", days[0]);
+                newOfferObj.put("mar", days[1]);
+                newOfferObj.put("mer", days[2]);
+                newOfferObj.put("gio", days[3]);
+                newOfferObj.put("ven", days[4]);
+                newOfferObj.put("sab", days[5]);
+                newOfferObj.put("dom", days[6]);
 
-                JSONObject newDishObj = new JSONObject();
+                if (offer.getPhoto()[0] == null)
+                    newOfferObj.put("foto_thumb", "null");
+                else
+                    newOfferObj.put("foto_thumb", offer.getPhoto()[0]);
 
-                newDishObj.put("id", id);
-                newDishObj.put("nome", offer.getName());
-                newDishObj.put("prezzo", offer.getCost());
-                newDishObj.put("note", offer.getNote());
-                newDishObj.put("lun", days[0]);
-                newDishObj.put("mar", days[1]);
-                newDishObj.put("mer", days[2]);
-                newDishObj.put("gio", days[3]);
-                newDishObj.put("ven", days[4]);
-                newDishObj.put("sab", days[5]);
-                newDishObj.put("dom", days[6]);
+                if (offer.getPhoto()[1] == null)
+                    newOfferObj.put("foto_large", "null");
+                else
+                    newOfferObj.put("foto_large", offer.getPhoto()[1]);
 
                 String db = DB.leggiDB(this, "db_offerte");
 
                 JSONObject jsonRootObject = new JSONObject(db);
                 JSONArray jsonArray = jsonRootObject.getJSONArray("lista_offerte");
-                jsonArray.put(newDishObj);
+                jsonArray.put(newOfferObj);
 
                 DB.updateDB(this, jsonRootObject, "db_offerte");
 
+                //aggiorno la lista in RAM
                 offer_list.add(offer);
+
             }
             else {
                 // modifica offerta!
-
                 //gestione db locale
+
                 String db = DB.leggiDB(this, "db_offerte");
 
                 JSONObject jsonRootObject = new JSONObject(db);
@@ -320,6 +339,16 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                         jsonObject.put("ven", days[4]);
                         jsonObject.put("sab", days[5]);
                         jsonObject.put("dom", days[6]);
+
+                        if (offer.getPhoto()[0] == null)
+                            jsonObject.put("foto_thumb", "null");
+                        else
+                            jsonObject.put("foto_thumb", offer.getPhoto()[0]);
+
+                        if (offer.getPhoto()[1] == null)
+                            jsonObject.put("foto_large", "null");
+                        else
+                            jsonObject.put("foto_large", offer.getPhoto()[1]);
                         break;
                     }
                 }
@@ -378,8 +407,15 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
 
     }
 
+    private void commitPhotos() {
+        this.imageThumb = this.imageManager.commitThumb(id_image);
+        this.imageLarge = this.imageManager.commitLarge(id_image);
+    }
+
     @Override
     protected void OnSaveButtonPressed() {
+
+        commitPhotos();
         boolean ris = saveInfo();
         if(ris) {
             Toast toast = Toast.makeText(getApplicationContext(), R.string.dataSaved, Toast.LENGTH_SHORT);
@@ -408,22 +444,32 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
 
     }
 
-    private void modifyPhoto(){
-
-    }
-
     @Override
     public void OnPhotoChanged(int fragmentId, Bitmap thumb, Bitmap large) {
-
+        if (fragmentId == R.id.imageOffer_modifyOffer){
+            this.imageManager.saveThumb(thumb, id_image);
+            this.imageManager.saveLarge(large, id_image);
+        }
     }
 
     @Override
     public Bitmap OnPhotoViewerActivityStarting(int fragmentId) {
+        if (fragmentId == R.id.imageOffer_modifyOffer){
+            return BitmapFactory.decodeFile(this.imageManager.getLarge(id_image));
+        }
         return null;
     }
 
     @Override
     public void OnPhotoRemoved(int fragmentId) {
+        if (fragmentId == R.id.imageOffer_modifyOffer){
+            this.imageManager.removeThumb(id_image);
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.imageManager.destroy(id_image);
     }
 }

@@ -2,6 +2,8 @@ package it.polito.mad_lab2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -100,7 +102,16 @@ public class RecyclerAdapter_offerte extends RecyclerView.Adapter<RecyclerAdapte
             }
             //carico foto
             if(dish_img != null){
-
+                String path = currentObj.getPhoto()[0];
+                if (path != null){
+                    try {
+                        Bitmap bmp = BitmapFactory.decodeFile(path);
+                        if(bmp != null)
+                            dish_img.setImageBitmap(bmp);
+                    } catch (Exception e){
+                        System.out.println("Errore creazione bitmap");
+                    }
+                }
             }
 
         }

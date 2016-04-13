@@ -79,9 +79,11 @@ public class GestioneOfferte extends EditableBaseActivity {
                 for(int i=0; i < arrayDebug.length(); i++) {
                     JSONObject jsonObject = arrayDebug.getJSONObject(i);
 
-                    String nome = jsonObject.optString("nome").toString();
-                    int prezzo = Integer.parseInt(jsonObject.optString("prezzo").toString());
-                    String note = jsonObject.optString("note".toString());
+                    String nome = jsonObject.optString("nome");
+                    int prezzo = Integer.parseInt(jsonObject.optString("prezzo"));
+                    String note = jsonObject.optString("note");
+                    String thumb = jsonObject.optString("foto_thumb");
+                    String large = jsonObject.optString("foto_large");
 
                     boolean days[] = new boolean[7];
                     days[0] = jsonObject.optBoolean("lun");
@@ -93,9 +95,10 @@ public class GestioneOfferte extends EditableBaseActivity {
                     days[6] = jsonObject.optBoolean("dom");
 
                     //creo la lista delle offerte
-                    Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, null, days);
-                    obj.setId(Integer.parseInt(jsonObject.optString("id").toString()));
+                    Oggetto_offerta obj = new Oggetto_offerta(nome, prezzo, days);
+                    obj.setId(Integer.parseInt(jsonObject.optString("id")));
                     obj.setNote(note);
+                    obj.setPhoto(thumb, large);
                     lista_offerte.add(obj);
                     System.out.println("Offerta aggiunta");
                 }

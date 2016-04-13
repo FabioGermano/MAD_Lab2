@@ -102,8 +102,8 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
             JSONObject features = jsonArray.getJSONObject(4);
 
 
-            String name = info.optString("nome").toString();
-            String address = info.optString("indirizzo").toString();
+            String name = info.optString("nome");
+            String address = info.optString("indirizzo");
             String phone = info.optString("telefono");
             String email = info.optString("email");
             String description = info.optString("descrizione");
@@ -550,7 +550,6 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
 
     @Override
     protected void OnSaveButtonPressed() {
-        System.out.println("ORARIO LUNEDI: "/* + monday.getText()*/);
 
         commitPhotos();
         boolean ris = saveInfo();

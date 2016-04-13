@@ -8,7 +8,8 @@
     <string name="title_activity_edit_restaurant_profile">Edit profile</string>
     <string name="title_activity_edit_menu">Edit menu</string>
     <string name="title_activity_edit_dish">Edit dish</string>
-    <string name="title_activity_edit_offer">Edit offers</string>
+    <string name="title_activity_edit_offer">Edit offer</string>
+    <string name="title_activity_new_offer">New offer:</string>
 
     <!-- Edit menu dish activity strings-->
     <string name="dishPhoto">Photo</string>

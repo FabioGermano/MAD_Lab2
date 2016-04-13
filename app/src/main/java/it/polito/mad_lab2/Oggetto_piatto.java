@@ -10,7 +10,9 @@ import java.io.Serializable;
 public class Oggetto_piatto implements Serializable {
 
     private String piatto_name = "";
-    private String photo_path = "";
+    private String photo_thumb = null;
+    private String photo_large = null;
+
     private int cost = 0;
     private type_enum type = null;
     private int id;
@@ -18,9 +20,8 @@ public class Oggetto_piatto implements Serializable {
     private boolean availability;
     private boolean tmpAv;
 
-    public Oggetto_piatto(String name, int cost, String path, type_enum type){
+    public Oggetto_piatto(String name, int cost, type_enum type){
         this.piatto_name = name;
-        this.photo_path = path;
         this.cost = cost;
         this.type = type;
         this.availability = true;
@@ -50,12 +51,13 @@ public class Oggetto_piatto implements Serializable {
         return this.cost;
     }
 
-    public void setPhoto(String path){
-        this.photo_path = path;
+    public void setPhoto(String thumb, String large){
+        this.photo_thumb= thumb;
+        this.photo_large = large;
     }
 
-    public String getPhoto(){
-        return this.photo_path;
+    public String[] getPhoto(){
+        return new String[] {photo_thumb, photo_large};
     }
 
     public void setDishType(type_enum arg){

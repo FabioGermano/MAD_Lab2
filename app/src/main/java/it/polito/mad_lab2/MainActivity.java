@@ -51,7 +51,6 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         SetSaveButtonVisibility(false);
         setTitleTextView(getResources().getString(R.string.app_name));
         setContentView(R.layout.activity_main);
-        PhotoViewer currentFragment = (PhotoViewer)getSupportFragmentManager().findFragmentById(R.id.ad_fragment);
 
         checkDB();
 
