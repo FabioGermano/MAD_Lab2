@@ -110,12 +110,12 @@ public class GestioneMenu extends EditableBaseActivity {
                 tabLayout.setupWithViewPager(viewPager);
 
                 // Iterate over all tabs and set the custom view
-                for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                /*for (int i = 0; i < tabLayout.getTabCount(); i++) {
                     TabLayout.Tab tab = tabLayout.getTabAt(i);
                     if (tab != null) {
                         tab.setCustomView(pagerAdapter.getTabView(i));
                     }
-                }
+                }*/
             }
         } catch (NullPointerException e_null){
             System.out.println("Eccezione: " + e_null.getMessage());
@@ -331,13 +331,23 @@ public class GestioneMenu extends EditableBaseActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             // Generate title based on item position
-            return tabTitles[position];
+            switch (position) {
+                case 0:
+                    return getResources().getString(R.string.first);
+                case 1:
+                    return getResources().getString(R.string.second);
+                case 2:
+                    return getResources().getString(R.string.dessert);
+                case 3:
+                    return getResources().getString(R.string.other);
+            }
+            return null;
         }
 
         public View getTabView(int position) {
             View tab = LayoutInflater.from(GestioneMenu.this).inflate(R.layout.titolo_tab_pageradapter, null);
-            TextView tv = (TextView) tab.findViewById(R.id.custom_text);
-            tv.setText(tabTitles[position]);
+            //TextView tv = (TextView) tab.findViewById(R.id.custom_text);
+            //tv.setText(tabTitles[position]);
             return tab;
         }
     }
