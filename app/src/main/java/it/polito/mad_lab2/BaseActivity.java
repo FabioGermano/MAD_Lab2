@@ -197,41 +197,4 @@ public abstract class BaseActivity extends AppCompatActivity{
         findViewById(id).bringToFront();
         this.alertDetailsView =(RelativeLayout)findViewById(id);
     }
-
-    public void expandOrCollapse(final View v,String exp_or_colpse) {
-        TranslateAnimation anim = null;
-        if(exp_or_colpse.equals("expand"))
-        {
-            anim = new TranslateAnimation(0.0f, 0.0f, -v.getHeight(), 0.0f);
-            anim.setDuration(200);
-            v.setVisibility(View.VISIBLE);
-        }
-        else{
-            anim = new TranslateAnimation(0.0f, 0.0f, 0.0f, -v.getHeight());
-            anim.setDuration(200);
-            Animation.AnimationListener collapselistener= new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    v.setVisibility(View.GONE);
-                }
-            };
-
-            anim.setAnimationListener(collapselistener);
-        }
-
-        // To Collapse
-        //
-
-        anim.setDuration(300);
-        anim.setInterpolator(new AccelerateInterpolator(0.5f));
-        v.startAnimation(anim);
-    }
 }
