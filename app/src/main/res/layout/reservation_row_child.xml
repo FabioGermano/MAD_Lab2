@@ -5,6 +5,7 @@
     android:layout_marginRight="40dp"
     android:layout_marginLeft="40dp"
     android:orientation="vertical"
+    android:layout_marginTop="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -62,13 +63,12 @@
         android:text="@string/dishes_details"
         android:id="@+id/dishes" />
 
-    <ListView
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/offerListLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView_dishes"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content">
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -79,12 +79,12 @@
         android:text="@string/offers_details"
         android:id="@+id/offers" />
 
-    <ListView
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/dishListLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView_offers"/>
+        android:layout_height="wrap_content">
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
