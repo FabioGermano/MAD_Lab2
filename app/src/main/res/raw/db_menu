@@ -5,7 +5,8 @@
       "nome": "Piatto1",
       "prezzo": "15",
       "tipo": "Primo",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
        "available": "true"
     },
     {
@@ -13,7 +14,8 @@
       "nome": "Piatto2",
       "prezzo": "13",
       "tipo": "Dessert",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "true"
     },
     {
@@ -21,7 +23,8 @@
       "id": "3",
       "prezzo": "144",
       "tipo": "Primo",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "true"
     },
     {
@@ -29,7 +32,8 @@
       "nome": "Piatto74",
       "prezzo": "15",
       "tipo": "Secondo",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "true"
     },
     {
@@ -37,7 +41,8 @@
       "nome": "Piatto59",
       "prezzo": "23",
       "tipo": "Primo",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "false"
     },
     {
@@ -45,7 +50,8 @@
       "nome": "Piatto71",
       "prezzo": "5",
       "tipo": "Secondo",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "true"
     },
     {
@@ -53,7 +59,8 @@
       "nome": "Piatto53",
       "prezzo": "14",
       "tipo": "Primo",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "false"
     },
     {
@@ -61,7 +68,8 @@
       "nome": "Piatto55",
       "prezzo": "13",
       "tipo": "Secondo",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "true"
     },
     {
@@ -69,7 +77,8 @@
       "nome": "Piatto545",
       "prezzo": "136",
       "tipo": "Secondo",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "true"
     },
     {
@@ -77,7 +86,8 @@
       "nome": "Piatto335",
       "prezzo": "13",
       "tipo": "Dessert",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "true"
     },
     {
@@ -85,7 +95,8 @@
       "nome": "Piatto95",
       "prezzo": "13",
       "tipo": "Secondo",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "false"
     },
     {
@@ -93,7 +104,8 @@
       "nome": "Piatto77",
       "prezzo": "17",
       "tipo": "Altro",
-      "path_foto": "a",
+      "foto_thumb": "null",
+      "foto_large": "null",
       "available": "true"
     }
   ]
