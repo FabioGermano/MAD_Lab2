@@ -66,6 +66,7 @@
         <activity
             android:name=".reservation.ReservationsActivity"
             android:label="@string/title_activity_reservations"
+            android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
             android:parentActivityName=".MainActivity"
             >
             <meta-data
