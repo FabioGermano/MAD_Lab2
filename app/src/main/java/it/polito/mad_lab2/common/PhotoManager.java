@@ -31,8 +31,8 @@ public class PhotoManager {
         this.largePath = largePath;
         this.context = context;
 
-        this.baseSavedPath = Environment.getExternalStorageDirectory().toString() + "/photos/saved/" + PhotoTypeConverter.toString(photoType);
-        this.baseTmpPath = Environment.getExternalStorageDirectory().toString() + "/photos/tmp/" + PhotoTypeConverter.toString(photoType);
+        this.baseSavedPath = Environment.getExternalStorageDirectory().toString() + "/.photos/saved/" + PhotoTypeConverter.toString(photoType);
+        this.baseTmpPath = Environment.getExternalStorageDirectory().toString() + "/.photos/tmp/" + PhotoTypeConverter.toString(photoType);
 
         File file = new File(this.baseTmpPath);
         file.mkdirs();
