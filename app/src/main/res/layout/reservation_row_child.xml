@@ -114,13 +114,13 @@
         android:orientation="horizontal"
         android:layout_gravity="right">
         <Button
-            android:id="@+id/reject"
+            android:id="@+id/rejectButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/reject"
             android:padding="10dp"/>
         <Button
-            android:id="@+id/accept"
+            android:id="@+id/acceptButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/accept" />

@@ -8,11 +8,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 import it.polito.mad_lab2.BaseActivity;
 import it.polito.mad_lab2.GestioneDB;
 import it.polito.mad_lab2.R;
 import it.polito.mad_lab2.data.reservation.Reservation;
 import it.polito.mad_lab2.data.reservation.ReservationEntity;
+import it.polito.mad_lab2.data.reservation.ReservationType;
 import it.polito.mad_lab2.data.reservation.ReservationTypeConverter;
 
 public class ReservationsActivity extends BaseActivity {
@@ -27,6 +30,7 @@ public class ReservationsActivity extends BaseActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ReservationEntity res_entity;
+    private ReservationFragment[] reservationFragments = new ReservationFragment[4];
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -102,7 +106,8 @@ public class ReservationsActivity extends BaseActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return ReservationFragment.newInstance(position + 1, res_entity.getReservationsByDateAndType("2016-04-12", ReservationTypeConverter.fromTabPosition(position)));
+            reservationFragments[position] = ReservationFragment.newInstance(position + 1, res_entity.getReservationsByDateAndType("2016-04-12", ReservationTypeConverter.fromTabPosition(position)));
+            return reservationFragments[position];
         }
 
         @Override
@@ -125,5 +130,19 @@ public class ReservationsActivity extends BaseActivity {
             }
             return null;
         }
+    }
+
+    public void moveReservationToNewState(int positionReservationOldList, ReservationType oldType, ReservationType newType){
+        int arrayId = ReservationTypeConverter.fromType(newType);
+        int oldArrayId = ReservationTypeConverter.fromType(oldType);
+        ArrayList<Reservation> oldList = this.reservationFragments[oldArrayId].getReservations();
+
+        if(this.reservationFragments[arrayId] != null){
+            this.reservationFragments[arrayId].getReservations().add(oldList.get(positionReservationOldList));
+            this.reservationFragments[arrayId].getAdapter().notifyDataSetChanged();
+        }
+
+        oldList.remove(positionReservationOldList);
+        this.reservationFragments[oldArrayId].getAdapter().notifyItemRemoved(positionReservationOldList);
     }
 }

@@ -18,18 +18,20 @@ public class RecyclerAdapterReservations extends RecyclerView.Adapter<Reservatio
 
     private LayoutInflater myInflater;
     private Context context;
-    ArrayList<Reservation> data;
+    private ReservationFragment containerFragment;
+    private ArrayList<Reservation> data;
 
-    public RecyclerAdapterReservations(Context context, ArrayList<Reservation> data) {
+    public RecyclerAdapterReservations(Context context, ArrayList<Reservation> data, ReservationFragment containerFragment) {
         this.data = data;
         this.context = context;
         this.myInflater = LayoutInflater.from(context);
+        this.containerFragment = containerFragment;
     }
 
     @Override
     public ReservationHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = myInflater.inflate(R.layout.reservation_row, parent, false);
-        ReservationHolder holder = new ReservationHolder(v, context);
+        ReservationHolder holder = new ReservationHolder(v, context, containerFragment, data);
         return holder;
     }
 

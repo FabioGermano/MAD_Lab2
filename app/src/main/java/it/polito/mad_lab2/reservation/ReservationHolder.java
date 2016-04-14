@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,10 +19,13 @@ import android.widget.TextView;
 
 import junit.framework.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import it.polito.mad_lab2.R;
 import it.polito.mad_lab2.data.reservation.Reservation;
+import it.polito.mad_lab2.data.reservation.ReservationType;
+import it.polito.mad_lab2.data.reservation.ReservationTypeConverter;
 import it.polito.mad_lab2.data.reservation.ReservedDish;
 
 /**
@@ -35,19 +39,41 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
     private LinearLayout offerListLayout, dishListLayout;
     private ImageButton expandeCollapseButton;
     private LinearLayout childLayout;
+    private Button acceptButton, rejectButton;
     private boolean state = true;
     private View containerView;
+    private ReservationFragment containerFragment;
+    private ArrayList<Reservation> reservations;
 
-    public ReservationHolder(View v, Context context) {
+    public ReservationHolder(View v, Context context, ReservationFragment containerFragment,  ArrayList<Reservation> reservations) {
         super(v);
 
         this.context = context;
+        this.containerFragment = containerFragment;
+        this.reservations = reservations;
 
         containerView = v;
         username = (TextView) v.findViewById(R.id.username);
         type = (TextView) v.findViewById(R.id.type);
         time = (TextView) v.findViewById(R.id.time);
         childLayout = (LinearLayout)v.findViewById(R.id.childLayout);
+        acceptButton = (Button)v.findViewById(R.id.acceptButton);
+        rejectButton = (Button)v.findViewById(R.id.rejectButton);
+
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                acceptClick(v);
+            }
+        });
+
+        rejectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rejectClick(v);
+            }
+        });
+
 
         offerListLayout = (LinearLayout)v.findViewById(R.id.offerListLayout);
         dishListLayout = (LinearLayout)v.findViewById(R.id.dishListLayout);
@@ -187,5 +213,15 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
             //expandOrCollapse(containerView, "expand", containerView.getHeight() - childLayout.getHeight());
             state = false;
         }
+    }
+
+    private void acceptClick(View v) {
+        this.reservation.setStatus(ReservationTypeConverter.toString(ReservationType.ACCEPTED));
+        containerFragment.moveReservationToNewState(getAdapterPosition(), ReservationType.PENDING, ReservationType.ACCEPTED);
+    }
+
+    private void rejectClick(View v) {
+        this.reservation.setStatus(ReservationTypeConverter.toString(ReservationType.REJECTED));
+        containerFragment.moveReservationToNewState(getAdapterPosition(), ReservationType.PENDING, ReservationType.REJECTED);
     }
 }

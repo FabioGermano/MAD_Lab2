@@ -21,6 +21,21 @@ public final class ReservationTypeConverter
         }
         return  null;
     }
+
+    public static int fromType(ReservationType type){
+        switch (type) {
+            case PENDING:
+                return 0;
+            case ACCEPTED:
+                return 1;
+            case DELETED:
+                return 2;
+            case REJECTED:
+                return 3;
+        }
+        return -1;
+    }
+
     public static String toString(ReservationType reservationType)
     {
         if(reservationType == ReservationType.PENDING){
