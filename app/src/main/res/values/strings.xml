@@ -120,4 +120,7 @@
     <string name="rejected">Rejected</string>
     <string name="pending">Pending</string>
     <string name="deleted">Deleted</string>
+    <string name="verified">VERIFIED</string>
+    <string name="reservationExpired">This reservation is expired</string>
+    <string name="reservationVerified">This reservation is verified</string>
 </resources>

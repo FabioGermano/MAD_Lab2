@@ -81,4 +81,8 @@ public final class ReservationFragment extends Fragment {
     public RecyclerAdapterReservations getAdapter(){
         return this.myAdapter;
     }
+
+    public void setReservationAsVerified(int adapterPosition) {
+        ((ReservationsActivity)getActivity()).setReservationAsVerified(adapterPosition);
+    }
 }

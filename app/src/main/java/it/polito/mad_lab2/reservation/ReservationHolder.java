@@ -35,17 +35,17 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
 
     private Context context;
     private Reservation reservation;
-    private TextView username, type, time;
-    private LinearLayout offerListLayout, dishListLayout;
+    private TextView username, type, time, userNote;
+    private LinearLayout offerListLayout, dishListLayout, acceptedChildFooter, expiredChildFooter, pendingChildFooter, verifiedChildFooter;
     private ImageButton expandeCollapseButton;
     private LinearLayout childLayout;
-    private Button acceptButton, rejectButton;
+    private Button acceptButton, rejectButton, verifiedButton;
     private boolean state = true;
     private View containerView;
     private ReservationFragment containerFragment;
     private ArrayList<Reservation> reservations;
 
-    public ReservationHolder(View v, Context context, ReservationFragment containerFragment,  ArrayList<Reservation> reservations) {
+    public ReservationHolder(View v, Context context, ReservationFragment containerFragment, ArrayList<Reservation> reservations) {
         super(v);
 
         this.context = context;
@@ -56,9 +56,12 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
         username = (TextView) v.findViewById(R.id.username);
         type = (TextView) v.findViewById(R.id.type);
         time = (TextView) v.findViewById(R.id.time);
-        childLayout = (LinearLayout)v.findViewById(R.id.childLayout);
-        acceptButton = (Button)v.findViewById(R.id.acceptButton);
-        rejectButton = (Button)v.findViewById(R.id.rejectButton);
+        userNote = (TextView) v.findViewById(R.id.order_notes);
+
+        childLayout = (LinearLayout) v.findViewById(R.id.childLayout);
+        acceptButton = (Button) v.findViewById(R.id.acceptButton);
+        rejectButton = (Button) v.findViewById(R.id.rejectButton);
+        verifiedButton = (Button) v.findViewById(R.id.verifiedButton);
 
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,32 +77,49 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
             }
         });
 
+        verifiedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifiedClick(v);
+            }
+        });
 
-        offerListLayout = (LinearLayout)v.findViewById(R.id.offerListLayout);
-        dishListLayout = (LinearLayout)v.findViewById(R.id.dishListLayout);
-        expandeCollapseButton = (ImageButton)v.findViewById(R.id.expandeCollapseRow);
+
+        offerListLayout = (LinearLayout) v.findViewById(R.id.offerListLayout);
+        dishListLayout = (LinearLayout) v.findViewById(R.id.dishListLayout);
+        expandeCollapseButton = (ImageButton) v.findViewById(R.id.expandeCollapseRow);
         expandeCollapseButton.setOnClickListener(this);
+
+        this.acceptedChildFooter = (LinearLayout) v.findViewById(R.id.acceptedChildFooter);
+        this.expiredChildFooter = (LinearLayout) v.findViewById(R.id.expiredChildFooter);
+        this.pendingChildFooter = (LinearLayout) v.findViewById(R.id.pendingChildFooter);
+        this.verifiedChildFooter = (LinearLayout) v.findViewById(R.id.verifiedChildFooter);
     }
 
-    public void setData(Reservation reservation){
-        this.reservation=reservation;
+    public void setData(Reservation reservation) {
+        this.reservation = reservation;
         type.setText(reservation.getType());
         username.setText(reservation.getUser().getName());
         time.setText(reservation.getTime());
+        if(reservation.getNoteByUser() != null){
+            userNote.setText(reservation.getNoteByUser());
+        }
+
+        manageFooterVisibility(reservation);
 
         ArrayList<ReservedDish> reservedDish = reservation.getReservedDishes(false);
         ArrayList<ReservedDish> reservedOffers = reservation.getReservedDishes(true);
 
-        if(reservation.getPlaces()==null) {
+        if (reservation.getPlaces() == null) {
             ((TextView) childLayout.findViewById(R.id.seats_number)).setVisibility(View.GONE);
             ((TextView) childLayout.findViewById(R.id.seats)).setVisibility(View.GONE);
         }
 
-        if(reservedDish.size() > 0) {
+        if (reservedDish.size() > 0) {
             View child = LayoutInflater.from(context).inflate(R.layout.order_row, null);
             TextView name = (TextView) child.findViewById(R.id.food_name);
             name.setText("Name");
-            name.setTypeface(name.getTypeface(), Typeface.BOLD );
+            name.setTypeface(name.getTypeface(), Typeface.BOLD);
             TextView quantity = (TextView) child.findViewById(R.id.quantity);
             quantity.setText("Quantity");
             quantity.setTypeface(name.getTypeface(), Typeface.BOLD);
@@ -114,14 +134,12 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
 
                 this.dishListLayout.addView(child);
             }
-        }
-        else
-        {
+        } else {
             ((TextView) childLayout.findViewById(R.id.dishes)).setVisibility(View.GONE);
             ((LinearLayout) childLayout.findViewById(R.id.dishListLayout)).setVisibility(View.GONE);
         }
 
-        if(reservedOffers.size() > 0) {
+        if (reservedOffers.size() > 0) {
             View child = LayoutInflater.from(context).inflate(R.layout.order_row, null);
             TextView name = (TextView) child.findViewById(R.id.food_name);
             name.setText("Name");
@@ -140,11 +158,26 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
 
                 this.offerListLayout.addView(child);
             }
-        }
-        else
-        {
+        } else {
             ((TextView) childLayout.findViewById(R.id.offers)).setVisibility(View.GONE);
             ((LinearLayout) childLayout.findViewById(R.id.offerListLayout)).setVisibility(View.GONE);
+        }
+    }
+
+    private void manageFooterVisibility(Reservation reservation) {
+        if (reservation.getStatus().equals(ReservationTypeConverter.toString(ReservationType.PENDING))) {
+            this.pendingChildFooter.setVisibility(View.VISIBLE);
+        }
+        else if (reservation.getStatus().equals(ReservationTypeConverter.toString(ReservationType.ACCEPTED)))
+        {
+            if (reservation.isExpired()) {
+                this.expiredChildFooter.setVisibility(View.VISIBLE);
+            } else if (reservation.isVerified()) {
+                this.verifiedChildFooter.setVisibility(View.VISIBLE);
+            }
+            else{
+                this.acceptedChildFooter.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -223,5 +256,11 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
     private void rejectClick(View v) {
         this.reservation.setStatus(ReservationTypeConverter.toString(ReservationType.REJECTED));
         containerFragment.moveReservationToNewState(getAdapterPosition(), ReservationType.PENDING, ReservationType.REJECTED);
+    }
+
+    private void verifiedClick(View v) {
+
+        containerFragment.setReservationAsVerified(getAdapterPosition());
+        //containerFragment.moveReservationToNewState(getAdapterPosition(), ReservationType.PENDING, ReservationType.REJECTED);
     }
 }

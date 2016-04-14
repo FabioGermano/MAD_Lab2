@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/childLayout"
     android:orientation="vertical"
+    android:layout_marginBottom="16dp"
     android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -103,28 +104,82 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="italic"
         android:id="@+id/order_notes"
-        android:text="Sono allergico alle noci"
-        android:layout_marginLeft="10dp" />
-
+        android:layout_marginLeft="10dp"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/pendingChildFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1.0"
+        android:layout_gravity="right">
+        <Button
+            android:id="@+id/rejectButton"
+            android:layout_weight=".5"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/reject"
+            android:paddingTop="10dp"/>
+        <Button
+            android:id="@+id/acceptButton"
+            android:layout_weight=".5"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/accept" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/acceptedChildFooter"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_gravity="right">
         <Button
-            android:id="@+id/rejectButton"
-            android:layout_width="fill_parent"
+            android:id="@+id/verifiedButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reject"
-            android:padding="10dp"/>
-        <Button
-            android:id="@+id/acceptButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/accept" />
+            android:text="@string/verified"
+            android:paddingTop="10dp"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/expiredChildFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_gravity="right">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/holo_red_light"
+            android:textAlignment="center"
+            android:text="@string/reservationExpired"
+            android:paddingTop="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/verifiedChildFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_gravity="right">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/holo_green_light"
+            android:textAlignment="center"
+            android:text="@string/reservationVerified"
+            android:paddingTop="10dp"/>
     </LinearLayout>
 
 </LinearLayout>

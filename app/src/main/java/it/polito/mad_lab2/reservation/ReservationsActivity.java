@@ -139,10 +139,32 @@ public class ReservationsActivity extends BaseActivity {
 
         if(this.reservationFragments[arrayId] != null){
             this.reservationFragments[arrayId].getReservations().add(oldList.get(positionReservationOldList));
-            this.reservationFragments[arrayId].getAdapter().notifyDataSetChanged();
+            this.reservationFragments[arrayId].getAdapter().notifyItemInserted(this.reservationFragments[arrayId].getReservations().size()-1);
         }
 
         oldList.remove(positionReservationOldList);
         this.reservationFragments[oldArrayId].getAdapter().notifyItemRemoved(positionReservationOldList);
+    }
+
+    public void setReservationAsVerified(int position){
+        int arrayId = ReservationTypeConverter.fromType(ReservationType.ACCEPTED);
+        if(this.reservationFragments[arrayId] != null){
+            this.reservationFragments[arrayId].getReservations().get(position).setIsVerified(true);
+            this.reservationFragments[arrayId].getAdapter().notifyItemChanged(position);
+        }
+
+    }
+
+    private void updateDb()
+    {
+        GestioneDB db = new GestioneDB();
+        db.UpdateReservations(getApplicationContext(), this.res_entity);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        updateDb();
     }
 }
