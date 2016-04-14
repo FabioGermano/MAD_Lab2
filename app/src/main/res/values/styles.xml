@@ -3,7 +3,6 @@
     <style name="ParentOfAppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
         <!-- definitions fo v<21 -->
         <item name="colorPrimary">@color/themeColor</item>
-        <item name="android:textColorPrimary">#000000</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>

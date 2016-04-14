@@ -40,7 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     private ImageButton saveImageButton, alertButton, calendarButton;
     private TextView titleTextView, alertCountView;
     protected RelativeLayout alertDetailsView;
-    String activityTitle =  "Lab2";
+    String activityTitle =  "Titolo App";
 
     private boolean hideToolbar=false, hideShadow=false, save_visibility=false, calendar_visibility=false, alert_visibility = true, backbutton_visibility=true;;
 

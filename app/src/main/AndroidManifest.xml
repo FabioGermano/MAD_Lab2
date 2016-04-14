@@ -25,25 +25,25 @@
         </activity>
         <activity
             android:name=".GestioneMenu"
-            android:label="GestioneMenu"
             android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
+            android:label="GestioneMenu"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ModifyMenuDish"
+            android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
             android:label="ModifyMenuDish"
             android:parentActivityName=".GestioneMenu"
-            android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".photo_viewer.PhotoViewActivity" />
         <activity
             android:name=".GestioneOfferte"
-            android:label="GestioneOfferte"
             android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
+            android:label="GestioneOfferte"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditAvailability"
-            android:label="EditAvailability"
             android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
+            android:label="EditAvailability"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AlertActivity"
@@ -51,28 +51,27 @@
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ModifyOfferDish"
+            android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
             android:label="ModifyOfferDish"
             android:parentActivityName=".GestioneOfferte"
-            android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".EditRestaurantProfile"
+            android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
             android:label="EditRestaurantProfile"
             android:parentActivityName=".MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
-
         <activity
             android:name=".reservation.ReservationsActivity"
-            android:label="@string/title_activity_reservations"
             android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
-            android:parentActivityName=".MainActivity"
-            >
+            android:label="@string/title_activity_reservations"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polito.mad_lab2.MainActivity" />
         </activity>
+        <activity android:name=".BaseBarraLaterale"></activity>
     </application>
 
 </manifest>

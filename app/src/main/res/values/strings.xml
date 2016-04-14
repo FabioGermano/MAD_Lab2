@@ -1,6 +1,9 @@
 <resources>
 
-    <string name="app_name">TestLab2</string>
+    <string name="app_name">Gestione Ristorante</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Activity names -->
     <string name="title_activity_reservations">Reservations</string>

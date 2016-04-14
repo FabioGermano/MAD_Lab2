@@ -1,39 +1,23 @@
 package it.polito.mad_lab2;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import it.polito.mad_lab2.data.reservation.Reservation;
 import it.polito.mad_lab2.data.reservation.ReservationEntity;
-import it.polito.mad_lab2.data.reservation.ReservedDish;
-import it.polito.mad_lab2.data.reservation.User;
-import it.polito.mad_lab2.photo_viewer.PhotoViewer;
-import it.polito.mad_lab2.photo_viewer.PhotoViewerListener;
 import it.polito.mad_lab2.reservation.ReservationsActivity;
 
-public class MainActivity extends BaseActivity implements PhotoViewerListener {
+public class MainActivity extends BaseBarraLaterale{
 
-    private PhotoViewer photoViewer;
-    private Bitmap largeBitmap;
+    /*private PhotoViewer photoViewer;
+    private Bitmap largeBitmap;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +36,31 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         setTitleTextView(getResources().getString(R.string.app_name));
         setContentView(R.layout.activity_main);
 
+
+        //inizializzo menu laterale
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        if(drawer != null) {
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            if(navigationView != null) {
+                navigationView.setNavigationItemSelectedListener(this);
+            }
+        }
+
         checkDB();
 
         //provaGson();
     }
 
-    private void provaGson() {
+    /*private void provaGson() {
         GestioneDB db = new GestioneDB();
 
         ReservationEntity res = db.getAllReservations(getApplicationContext());
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -94,7 +93,37 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
 
     }
 
-    public void eseguiActivityModificaMenu(View v){
+    @Override
+    protected void ModificaProfilo() {
+        Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.EditRestaurantProfile.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void ModificaMenu() {
+        Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.GestioneMenu.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void ModificaOfferte() {
+        Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.GestioneOfferte.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void ModificaDisponibilità() {
+        Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.EditAvailability.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void TestPrenotazioni() {
+        Intent intent = new Intent(getApplicationContext(), ReservationsActivity.class);
+        startActivity(intent);
+    }
+
+    /*public void eseguiActivityModificaMenu(View v){
         Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.GestioneMenu.class);
         startActivity(intent);
     }
@@ -115,9 +144,9 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     public void eseguiActivityReservations(View v){
         Intent intent = new Intent(getApplicationContext(), ReservationsActivity.class);
         startActivity(intent);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void OnPhotoChanged(int fragmentId, Bitmap thumb, Bitmap large) {
         // Salvo bitmap a DB (serializzate)
         largeBitmap = large;
@@ -135,7 +164,7 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
     public void OnPhotoRemoved(int fragmentId) {
         Toast toast = Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT);
         toast.show();
-    }
+    }*/
 
     /**** created by Roby on 07/04/2016 *****/
     public void checkDB(){
@@ -160,4 +189,5 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
             toast.show();
         }*/
     }
+
 }

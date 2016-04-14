@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
+ <android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+    <LinearLayout
+        android:id="@+id/topLayout"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-<LinearLayout
+    <include layout="@layout/toolbar_view" android:layout_height="wrap_content" android:layout_width="match_parent"/>
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+
+</android.support.v4.widget.DrawerLayout>
+<!-- <LinearLayout
     android:id="@+id/topLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -98,8 +127,8 @@
             android:layout_alignRight="@+id/button_testMD"
             android:layout_alignEnd="@+id/button_testMD" />
 
-        <!--custom:addImageMode can be: clickOnButton, clickOnImage -->
+        //custom:addImageMode can be: clickOnButton, clickOnImage
 
         <include  layout="@layout/fat_buttons" />
     </RelativeLayout>
-</LinearLayout>
+</LinearLayout> -->
