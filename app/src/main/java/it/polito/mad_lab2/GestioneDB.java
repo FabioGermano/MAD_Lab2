@@ -26,9 +26,9 @@ import it.polito.mad_lab2.data.reservation.ReservationEntity;
  */
 public class GestioneDB {
 
-    private String filename_menu = "db_menu";
-    private String filename_offerte = "db_offerte";
-    private String filename_profilo = "db_profilo";
+    private final String filename_menu = "db_menu";
+    private final String filename_offerte = "db_offerte";
+    private final String filename_profilo = "db_profilo";
     private final String filename_reservation = "db_reservation";
 
     public boolean creaDB(Context context){
@@ -114,10 +114,10 @@ public class GestioneDB {
 
                 fos.close();
                 dbFile.close();
-                System.out.println("***** DB PROFILO CREATO *****");
+                System.out.println("***** DB RESERVATION CREATO *****");
             }
             else {
-                System.out.println("***** DB PROFILO ESISTENTE *****");
+                System.out.println("***** DB RESERVATION ESISTENTE *****");
             }
 
             return true;

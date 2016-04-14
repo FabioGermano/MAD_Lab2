@@ -145,8 +145,9 @@ public class MainActivity extends BaseActivity implements PhotoViewerListener {
         DB.deleteDB(this, "db_menu");
         DB.deleteDB(this, "db_offerte");
         DB.deleteDB(this, "db_profilo");
+        DB.deleteDB(this, "db_reservation");
         */
-
+        
         DB.creaDB(this);
     }
 
