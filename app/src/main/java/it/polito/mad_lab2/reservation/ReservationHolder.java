@@ -39,7 +39,7 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
 
     private Context context;
     private Reservation reservation;
-    private TextView username, type, time, userNote;
+    private TextView username, type, time, userNote, yourNotes;
     private LinearLayout offerListLayout, dishListLayout, acceptedChildFooter, expiredChildFooter, pendingChildFooter, verifiedChildFooter;
     private ImageButton expandeCollapseButton;
     private LinearLayout childLayout;
@@ -61,6 +61,7 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
         type = (TextView) v.findViewById(R.id.type);
         time = (TextView) v.findViewById(R.id.time);
         userNote = (TextView) v.findViewById(R.id.order_notes);
+        yourNotes = (TextView) v.findViewById(R.id.yourNotes);
 
         childLayout = (LinearLayout) v.findViewById(R.id.childLayout);
         acceptButton = (Button) v.findViewById(R.id.acceptButton);
@@ -108,6 +109,9 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
         if(reservation.getNoteByUser() != null){
             userNote.setText(reservation.getNoteByUser());
         }
+        if(reservation.getNoteByOwner() != null){
+            yourNotes.setText(reservation.getNoteByOwner());
+        }
 
         manageFooterVisibility(reservation);
 
@@ -117,6 +121,10 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
         if (reservation.getPlaces() == null) {
             ((TextView) childLayout.findViewById(R.id.seats_number)).setVisibility(View.GONE);
             ((TextView) childLayout.findViewById(R.id.seats)).setVisibility(View.GONE);
+        }
+        if(reservation.getNoteByOwner() == null){
+            yourNotes.setVisibility(View.GONE);
+            ((TextView) childLayout.findViewById(R.id.your_notesView)).setVisibility(View.GONE);
         }
 
         if (reservedDish.size() > 0) {

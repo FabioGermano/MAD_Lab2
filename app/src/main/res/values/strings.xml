@@ -124,4 +124,5 @@
     <string name="reservationExpired">This reservation is expired</string>
     <string name="reservationVerified">This reservation is verified</string>
     <string name="rejectReasonText">Please indicate a reason:</string>
+    <string name="yournotes">&#8226; Your notes:</string>
 </resources>
