@@ -486,6 +486,8 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
             Toast toast = Toast.makeText(getApplicationContext(), R.string.dataSaved, Toast.LENGTH_SHORT);
             toast.show();
 
+            this.imageManager.destroy(id_image);
+
             Bundle b = new Bundle();
             b.putSerializable("dish_list", dish_list);
 

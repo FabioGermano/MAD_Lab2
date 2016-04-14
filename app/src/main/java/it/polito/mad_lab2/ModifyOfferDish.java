@@ -453,6 +453,8 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
             Toast toast = Toast.makeText(getApplicationContext(), R.string.dataSaved, Toast.LENGTH_SHORT);
             toast.show();
 
+            this.imageManager.destroy(id_image);
+
             Bundle b = new Bundle();
             b.putSerializable("offer_list", offer_list);
             Intent intent = new Intent(getApplicationContext(), GestioneOfferte.class);

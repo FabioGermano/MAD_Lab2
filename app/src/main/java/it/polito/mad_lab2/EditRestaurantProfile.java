@@ -546,6 +546,12 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
         if(ris) {
             Toast toast = Toast.makeText(getApplicationContext(), R.string.dataSaved, Toast.LENGTH_SHORT);
             toast.show();
+
+            this.logoManager.destroy(id_logo_photo);
+            for(int i = 0; i < 4; i++){
+                this.coverManagers[i].destroy(ids_cover_photo[i]);
+            }
+
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
