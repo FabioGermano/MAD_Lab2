@@ -68,7 +68,6 @@ public class ReservationsActivity extends BaseActivity {
                 newDate.set(year, monthOfYear, dayOfMonth);
                 datePicked= dateFormatter.format(newDate.getTime());
                 changeDate(datePicked);
-
             }
 
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -115,7 +114,7 @@ public class ReservationsActivity extends BaseActivity {
             if(rf != null){
                 rf.getReservations().clear();
                 rf.getReservations().addAll(res_entity.getReservationsByDateAndType(selectedDate, ReservationTypeConverter.fromTabPosition(pos)));
-                mSectionsPagerAdapter.notifyDataSetChanged();
+                rf.getAdapter().notifyDataSetChanged();
             }
             pos++;
         }
