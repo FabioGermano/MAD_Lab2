@@ -95,9 +95,8 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                         /*
                             settaggio dinamico del titolo
                          */
-                        setTitleTextView(getResources().getString(R.string.title_activity_new_offer));
                         setContentView(R.layout.activity_modify_offer);
-
+                        setTitleTextView(getResources().getString(R.string.title_activity_new_offer));
                         offer = new Oggetto_offerta(null, -1, null);
                         //recupero l'id da usare
                         for (Oggetto_offerta o : offer_list){
@@ -115,8 +114,9 @@ public class ModifyOfferDish extends EditableBaseActivity implements PhotoViewer
                         /*
                             settaggio dinamico del titolo
                          */
-                        setTitleTextView(getResources().getString(R.string.title_activity_edit_offer));
+
                         setContentView(R.layout.activity_modify_offer);
+                        setTitleTextView(getResources().getString(R.string.title_activity_edit_offer));
 
                         position = extras.getInt("position");
                         extras.clear();

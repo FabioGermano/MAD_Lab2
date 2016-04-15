@@ -67,7 +67,6 @@ public class ReservationsActivity extends BaseActivity {
         Date newDate = c.getTime();
         //set to show actual date
         selectedDate = dateFormatter.format(newDate.getTime());
-        // set as selectable only the day after and forward
 
         datePickerDialog = new DatePickerDialog(this, new android.app.DatePickerDialog.OnDateSetListener() {
 

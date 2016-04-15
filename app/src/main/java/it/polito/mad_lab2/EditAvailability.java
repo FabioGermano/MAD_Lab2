@@ -295,7 +295,8 @@ public class EditAvailability extends EditableBaseActivity {
         public CharSequence getPageTitle(int position) {
             // Generate title based on item position
             switch (position) {
-
+                case 0:
+                    return getResources().getString(R.string.offers);
                 case 1:
                     return getResources().getString(R.string.first);
                 case 2:

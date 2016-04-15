@@ -100,8 +100,9 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                         /*
                             settaggio dinamico del titolo
                          */
-                        setTitleTextView(getResources().getString(R.string.title_activity_new_dish));
+
                         setContentView(R.layout.activity_modify_menu_dish);
+                        setTitleTextView(getResources().getString(R.string.title_activity_new_dish));
                         creaSpinner();
 
                         dish = new Oggetto_piatto(null, -1, null);
@@ -115,8 +116,9 @@ public class ModifyMenuDish extends EditableBaseActivity implements PhotoViewerL
                         /*
                             settaggio dinamico del titolo
                          */
-                        setTitleTextView(getResources().getString(R.string.title_activity_edit_dish));
                         setContentView(R.layout.activity_modify_menu_dish);
+
+                        setTitleTextView(getResources().getString(R.string.title_activity_edit_dish));
                         creaSpinner();
 
                         //è una modifica
