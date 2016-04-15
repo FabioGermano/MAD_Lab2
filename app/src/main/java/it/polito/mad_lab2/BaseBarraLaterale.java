@@ -198,16 +198,16 @@ public abstract class BaseBarraLaterale extends AppCompatActivity implements Nav
         } else if (id == R.id.mod_disponibilità) {
             ModificaDisponibilità();
 
-        } else if (id == R.id.test_prenotazione) {
+        } else if (id == R.id.gest_prenotazioni) {
             TestPrenotazioni();
 
-        } else if (id == R.id.nav_share) {
-            Toast toast = Toast.makeText(getApplicationContext(), "share pressed", Toast.LENGTH_SHORT);
-            toast.show();
+        } else if (id == R.id.nav_contact) {
+            /*Toast toast = Toast.makeText(getApplicationContext(), "Contattaci pressed", Toast.LENGTH_SHORT);
+            toast.show();*/
 
-        } else if (id == R.id.nav_send) {
-            Toast toast = Toast.makeText(getApplicationContext(), "send pressed", Toast.LENGTH_SHORT);
-            toast.show();
+        } else if (id == R.id.nav_bugs) {
+            /*Toast toast = Toast.makeText(getApplicationContext(), "Bugs pressed", Toast.LENGTH_SHORT);
+            toast.show();*/
 
         }
 
