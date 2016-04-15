@@ -16,17 +16,17 @@
             android:title="Modifica Disponibilità" />
         <item
             android:id="@+id/test_prenotazione"
-            android:title="Test Prenotazione" />
+            android:title="Gestione Prenotazioni" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Comunicazioni">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:title="Share" />
+                android:title="Contattaci" />
             <item
                 android:id="@+id/nav_send"
-                android:title="Send" />
+                android:title="Segnala problema" />
         </menu>
     </item>
 

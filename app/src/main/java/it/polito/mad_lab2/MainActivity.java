@@ -1,6 +1,7 @@
 package it.polito.mad_lab2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,7 +10,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import it.polito.mad_lab2.data.reservation.ReservationEntity;
 import it.polito.mad_lab2.reservation.ReservationsActivity;
@@ -18,6 +23,10 @@ public class MainActivity extends BaseBarraLaterale{
 
     /*private PhotoViewer photoViewer;
     private Bitmap largeBitmap;*/
+
+    private String name, email;
+    private Bitmap logo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +42,10 @@ public class MainActivity extends BaseBarraLaterale{
         SetCalendarButtonVisibility(false);
         SetBackButtonVisibility(false);
         SetSaveButtonVisibility(false);
-
-        setContentView(R.layout.activity_main);
         setTitleTextView(getResources().getString(R.string.app_name));
+        setContentView(R.layout.activity_main);
+        
+        View header = null;
 
         //inizializzo menu laterale
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -48,10 +58,27 @@ public class MainActivity extends BaseBarraLaterale{
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             if(navigationView != null) {
                 navigationView.setNavigationItemSelectedListener(this);
+                header = navigationView.getHeaderView(0);
             }
         }
 
         checkDB();
+                 
+        if(header != null){
+            ImageView restaurant_logo = (ImageView) header.findViewById(R.id.nav_drawer_logo);
+            TextView restaurant_name = (TextView) header.findViewById(R.id.nav_drawer_name);
+            TextView restaurant_email = (TextView) header.findViewById(R.id.nav_drawer_email);
+
+            if (restaurant_name != null && restaurant_email != null && restaurant_logo != null) {
+                if (name != null)
+                    restaurant_name.setText(name);
+                if (email != null)
+                    restaurant_email.setText(email);
+                if (logo != null)
+                    restaurant_logo.setImageBitmap(logo);
+            }
+        }
+
 
         //provaGson();
     }
@@ -166,7 +193,6 @@ public class MainActivity extends BaseBarraLaterale{
         toast.show();
     }*/
 
-    /**** created by Roby on 07/04/2016 *****/
     public void checkDB(){
         GestioneDB DB = new GestioneDB();
 
@@ -178,6 +204,10 @@ public class MainActivity extends BaseBarraLaterale{
         */
         
         DB.creaDB(this);
+
+        name = DB.getRestaurantName(this);
+        email = DB.getRestaurantEmail(this);
+        logo = DB.getRestaurantLogo(this);
     }
 
     @Override
