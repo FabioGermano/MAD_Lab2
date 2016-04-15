@@ -29,7 +29,6 @@
             android:gravity="end"
             android:textStyle="italic"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="328 1785639"
             android:id="@+id/ph_number" />
 
     </LinearLayout>

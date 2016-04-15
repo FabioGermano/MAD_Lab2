@@ -39,7 +39,7 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
 
     private Context context;
     private Reservation reservation;
-    private TextView username, type, time, userNote, yourNotes;
+    private TextView username, type, time, userNote, yourNotes, ph_number;
     private LinearLayout offerListLayout, dishListLayout, acceptedChildFooter, expiredChildFooter, pendingChildFooter, verifiedChildFooter;
     private ImageButton expandeCollapseButton;
     private LinearLayout childLayout;
@@ -62,6 +62,7 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
         time = (TextView) v.findViewById(R.id.time);
         userNote = (TextView) v.findViewById(R.id.order_notes);
         yourNotes = (TextView) v.findViewById(R.id.yourNotes);
+        ph_number = (TextView) v.findViewById(R.id.ph_number);
 
         childLayout = (LinearLayout) v.findViewById(R.id.childLayout);
         acceptButton = (Button) v.findViewById(R.id.acceptButton);
@@ -112,6 +113,7 @@ public class ReservationHolder extends RecyclerView.ViewHolder implements View.O
         if(reservation.getNoteByOwner() != null){
             yourNotes.setText(reservation.getNoteByOwner());
         }
+        ph_number.setText(reservation.getUser().getPhone());
 
         manageFooterVisibility(reservation);
 
