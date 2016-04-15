@@ -126,7 +126,7 @@ public class GestioneMenu extends EditableBaseActivity {
 
     private void modificaSchermata(ArrayList<Oggetto_piatto> list){
         if(list.size() == 0){
-            printAlertEmpty();
+            //printAlertEmpty();
             //resetAddButton();
 
         } else if(list.size() > 7) {

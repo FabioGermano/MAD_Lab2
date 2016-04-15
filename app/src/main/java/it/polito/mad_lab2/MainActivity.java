@@ -70,9 +70,9 @@ public class MainActivity extends BaseBarraLaterale{
             TextView restaurant_email = (TextView) header.findViewById(R.id.nav_drawer_email);
 
             if (restaurant_name != null && restaurant_email != null && restaurant_logo != null) {
-                if (name != null)
+                if (name != null && name.compareTo("") != 0)
                     restaurant_name.setText(name);
-                if (email != null)
+                if (email != null  && email.compareTo("") != 0)
                     restaurant_email.setText(email);
                 if (logo != null)
                     restaurant_logo.setImageBitmap(logo);
