@@ -1,7 +1,7 @@
 {
    "reservations":[
       {
-         "date":"2016-04-12",
+         "date":"2016-04-17",
          "noteByOwner":null,
          "noteByUser":"no glutine",
          "places":null,
@@ -33,7 +33,7 @@
 		 "isVerified" : false
       },
       {
-               "date":"2016-04-13",
+               "date":"2016-04-16",
                "noteByOwner":null,
                "noteByUser":"no glutine",
                "places":null,
@@ -54,13 +54,13 @@
                   }
                ],
                "status":"Accepted",
-               "time":"14:30",
+               "time":"12:30",
                "reservationId":0,
       		 "isExpired" : false,
       		 "isVerified" : false
             },
       {
-         "date":"2016-04-12",
+         "date":"2016-04-18",
          "noteByOwner":null,
          "noteByUser":"no glutine",
          "places":null,

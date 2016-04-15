@@ -10,10 +10,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import it.polito.mad_lab2.BaseActivity;
 import it.polito.mad_lab2.GestioneDB;
@@ -37,7 +39,7 @@ public class ReservationsActivity extends BaseActivity {
     private ReservationEntity res_entity;
     private ReservationFragment[] reservationFragments = new ReservationFragment[4];
     private String selectedDate = "2016-04-12";
-    private DatePickerDialog DatePickerDialog;
+    private DatePickerDialog datePickerDialog;
     private SimpleDateFormat dateFormatter;
     private String datePicked;
 
@@ -47,6 +49,7 @@ public class ReservationsActivity extends BaseActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private TextView dateText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +59,17 @@ public class ReservationsActivity extends BaseActivity {
         hideShadow(true);
         setContentView(R.layout.activity_reservations);
 
-
-        setTitleTextView(getResources().getString(R.string.title_activity_reservations) + " - " + selectedDate);
         getReservations();
+
+
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar newCalendar = Calendar.getInstance();
-        DatePickerDialog = new DatePickerDialog(this, new android.app.DatePickerDialog.OnDateSetListener() {
+        Calendar c = Calendar.getInstance();
+        Date newDate = c.getTime();
+        //set to show actual date
+        selectedDate = dateFormatter.format(newDate.getTime());
+        // set as selectable only the day after and forward
+
+        datePickerDialog = new DatePickerDialog(this, new android.app.DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -70,8 +78,14 @@ public class ReservationsActivity extends BaseActivity {
                 changeDate(datePicked);
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        },c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setMinDate(newDate.getTime());
+        datePickerDialog.setCanceledOnTouchOutside(true);
+        datePickerDialog.getDatePicker().setCalendarViewShown(false);
 
+        setTitleTextView(getResources().getString(R.string.title_activity_reservations));
+        dateText = (TextView) findViewById(R.id.date);
+        dateText.setText(selectedDate);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -103,12 +117,12 @@ public class ReservationsActivity extends BaseActivity {
     protected void OnCalendarButtonPressed() {
         //Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.reservation.CalendarActivity.class);
         //startActivity(intent);Calendar newCalendar = Calendar.getInstance();
-        DatePickerDialog.show();
+        datePickerDialog.show();
     }
 
     private void changeDate(String newDate){
         this.selectedDate = newDate;
-        setTitleTextView(getResources().getString(R.string.title_activity_reservations)+" - "+selectedDate);
+        dateText.setText(newDate);
         int pos = 0;
         for(ReservationFragment rf : this.reservationFragments){
             if(rf != null){
