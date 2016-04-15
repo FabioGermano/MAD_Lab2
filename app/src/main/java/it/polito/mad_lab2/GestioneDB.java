@@ -1,6 +1,8 @@
 package it.polito.mad_lab2;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 
@@ -196,25 +198,25 @@ public class GestioneDB {
 
             switch (id){
                 case 0:
-                    tmp = orari.optString("lun").toString();
+                    tmp = orari.optString("lun");
                     break;
                 case 1:
-                    tmp = orari.optString("mar").toString();
+                    tmp = orari.optString("mar");
                     break;
                 case 2:
-                    tmp = orari.optString("mer").toString();
+                    tmp = orari.optString("mer");
                     break;
                 case 3:
-                    tmp = orari.optString("gio").toString();
+                    tmp = orari.optString("gio");
                     break;
                 case 4:
-                    tmp = orari.optString("ven").toString();
+                    tmp = orari.optString("ven");
                     break;
                 case 5:
-                    tmp = orari.optString("sab").toString();
+                    tmp = orari.optString("sab");
                     break;
                 case 6:
-                    tmp = orari.optString("dom").toString();
+                    tmp = orari.optString("dom");
                     break;
                 default:
                     return null;
@@ -269,6 +271,65 @@ public class GestioneDB {
             return false;
         }
     }
+
+    public String getRestaurantName(Context context){
+        String db = leggiDB(context, "db_profilo");
+
+        try {
+            JSONObject jsonRootObject = new JSONObject(db);
+            JSONArray jsonArray = jsonRootObject.optJSONArray("profilo");
+            JSONObject info = jsonArray.getJSONObject(0);
+            String name = info.optString("nome");
+            if (name.compareTo("null") == 0)
+                name = null;
+            return name;
+        }
+        catch (Exception e){
+            System.out.println("Eccezione:" + e.getMessage());
+            return null;
+        }
+    }
+
+    public String getRestaurantEmail(Context context){
+        String db = leggiDB(context, "db_profilo");
+
+        try {
+            JSONObject jsonRootObject = new JSONObject(db);
+            JSONArray jsonArray = jsonRootObject.optJSONArray("profilo");
+            JSONObject info = jsonArray.getJSONObject(0);
+            String email = info.optString("email");
+            if (email.compareTo("null") == 0)
+                email = null;
+            return email;
+        }
+        catch (Exception e){
+            System.out.println("Eccezione:" + e.getMessage());
+            return null;
+        }
+    }
+
+    public Bitmap getRestaurantLogo(Context context){
+        String db = leggiDB(context, "db_profilo");
+        Bitmap bmp;
+
+        try {
+            JSONObject jsonRootObject = new JSONObject(db);
+            JSONArray jsonArray = jsonRootObject.optJSONArray("profilo");
+            JSONObject info = jsonArray.getJSONObject(2);
+            String logoPath = info.optString("Logo_thumb");
+            if (logoPath.compareTo("null") == 0)
+                bmp = null;
+            else{
+                bmp = BitmapFactory.decodeFile(logoPath);
+            }
+            return bmp;
+        }
+        catch (Exception e){
+            System.out.println("Eccezione:" + e.getMessage());
+            return null;
+        }
+    }
+
 }
 
 

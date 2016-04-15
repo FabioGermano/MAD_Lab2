@@ -15,18 +15,18 @@
             android:id="@+id/mod_disponibilità"
             android:title="Modifica Disponibilità" />
         <item
-            android:id="@+id/test_prenotazione"
-            android:title="Test Prenotazione" />
+            android:id="@+id/gest_prenotazioni"
+            android:title="Gestione Prenotazioni" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Comunicazioni">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:title="Share" />
+                android:id="@+id/nav_contact"
+                android:title="Contattaci" />
             <item
-                android:id="@+id/nav_send"
-                android:title="Send" />
+                android:id="@+id/nav_bugs"
+                android:title="Segnala problema" />
         </menu>
     </item>
 
