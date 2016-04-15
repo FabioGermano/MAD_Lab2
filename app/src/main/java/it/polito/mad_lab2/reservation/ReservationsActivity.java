@@ -1,5 +1,6 @@
 package it.polito.mad_lab2.reservation;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ public class ReservationsActivity extends BaseActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ReservationEntity res_entity;
     private ReservationFragment[] reservationFragments = new ReservationFragment[4];
+    private String selectedDate = "2016-04-12";
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -76,7 +78,22 @@ public class ReservationsActivity extends BaseActivity {
 
     @Override
     protected void OnCalendarButtonPressed() {
+        //Intent intent = new Intent(getApplicationContext(), it.polito.mad_lab2.reservation.CalendarActivity.class);
+        //startActivity(intent);
+        changeDate("2016-04-13");
+    }
 
+    private void changeDate(String newDate){
+        this.selectedDate = newDate;
+        int pos = 0;
+        for(ReservationFragment rf : this.reservationFragments){
+            if(rf != null){
+                rf.getReservations().clear();
+                rf.getReservations().addAll(res_entity.getReservationsByDateAndType(selectedDate, ReservationTypeConverter.fromTabPosition(pos)));
+                rf.getAdapter().notifyDataSetChanged();
+            }
+            pos++;
+        }
     }
 
     @Override
@@ -106,7 +123,7 @@ public class ReservationsActivity extends BaseActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            reservationFragments[position] = ReservationFragment.newInstance(position + 1, res_entity.getReservationsByDateAndType("2016-04-12", ReservationTypeConverter.fromTabPosition(position)));
+            reservationFragments[position] = ReservationFragment.newInstance(position + 1, res_entity.getReservationsByDateAndType(selectedDate, ReservationTypeConverter.fromTabPosition(position)));
             return reservationFragments[position];
         }
 
