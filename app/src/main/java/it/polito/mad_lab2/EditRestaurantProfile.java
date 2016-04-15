@@ -55,12 +55,12 @@ public class EditRestaurantProfile extends BaseActivity implements PhotoViewerLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitleTextView(getResources().getString(R.string.title_activity_edit_restaurant_profile));
+
         SetSaveButtonVisibility(true);
         SetCalendarButtonVisibility(false);
 
         setContentView(R.layout.activity_edit_restaurant_profile);
-
+        setTitleTextView(getResources().getString(R.string.title_activity_edit_restaurant_profile));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             checkStoragePermission();
 

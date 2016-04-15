@@ -38,7 +38,7 @@ import it.polito.mad_lab2.R;
 public abstract class BaseActivity extends AppCompatActivity{
 
     private ImageButton saveImageButton, alertButton, calendarButton;
-    private TextView titleTextView, alertCountView;
+    protected TextView titleTextView, alertCountView;
     protected RelativeLayout alertDetailsView;
     String activityTitle =  "Titolo App";
 
@@ -102,7 +102,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     protected void setTitleTextView(String title){
         if(title!=null)
-            activityTitle=title;
+            titleTextView.setText(title);
     }
 
     @Override

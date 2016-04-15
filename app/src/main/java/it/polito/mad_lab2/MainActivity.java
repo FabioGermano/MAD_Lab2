@@ -33,9 +33,9 @@ public class MainActivity extends BaseBarraLaterale{
         SetCalendarButtonVisibility(false);
         SetBackButtonVisibility(false);
         SetSaveButtonVisibility(false);
-        setTitleTextView(getResources().getString(R.string.app_name));
-        setContentView(R.layout.activity_main);
 
+        setContentView(R.layout.activity_main);
+        setTitleTextView(getResources().getString(R.string.app_name));
 
         //inizializzo menu laterale
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

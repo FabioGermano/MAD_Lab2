@@ -46,8 +46,9 @@ public class EditAvailability extends EditableBaseActivity {
         SetSaveButtonVisibility(true);
         SetCalendarButtonVisibility(false);
         hideShadow(true);
-        setTitleTextView(getResources().getString(R.string.title_activity_edit_availability));
         setContentView(R.layout.activity_gestione_menu);
+
+        setTitleTextView(getResources().getString(R.string.title_activity_edit_availability));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             checkStoragePermission();
@@ -294,8 +295,7 @@ public class EditAvailability extends EditableBaseActivity {
         public CharSequence getPageTitle(int position) {
             // Generate title based on item position
             switch (position) {
-                case 0:
-                    return getResources().getString(R.string.offers);
+
                 case 1:
                     return getResources().getString(R.string.first);
                 case 2:

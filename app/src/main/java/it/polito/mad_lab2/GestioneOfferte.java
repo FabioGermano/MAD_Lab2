@@ -42,9 +42,9 @@ public class GestioneOfferte extends EditableBaseActivity {
         SetCalendarButtonVisibility(false);
         SetSaveButtonVisibility(false);
         SetAlertButtonVisibility(true);
-        setTitleTextView(getResources().getString(R.string.title_activity_edit_offers));
-        setContentView(R.layout.activity_gestione_offerte);
 
+        setContentView(R.layout.activity_gestione_offerte);
+        setTitleTextView(getResources().getString(R.string.title_activity_edit_offers));
         InitializeFABButtons(false, false, true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
